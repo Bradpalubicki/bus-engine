@@ -72,17 +72,21 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[#003087] text-white overflow-hidden min-h-[600px] flex items-center">
-        <div className="absolute inset-0 opacity-25">
+      <section className="relative bg-[#003087] text-white overflow-hidden min-h-[680px] flex items-center">
+        {/* Full-bleed background — bus yard photo */}
+        <div className="absolute inset-0">
           <Image
-            src="https://completecoach.com/wp-content/uploads/2021/03/CCW-facility-1.jpg"
-            alt="CCW facility"
+            src="https://completecoach.com/wp-content/uploads/2024/04/Untitled-1-1.jpg"
+            alt="Complete Coach Works bus facility"
             fill
-            className="object-cover"
+            className="object-cover object-center"
             priority
+            quality={90}
           />
+          {/* Dark overlay so text pops */}
+          <div className="absolute inset-0 bg-[#003087]/75" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-[#E8A020] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-6">
               <span>100% Employee-Owned · Est. 1985</span>
@@ -197,7 +201,7 @@ export default function HomePage() {
             </div>
             <div className="relative h-80 lg:h-96 rounded-xl overflow-hidden">
               <Image
-                src="https://completecoach.com/wp-content/uploads/2024/08/Indy-Electric-Bus-scaled.jpg"
+                src="https://completecoach.com/wp-content/uploads/2024/06/IMG_2928.jpg"
                 alt="IndyGo electric bus ZEPS conversion"
                 fill
                 className="object-cover"
@@ -213,7 +217,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-80 lg:h-96 rounded-xl overflow-hidden">
               <Image
-                src="https://completecoach.com/wp-content/uploads/2024/08/SFMTA-scaled.jpg"
+                src="https://completecoach.com/wp-content/uploads/2024/06/IMG_2924.jpg"
                 alt="SFMTA fleet — 219 coach contract"
                 fill
                 className="object-cover"
