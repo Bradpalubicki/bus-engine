@@ -13,12 +13,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
           <div>
             <span className="text-sm font-medium text-[#003087]">Complete Coach Works</span>
-            <span className="text-xs text-gray-400 ml-2">· Demo Mode</span>
+            <span className="text-xs text-gray-400 ml-2">· Operations Platform</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-full font-medium border border-amber-200">
-              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-              DEMO DATA
+            <span className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 text-xs px-2.5 py-1 rounded-full font-medium border border-green-200">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+              LIVE
             </span>
           </div>
         </header>
