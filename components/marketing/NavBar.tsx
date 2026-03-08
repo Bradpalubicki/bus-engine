@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
-import { Menu, X, Bus, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -13,13 +14,14 @@ export function NavBar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#E8A020] rounded flex items-center justify-center">
-              <Bus className="w-5 h-5 text-white" />
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-bold text-sm leading-tight">Complete Coach Works</div>
-              <div className="text-xs text-blue-200 leading-tight">Since 1985 · ESOP</div>
-            </div>
+            <Image
+              src="https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png"
+              alt="Complete Coach Works"
+              width={180}
+              height={60}
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -47,6 +49,8 @@ export function NavBar() {
               </div>
             </div>
             <Link href="/about" className="text-sm font-medium text-blue-100 hover:text-white transition-colors">About</Link>
+            <Link href="/gallery" className="text-sm font-medium text-blue-100 hover:text-white transition-colors">Gallery</Link>
+            <Link href="/dbe" className="text-sm font-medium text-blue-100 hover:text-white transition-colors">DBE</Link>
             <Link href="/locations" className="text-sm font-medium text-blue-100 hover:text-white transition-colors">Locations</Link>
             <Link href="/contact" className="text-sm font-medium text-blue-100 hover:text-white transition-colors">Contact</Link>
             <Link
@@ -70,6 +74,8 @@ export function NavBar() {
             <Link href="/services/cng-repower" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">CNG / LNG Repower</Link>
             <Link href="/services/zeps-electric" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">ZEPS Electric</Link>
             <Link href="/about" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">About</Link>
+            <Link href="/gallery" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">Gallery</Link>
+            <Link href="/dbe" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">DBE</Link>
             <Link href="/locations" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">Locations</Link>
             <Link href="/contact" className="block px-3 py-2 text-sm text-blue-100 hover:text-white">Contact</Link>
             <Link href="/dashboard" className="block mx-3 mt-2 bg-[#E8A020] text-white px-4 py-2 rounded-lg text-sm font-semibold text-center">Ops Dashboard</Link>

@@ -1,9 +1,46 @@
 import Image from 'next/image'
-import { CheckCircle, Users, Award, MapPin } from 'lucide-react'
+import Link from 'next/link'
+import { CheckCircle, Users, Award, MapPin, ExternalLink } from 'lucide-react'
 
 export const metadata = {
   title: 'About Complete Coach Works | 40 Years of Transit Bus Remanufacturing',
 }
+
+const leadership = [
+  { name: 'Patrick Scully', title: 'President' },
+  { name: 'Dale Carson', title: 'Chairman & Founder' },
+  { name: 'Brad Carson', title: 'Chief Operating Officer' },
+  { name: 'Chuck Barnes', title: 'SVP Operations & ZEPS Program Director' },
+  { name: 'Michael Dominici', title: 'Chief Financial Officer' },
+  { name: 'Amber Lindsey', title: 'Director of Contracts & DBE/ESOP Compliance' },
+  { name: 'Ana Elias', title: 'Director of Human Resources' },
+  { name: 'Alex Portillo', title: 'Director of Purchasing' },
+  { name: 'Axel Rodriguez', title: 'Senior Production Manager' },
+]
+
+const familyCompanies = [
+  {
+    abbr: 'CCW',
+    name: 'Complete Coach Works',
+    description: 'The nation\'s largest transit bus remanufacturing company. Full-spectrum overhaul, repower, and electric conversion programs for public agencies nationwide.',
+    url: 'https://completecoach.com',
+    primary: true,
+  },
+  {
+    abbr: 'TSI',
+    name: 'Transit Sales International',
+    description: 'Transit bus sales, leasing, and parts distribution serving agencies across the western United States.',
+    url: 'https://transitsales.com',
+    primary: false,
+  },
+  {
+    abbr: 'SBL',
+    name: 'Shuttle Bus Leasing',
+    description: 'Commercial vehicle leasing solutions for transit agencies, airports, universities, and corporate fleets.',
+    url: 'https://sblbus.com',
+    primary: false,
+  },
+]
 
 export default function AboutPage() {
   return (
@@ -11,20 +48,20 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#003087] mb-4">About Complete Coach Works</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Founded in 1985, CCW is the nation's largest transit bus remanufacturing company — 100% employee-owned since 2021.</p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Founded in 1985, CCW is the nation&apos;s largest transit bus remanufacturing company — 100% employee-owned since 2021.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div>
             <h2 className="text-2xl font-bold text-[#003087] mb-4">Our Story</h2>
             <p className="text-gray-600 mb-4">Complete Coach Works was founded on the belief that well-maintained buses — not new ones — are the most sustainable and cost-effective solution for transit agencies. For over 40 years, we have delivered on that promise.</p>
-            <p className="text-gray-600 mb-4">In 2021, CCW transitioned to 100% employee ownership through an ESOP, deepening the team's commitment to quality work and long-term partnerships with the agencies we serve.</p>
-            <p className="text-gray-600">Today, CCW operates from 10 locations across the country and has completed more than $500M in remanufacturing contracts for agencies ranging from SFMTA to IndyGo.</p>
+            <p className="text-gray-600 mb-4">In 2021, CCW transitioned to 100% employee ownership through an ESOP, deepening the team&apos;s commitment to quality work and long-term partnerships with the agencies we serve.</p>
+            <p className="text-gray-600">Today, CCW operates from 13 locations across the country and has completed more than $500M in remanufacturing contracts for agencies ranging from SFMTA to IndyGo.</p>
           </div>
           <div className="relative h-80 rounded-xl overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1581092162155-9f15e3e6c0a4?w=800"
-              alt="CCW team"
+              src="https://completecoach.com/wp-content/uploads/2021/03/CCW-facility-1.jpg"
+              alt="CCW headquarters facility in Riverside, CA"
               fill
               className="object-cover"
             />
@@ -35,7 +72,7 @@ export default function AboutPage() {
           {[
             { icon: Users, title: '~200 Employees', sub: '100% Employee-Owned (ESOP)' },
             { icon: Award, title: '$102M Contract', sub: 'SFMTA — 219 coaches (largest in CCW history)' },
-            { icon: MapPin, title: '10 Locations', sub: 'CA, WA, TN, TX, AZ, WI' },
+            { icon: MapPin, title: '13 Locations', sub: 'CA, WA, TN, TX, AZ, WI' },
           ].map((item) => (
             <div key={item.title} className="bg-[#F8F9FB] rounded-xl p-6 text-center border border-gray-100">
               <div className="w-12 h-12 bg-[#003087] rounded-lg flex items-center justify-center mx-auto mb-3">
@@ -45,6 +82,63 @@ export default function AboutPage() {
               <div className="text-gray-500 text-sm mt-1">{item.sub}</div>
             </div>
           ))}
+        </div>
+
+        {/* Leadership Team */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-[#003087] mb-2 text-center">Leadership Team</h2>
+          <p className="text-gray-500 text-center text-sm mb-8">The people driving CCW&apos;s mission forward</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {leadership.map((person) => (
+              <div key={person.name} className="bg-[#F8F9FB] rounded-xl p-5 border border-gray-100 flex items-center gap-4">
+                <div className="w-11 h-11 bg-[#003087] rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-sm">
+                    {person.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#003087] text-sm">{person.name}</div>
+                  <div className="text-gray-500 text-xs mt-0.5 leading-tight">{person.title}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Carson Capital Corp Family */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#E8A020] mb-2">Carson Capital Corp</p>
+            <h2 className="text-2xl font-bold text-[#003087]">Family of Companies</h2>
+            <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">CCW is part of the Carson Capital Corp family — a vertically integrated transit industry platform covering remanufacturing, sales, and leasing.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {familyCompanies.map((company) => (
+              <a
+                key={company.abbr}
+                href={company.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group rounded-xl p-6 border transition-all hover:shadow-lg ${
+                  company.primary
+                    ? 'bg-[#003087] border-[#003087] text-white'
+                    : 'bg-white border-gray-200 hover:border-[#003087]'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`text-xs font-bold px-2 py-1 rounded ${company.primary ? 'bg-[#E8A020] text-white' : 'bg-[#F8F9FB] text-[#003087]'}`}>
+                    {company.abbr}
+                  </div>
+                  <ExternalLink className={`w-3.5 h-3.5 ${company.primary ? 'text-blue-300' : 'text-gray-400 group-hover:text-[#003087]'} transition-colors`} />
+                </div>
+                <h3 className={`font-bold text-sm mb-2 ${company.primary ? 'text-white' : 'text-[#003087]'}`}>{company.name}</h3>
+                <p className={`text-xs leading-relaxed ${company.primary ? 'text-blue-200' : 'text-gray-500'}`}>{company.description}</p>
+                <div className={`mt-3 text-xs font-medium ${company.primary ? 'text-[#E8A020]' : 'text-[#E8A020]'}`}>
+                  {company.url.replace('https://', '')}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="bg-[#003087] text-white rounded-2xl p-10">
@@ -65,6 +159,11 @@ export default function AboutPage() {
                 <span className="text-blue-100 text-sm">{cert}</span>
               </div>
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link href="/dbe" className="inline-flex items-center gap-2 bg-[#E8A020] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#f5b84a] transition-colors text-sm">
+              View DBE Program Details
+            </Link>
           </div>
         </div>
       </div>

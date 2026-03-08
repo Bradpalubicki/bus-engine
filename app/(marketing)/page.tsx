@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { CheckCircle, ArrowRight, Zap, Wrench, Bus, MapPin, Award, Users, TrendingUp, Shield } from 'lucide-react'
+import { CheckCircle, ArrowRight, Zap, Wrench, Bus, MapPin, Award, Users, TrendingUp, Shield, ExternalLink } from 'lucide-react'
+import { DroneVideoSection } from '@/components/marketing/DroneVideoSection'
 
 const services = [
   {
@@ -44,21 +45,38 @@ const services = [
 const stats = [
   { value: '$102M', label: 'Largest Single Contract', sub: 'SFMTA — 219 coaches' },
   { value: '40+', label: 'Years Experience', sub: 'Founded 1985' },
-  { value: '10', label: 'Locations Nationwide', sub: 'Coast to coast coverage' },
+  { value: '13', label: 'Locations Nationwide', sub: 'Coast to coast coverage' },
   { value: '1M+', label: 'ZEPS Miles', sub: 'Zero-emission proven' },
 ]
 
 const clients = ['SFMTA', 'IndyGo', 'Long Beach Transit', 'Denver RTD', 'Portland TriMet', 'VTA San Jose', 'Sacramento RT', 'King County Metro']
+
+const affiliates = [
+  {
+    name: 'Transit Sales International',
+    abbr: 'TSI',
+    description: 'Transit bus sales, leasing, and parts distribution serving agencies across the western United States.',
+    url: 'https://transitsales.com',
+    color: '#1a5fa8',
+  },
+  {
+    name: 'Shuttle Bus Leasing',
+    abbr: 'SBL',
+    description: 'Commercial vehicle leasing solutions for transit agencies, airports, universities, and corporate fleets.',
+    url: 'https://sblbus.com',
+    color: '#2d7a3a',
+  },
+]
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
       <section className="relative bg-[#003087] text-white overflow-hidden min-h-[600px] flex items-center">
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-25">
           <Image
-            src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200"
-            alt="Transit bus"
+            src="https://completecoach.com/wp-content/uploads/2021/03/CCW-facility-1.jpg"
+            alt="CCW facility"
             fill
             className="object-cover"
             priority
@@ -105,6 +123,13 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          {/* APTA Award Badge */}
+          <div className="mt-6 flex justify-center">
+            <div className="inline-flex items-center gap-3 bg-white/20 border border-white/30 rounded-full px-5 py-2.5">
+              <Award className="w-5 h-5 text-white flex-shrink-0" />
+              <span className="text-sm font-semibold">APTA AdWheel Award Winner 2026 — Excellence in Transit Marketing</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -136,6 +161,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Drone video section — client component */}
+      <DroneVideoSection />
+
       {/* ZEPS Feature */}
       <section className="py-20 bg-[#003087] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -145,7 +173,7 @@ export default function HomePage() {
                 <Zap className="w-3.5 h-3.5" /> Proprietary Technology
               </div>
               <h2 className="text-3xl font-bold mb-4">ZEPS Zero-Emission Propulsion System</h2>
-              <p className="text-blue-100 mb-6">CCW's proprietary ZEPS system converts existing diesel and hybrid buses to fully electric propulsion — at a fraction of the cost of new electric buses.</p>
+              <p className="text-blue-100 mb-6">CCW&apos;s proprietary ZEPS system converts existing diesel and hybrid buses to fully electric propulsion — at a fraction of the cost of new electric buses.</p>
               <ul className="space-y-3 mb-8">
                 {[
                   '21 buses converted, 1M+ combined miles in revenue service',
@@ -169,8 +197,8 @@ export default function HomePage() {
             </div>
             <div className="relative h-80 lg:h-96 rounded-xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800"
-                alt="Electric bus charging"
+                src="https://completecoach.com/wp-content/uploads/2024/08/Indy-Electric-Bus-scaled.jpg"
+                alt="IndyGo electric bus ZEPS conversion"
                 fill
                 className="object-cover"
               />
@@ -185,19 +213,19 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-80 lg:h-96 rounded-xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800"
-                alt="Bus workshop"
+                src="https://completecoach.com/wp-content/uploads/2024/08/SFMTA-scaled.jpg"
+                alt="SFMTA fleet — 219 coach contract"
                 fill
                 className="object-cover"
               />
             </div>
             <div>
               <h2 className="text-3xl font-bold text-[#003087] mb-4">Why Transit Agencies Choose CCW</h2>
-              <p className="text-gray-600 mb-6">With 40+ years of experience and the industry's largest remanufacturing capacity, we deliver on time, on budget — every contract.</p>
+              <p className="text-gray-600 mb-6">With 40+ years of experience and the industry&apos;s largest remanufacturing capacity, we deliver on time, on budget — every contract.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { icon: Award, title: 'FTA Certified', sub: 'Federal compliance on every program' },
-                  { icon: MapPin, title: '10 Locations', sub: 'Work performed on-site at your facility' },
+                  { icon: MapPin, title: '13 Locations', sub: 'Work performed on-site at your facility' },
                   { icon: Users, title: '100% ESOP', sub: 'Employee-owned, skin in the game' },
                   { icon: Shield, title: 'Buy America', sub: 'All programs compliant' },
                 ].map((item) => (
@@ -235,7 +263,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#003087] mb-4">10 Locations Nationwide</h2>
+            <h2 className="text-3xl font-bold text-[#003087] mb-4">13 Locations Nationwide</h2>
             <p className="text-gray-600">Serving transit agencies coast to coast with local expertise and national capacity.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -248,7 +276,10 @@ export default function HomePage() {
               { city: 'Del Rio, TX', type: '' },
               { city: 'Laredo, TX', type: '' },
               { city: 'San Benito, TX', type: '' },
+              { city: 'Von Ormy, TX', type: '' },
+              { city: 'Taylor, TX', type: '' },
               { city: 'Phoenix, AZ', type: '' },
+              { city: 'Tucson, AZ', type: '' },
               { city: 'Waukesha, WI', type: '' },
             ].map((loc) => (
               <div key={loc.city} className="bg-[#F8F9FB] rounded-lg p-3 text-center border border-gray-100">
@@ -266,11 +297,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Affiliate Companies — Carson Capital Corp family */}
+      <section className="py-16 bg-[#F8F9FB] border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Carson Capital Corp Family of Companies</p>
+            <h2 className="text-2xl font-bold text-[#003087]">Affiliate Companies</h2>
+            <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">CCW is the remanufacturing anchor of the Carson Capital Corp transit family — alongside best-in-class partners for sales and leasing.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {affiliates.map((affiliate) => (
+              <a
+                key={affiliate.abbr}
+                href={affiliate.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-[#003087] hover:shadow-lg transition-all"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                    style={{ backgroundColor: affiliate.color }}
+                  >
+                    {affiliate.abbr}
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#003087] transition-colors" />
+                </div>
+                <h3 className="font-bold text-[#003087] mb-1">{affiliate.name}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{affiliate.description}</p>
+                <div className="mt-3 text-xs font-medium text-[#E8A020]">{affiliate.url.replace('https://', '')}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-[#E8A020]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Extend Your Fleet's Life?</h2>
-          <p className="text-amber-100 mb-8 text-lg">Get a program assessment from CCW's engineering team — no cost, no obligation.</p>
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to Extend Your Fleet&apos;s Life?</h2>
+          <p className="text-amber-100 mb-8 text-lg">Get a program assessment from CCW&apos;s engineering team — no cost, no obligation.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-[#003087] text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-[#004db3] transition-colors">
               Contact Our Team

@@ -12,6 +12,9 @@ export const demoLocations = [
   { id: 'loc-8', name: 'San Benito', city: 'San Benito', state: 'TX', type: 'field', address: '900 W Business 77, San Benito, TX 78586', phone: '(956) 555-0211', activeWOs: 3, utilization: 76, alerts: 0 },
   { id: 'loc-9', name: 'Phoenix', city: 'Phoenix', state: 'AZ', type: 'field', address: '4025 E Broadway Rd, Phoenix, AZ 85040', phone: '(602) 555-0167', activeWOs: 2, utilization: 58, alerts: 1 },
   { id: 'loc-10', name: 'Waukesha', city: 'Waukesha', state: 'WI', type: 'field', address: '1551 E Main St, Waukesha, WI 53186', phone: '(262) 555-0143', activeWOs: 5, utilization: 85, alerts: 0 },
+  { id: 'loc-11', name: 'Von Ormy', city: 'Von Ormy', state: 'TX', type: 'field', address: 'Von Ormy, TX 78073', phone: '(210) 555-0231', activeWOs: 3, utilization: 74, alerts: 0 },
+  { id: 'loc-12', name: 'Tucson', city: 'Tucson', state: 'AZ', type: 'field', address: 'Tucson, AZ 85701', phone: '(520) 555-0244', activeWOs: 2, utilization: 67, alerts: 0 },
+  { id: 'loc-13', name: 'Taylor', city: 'Taylor', state: 'TX', type: 'field', address: 'Taylor, TX 76574', phone: '(512) 555-0258', activeWOs: 1, utilization: 55, alerts: 0 },
 ]
 
 export const demoAgencies = [
