@@ -8,6 +8,7 @@ export const FEATURES = {
   insurance: flag("FEATURE_INSURANCE"),
   locations: flag("FEATURE_LOCATIONS"),
   partsCatalog: flag("FEATURE_PARTS_CATALOG"),
+  analytics: true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURES;
