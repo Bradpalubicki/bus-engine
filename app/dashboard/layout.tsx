@@ -1,4 +1,5 @@
 import { Sidebar } from '@/components/dashboard/Sidebar'
+import { EngineSwitcher } from '@/components/dashboard/EngineSwitcher'
 
 export const metadata = {
   title: 'Operations Dashboard | Complete Coach Works',
@@ -16,6 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <span className="text-xs text-gray-400 ml-2">· Operations Platform</span>
           </div>
           <div className="flex items-center gap-3">
+            <EngineSwitcher />
             <span className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 text-xs px-2.5 py-1 rounded-full font-medium border border-green-200">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
               LIVE
