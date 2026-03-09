@@ -6,7 +6,7 @@ import { useState } from 'react'
 import {
   Bus, LayoutDashboard, ClipboardList, FileText,
   TrendingUp, DollarSign, BarChart3,
-  ChevronLeft, ChevronRight, Settings, HelpCircle,
+  ChevronLeft, ChevronRight, Settings, HelpCircle, Rocket,
 } from 'lucide-react'
 
 const primaryNav = [
@@ -20,8 +20,9 @@ const primaryNav = [
 ]
 
 const bottomNav = [
-  { label: 'Settings', href: '/dashboard/settings', icon: Settings },
-  { label: 'Help',     href: '/dashboard/help',     icon: HelpCircle },
+  { label: 'Launch Checklist', href: '/dashboard/launch-checklist', icon: Rocket },
+  { label: 'Settings',         href: '/dashboard/settings',         icon: Settings },
+  { label: 'Help',             href: '/dashboard/help',             icon: HelpCircle },
 ]
 
 export function Sidebar() {
