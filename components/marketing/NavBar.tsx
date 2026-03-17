@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -17,6 +17,18 @@ export function NavBar() {
     SBL: { name: 'Shuttle Bus Leasing', color: '#2d7a3a', logo: 'SBL' },
   } as const
   const config = brandConfig[brand]
+
+  const [zepsPulse, setZepsPulse] = useState(false)
+  useEffect(() => {
+    // pulse for 1.5s every 10s
+    const run = () => {
+      setZepsPulse(true)
+      setTimeout(() => setZepsPulse(false), 1500)
+    }
+    run()
+    const id = setInterval(run, 10000)
+    return () => clearInterval(id)
+  }, [])
 
   const navLinks = {
     CCW: [
@@ -62,11 +74,30 @@ export function NavBar() {
           <Link href="/sbl" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'text-gray-600 hover:text-gray-900'}`}>SBL</Link>
         </div>
         <div className="hidden md:flex items-center gap-6">
-          {navLinks[brand].map(link => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-              {link.label}
-            </Link>
-          ))}
+          {navLinks[brand].map(link => {
+            const isZeps = link.href === '/zeps'
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-all duration-300 relative ${
+                  isZeps
+                    ? zepsPulse
+                      ? 'text-[#16a34a] scale-105'
+                      : 'text-gray-700 hover:text-[#16a34a]'
+                    : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {isZeps && (
+                  <span className={`absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#22c55e] transition-all duration-300 ${zepsPulse ? 'opacity-100 scale-125' : 'opacity-0'}`} />
+                )}
+                {link.label}
+                {isZeps && zepsPulse && (
+                  <span className="absolute inset-0 rounded-md bg-[#22c55e]/10 -mx-2 -my-1" />
+                )}
+              </Link>
+            )
+          })}
           <Link href="/dashboard" className="px-4 py-2 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90" style={{ backgroundColor: config.color }}>
             Dashboard →
           </Link>
