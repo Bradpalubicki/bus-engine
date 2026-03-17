@@ -71,7 +71,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {[
             { icon: Users, title: '~200 Employees', sub: '100% Employee-Owned (ESOP)' },
-            { icon: Award, title: '$102M Contract', sub: 'SFMTA — 219 coaches (largest in CCW history)' },
+            { icon: Award, title: '$101.6M Contract', sub: 'SFMTA — 219 coaches (largest in CCW history)' },
             { icon: MapPin, title: '13 Locations', sub: 'CA, WA, TN, TX, AZ, WI' },
           ].map((item) => (
             <div key={item.title} className="bg-[#F8F9FB] rounded-xl p-6 text-center border border-gray-100">
