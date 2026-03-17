@@ -7,7 +7,12 @@ export async function GET(request: Request) {
   const secret = process.env.AGENCY_SNAPSHOT_SECRET
 
   if (!secret || authHeader !== `Bearer ${secret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    return NextResponse.json({
+      error: 'Unauthorized',
+      debug_secret_length: secret?.length ?? 0,
+      debug_header_length: authHeader?.length ?? 0,
+      debug_secret_set: !!secret,
+    }, { status: 401 })
   }
 
   try {
