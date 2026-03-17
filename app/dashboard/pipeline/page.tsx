@@ -10,7 +10,7 @@ export default async function PipelinePage() {
     deadline: p.deadline,
     win_probability: p.winProbability,
     bd_owner: p.bdOwner,
-    status: p.status,
+    status: p.status as 'prospect' | 'proposal' | 'oral_interview' | 'awarded' | 'lost',
     notes: null,
   }))
 
