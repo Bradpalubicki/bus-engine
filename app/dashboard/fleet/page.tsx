@@ -1,14 +1,8 @@
 import { FleetClient } from '@/components/dashboard/FleetClient'
 import { demoVehicles, demoAgencies, demoContracts, demoLocations } from '@/lib/demo-data'
-import type { Database } from '@/lib/database.types'
-
-type Vehicle = Database['public']['Tables']['bus_vehicles']['Row']
-type Agency = Database['public']['Tables']['bus_agencies']['Row']
-type Contract = Database['public']['Tables']['bus_contracts']['Row']
-type Location = Database['public']['Tables']['bus_locations']['Row']
 
 export default async function FleetPage() {
-  const vehicles: Vehicle[] = demoVehicles.map((v) => ({
+  const vehicles = demoVehicles.map((v) => ({
     id: v.id,
     vin: v.vin,
     agency_id: v.agencyId,
@@ -28,7 +22,7 @@ export default async function FleetPage() {
     created_at: v.intakeDate,
   }))
 
-  const agencies: Agency[] = demoAgencies.map((a) => ({
+  const agencies = demoAgencies.map((a) => ({
     id: a.id,
     name: a.name,
     state: a.state,
@@ -39,7 +33,7 @@ export default async function FleetPage() {
     created_at: null,
   }))
 
-  const contracts: Contract[] = demoContracts.map((c) => ({
+  const contracts = demoContracts.map((c) => ({
     id: c.id,
     contract_number: c.contractNumber,
     agency_id: c.agencyId,
@@ -56,7 +50,7 @@ export default async function FleetPage() {
     created_at: c.startDate,
   }))
 
-  const locations: Location[] = demoLocations.map((l) => ({
+  const locations = demoLocations.map((l) => ({
     id: l.id,
     name: l.name,
     city: l.city,
