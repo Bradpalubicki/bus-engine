@@ -5,18 +5,27 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import {
   Bus, LayoutDashboard, ClipboardList, FileText,
-  TrendingUp, DollarSign, BarChart3,
-  ChevronLeft, ChevronRight, Settings, HelpCircle, Rocket,
+  TrendingUp, DollarSign, BarChart3, Package, Users, Shield, Wrench,
+  MapPin, Globe, Building2, Lock, ChevronLeft, ChevronRight, Settings, HelpCircle, Rocket,
 } from 'lucide-react'
 
 const primaryNav = [
-  { label: 'Command Center', href: '/dashboard',            icon: LayoutDashboard },
-  { label: 'Fleet',          href: '/dashboard/fleet',       icon: Bus },
-  { label: 'Work Orders',    href: '/dashboard/work-orders', icon: ClipboardList },
-  { label: 'Contracts',      href: '/dashboard/contracts',   icon: FileText },
-  { label: 'Finance',        href: '/dashboard/finance',     icon: DollarSign },
-  { label: 'Pipeline',       href: '/dashboard/pipeline',    icon: TrendingUp },
-  { label: 'Analytics',      href: '/dashboard/analytics',   icon: BarChart3 },
+  { label: 'Command Center', href: '/dashboard',              icon: LayoutDashboard },
+  { label: 'Fleet',          href: '/dashboard/fleet',         icon: Bus },
+  { label: 'Work Orders',    href: '/dashboard/work-orders',   icon: ClipboardList },
+  { label: 'Contracts',      href: '/dashboard/contracts',     icon: FileText },
+  { label: 'Finance',        href: '/dashboard/finance',       icon: DollarSign },
+  { label: 'Pipeline',       href: '/dashboard/pipeline',      icon: TrendingUp },
+  { label: 'Analytics',      href: '/dashboard/analytics',     icon: BarChart3 },
+  { label: 'Inventory',      href: '/dashboard/inventory',     icon: Package },
+  { label: 'HR',             href: '/dashboard/hr',            icon: Users },
+  { label: 'Vendors',        href: '/dashboard/vendors',       icon: Building2 },
+  { label: 'Compliance',     href: '/dashboard/compliance',    icon: Shield },
+  { label: 'Insurance',      href: '/dashboard/insurance',     icon: Lock },
+  { label: 'Parts',          href: '/dashboard/parts',         icon: Wrench },
+  { label: 'Locations',      href: '/dashboard/locations',     icon: MapPin },
+  { label: 'Federal Opp.',   href: '/dashboard/federal',       icon: Globe },
+  { label: 'Owner View',     href: '/dashboard/owner',         icon: DollarSign },
 ]
 
 const bottomNav = [

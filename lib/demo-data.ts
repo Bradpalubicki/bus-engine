@@ -263,3 +263,74 @@ export const demoThroughputChart = [
   { month: 'Oct 25', buses: 9 }, { month: 'Nov 25', buses: 7 }, { month: 'Dec 25', buses: 5 },
   { month: 'Jan 26', buses: 8 }, { month: 'Feb 26', buses: 6 }, { month: 'Mar 26', buses: 3 },
 ]
+
+// HR — Job Postings (6 demo jobs)
+export const demoJobPostings = [
+  { id: 1, title: 'Transit Bus Technician — Level II', department: 'Production', location: 'Riverside, CA', type: 'full_time', status: 'active', posted_at: '2026-03-01', salary_min: 62000, salary_max: 82000 },
+  { id: 2, title: 'ZEPS Electric Systems Technician', department: 'ZEPS', location: 'Riverside, CA', type: 'full_time', status: 'active', posted_at: '2026-03-10', salary_min: 72000, salary_max: 95000 },
+  { id: 3, title: 'Bus Sales Representative — Pacific Northwest', department: 'TSI', location: 'Remote', type: 'full_time', status: 'active', posted_at: '2026-02-20', salary_min: 65000, salary_max: 90000 },
+  { id: 4, title: 'Fleet Lease Manager', department: 'SBL', location: 'Riverside, CA', type: 'full_time', status: 'active', posted_at: '2026-03-05', salary_min: 68000, salary_max: 88000 },
+  { id: 5, title: 'Body & Paint Technician', department: 'Production', location: 'Riverside, CA', type: 'full_time', status: 'filled', posted_at: '2026-02-01', filled_at: '2026-03-12', salary_min: 52000, salary_max: 70000 },
+  { id: 6, title: 'Federal Contracts Administrator', department: 'Business Development', location: 'Riverside, CA', type: 'full_time', status: 'draft', posted_at: null, salary_min: 75000, salary_max: 100000 },
+]
+
+// HR — Vendor Management (8 demo vendors)
+export const demoVendors = [
+  { id: 1, name: 'Cummins Inc.', category: 'parts_supplier', contact_name: 'Mark T.', contact_email: 'mark.t@cummins.com', status: 'active', contract_end: '2027-06-30', contract_value: 2400000 },
+  { id: 2, name: 'Voith GmbH', category: 'parts_supplier', contact_name: 'Klaus R.', contact_email: 'k.r@voith.com', status: 'active', contract_end: '2027-12-31', contract_value: 1800000 },
+  { id: 3, name: 'Muncie Power Products', category: 'parts_supplier', contact_name: 'Sarah J.', status: 'active', contract_end: '2026-09-30', contract_value: 560000 },
+  { id: 4, name: 'Wilson Electric', category: 'subcontractor', contact_name: 'Dave W.', status: 'active', contract_end: '2026-12-31', contract_value: 380000 },
+  { id: 5, name: 'Industrial Safety Supplies Co.', category: 'service_provider', contact_name: 'Tom H.', status: 'active', contract_end: '2026-06-30', contract_value: 95000 },
+  { id: 6, name: 'AutoCad Fleet Systems', category: 'service_provider', contact_name: 'Lisa M.', status: 'under_review', contract_end: '2026-04-30', contract_value: 48000 },
+  { id: 7, name: 'Pacific Metal Works', category: 'parts_supplier', contact_name: 'Ray C.', status: 'active', contract_end: '2027-03-31', contract_value: 720000 },
+  { id: 8, name: 'National Transit Training', category: 'service_provider', contact_name: 'Ann B.', status: 'active', contract_end: '2026-12-31', contract_value: 125000 },
+]
+
+// Owner Financials — Demo P&L (Consolidated, 2025 full year)
+export const demoFinancials = {
+  company: 'CONSOLIDATED',
+  period: '2025 Full Year',
+  revenue_total: 102000000,
+  revenue_refurb: 68000000,
+  revenue_zeps: 22000000,
+  revenue_parts_sales: 12000000,
+  cogs_total: 72000000,
+  gross_profit: 30000000,
+  gross_margin_pct: 29.4,
+  operating_expenses: 14000000,
+  ebitda: 18000000,
+  net_income: 15000000,
+  cash_on_hand: 8500000,
+  accounts_receivable: 12300000,
+  accounts_payable: 4200000,
+  total_assets: 45000000,
+  total_debt: 26500000,
+  esop_loan_balance: 22000000,
+  esop_annual_payment: 2200000,
+  esop_payoff_year: 2036,
+}
+
+// SAM.gov Federal Opportunities (5 matching CCW NAICS codes)
+export const demoSAMOpportunities = [
+  { id: 1, notice_id: 'SAM-2026-001', title: 'Bus Rehabilitation Services — Tri-County Transit Authority', naics_code: '336999', department: 'FTA Grant Program', posted_date: '2026-03-10', response_deadline: '2026-04-10', estimated_value: 8500000, set_aside: 'Total Small Business', bid_decision: 'pursuing' },
+  { id: 2, notice_id: 'SAM-2026-002', title: 'Zero Emission Bus Conversion Program — Pacific Northwest', naics_code: '336999', department: 'US Dept of Transportation', posted_date: '2026-03-05', response_deadline: '2026-04-30', estimated_value: 15200000, set_aside: null, bid_decision: 'pursuing' },
+  { id: 3, notice_id: 'SAM-2026-003', title: 'CNG Repower Services IDIQ — Southwest Region', naics_code: '811310', department: 'Defense Logistics Agency', posted_date: '2026-02-20', response_deadline: '2026-03-25', estimated_value: 4200000, set_aside: 'SDVOSB', bid_decision: 'no_bid' },
+  { id: 4, notice_id: 'SAM-2026-004', title: 'Transit Bus Parts and Accessories', naics_code: '336212', department: 'GSA Schedule', posted_date: '2026-03-12', response_deadline: '2026-05-15', estimated_value: null, set_aside: null, bid_decision: 'pending' },
+  { id: 5, notice_id: 'SAM-2026-005', title: 'Pre-Owned Transit Bus Acquisition — 20 Units', naics_code: '336211', department: 'City of Phoenix', posted_date: '2026-03-14', response_deadline: '2026-04-14', estimated_value: 1800000, set_aside: null, bid_decision: 'pending' },
+]
+
+// TSI Inventory (12 demo pre-owned buses)
+export const demoTSIInventory = [
+  { id: 1, year: 2012, make: 'Gillig', model: 'Low Floor', length: 40, fuelType: 'diesel', seats: 40, mileage: 380000, condition: 'refurbished', status: 'available', price: 185000 },
+  { id: 2, year: 2015, make: 'New Flyer', model: 'Xcelsior XD40', length: 40, fuelType: 'cng', seats: 38, mileage: 290000, condition: 'refurbished', status: 'available', price: 240000 },
+  { id: 3, year: 2014, make: 'New Flyer', model: 'Xcelsior XDE40', length: 40, fuelType: 'diesel-electric', seats: 37, mileage: 315000, condition: 'as-is', status: 'available', price: 145000 },
+  { id: 4, year: 2016, make: 'Gillig', model: 'Advantage', length: 35, fuelType: 'cng', seats: 35, mileage: 245000, condition: 'refurbished', status: 'available', price: 215000 },
+  { id: 5, year: 2018, make: 'Proterra', model: 'Catalyst E2', length: 40, fuelType: 'electric', seats: 40, mileage: 180000, condition: 'refurbished', status: 'available', price: 320000 },
+  { id: 6, year: 2013, make: 'Gillig', model: 'Low Floor', length: 30, fuelType: 'diesel', seats: 30, mileage: 420000, condition: 'as-is', status: 'available', price: 98000 },
+  { id: 7, year: 2017, make: 'New Flyer', model: 'Xcelsior XD60', length: 60, fuelType: 'diesel', seats: 55, mileage: 310000, condition: 'refurbished', status: 'available', price: 295000 },
+  { id: 8, year: 2015, make: 'Van Hool', model: 'AG300', length: 60, fuelType: 'cng', seats: 52, mileage: 280000, condition: 'refurbished', status: 'pending', price: 275000 },
+  { id: 9, year: 2019, make: 'Gillig', model: 'Low Floor', length: 40, fuelType: 'diesel', seats: 40, mileage: 195000, condition: 'refurbished', status: 'available', price: 265000 },
+  { id: 10, year: 2016, make: 'New Flyer', model: 'Xcelsior XHE40', length: 40, fuelType: 'hydrogen', seats: 37, mileage: 220000, condition: 'as-is', status: 'available', price: 195000 },
+  { id: 11, year: 2014, make: 'Gillig', model: 'Advantage', length: 40, fuelType: 'cng', seats: 40, mileage: 355000, condition: 'refurbished', status: 'available', price: 198000 },
+  { id: 12, year: 2020, make: 'BYD', model: 'K9M', length: 40, fuelType: 'electric', seats: 38, mileage: 120000, condition: 'refurbished', status: 'available', price: 385000 },
+]
