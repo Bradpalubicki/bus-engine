@@ -1,4 +1,5 @@
 import { NavBar } from '@/components/marketing/NavBar'
+import AIChat from '@/components/marketing/AIChat'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Facebook, Linkedin, Twitter } from 'lucide-react'
@@ -7,7 +8,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pt-16">{children}</main>
 
       {/* Footer */}
       <footer className="bg-[#003087] text-white pt-12 pb-6">
@@ -102,6 +103,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </div>
         </div>
       </footer>
+      <AIChat />
     </div>
   )
 }
