@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Shield, CheckCircle, ArrowRight, Paintbrush, Wrench, Star } from 'lucide-react'
 import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { bodyPaintImages } from '@/data/imageManifest'
 
 export const metadata = {
   title: 'Body, Paint & Structural Repair | Complete Coach Works',
@@ -108,6 +110,13 @@ export default function BodyPaintPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ServiceGallery images={bodyPaintImages} title="Collision Repair Gallery" defaultShow={6} />
         </div>
       </section>
 

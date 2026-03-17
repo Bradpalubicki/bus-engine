@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { TrendingUp, CheckCircle, ArrowRight, Leaf, DollarSign, Gauge } from 'lucide-react'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { VideoEmbed } from '@/components/VideoEmbed'
+import { cngRepowerImages, ccwVideos } from '@/data/imageManifest'
 
 export const metadata = {
   title: 'CNG / LNG Engine Repower | Complete Coach Works',
@@ -116,6 +119,19 @@ export default function CngRepowerPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <VideoEmbed
+            src={ccwVideos.engineRemoval.src}
+            poster={ccwVideos.engineRemoval.poster}
+            label={ccwVideos.engineRemoval.label}
+            className="mb-8"
+          />
+          <ServiceGallery images={cngRepowerImages} title="CNG Repower Gallery" defaultShow={3} />
         </div>
       </section>
 

@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import VideoHero from '@/components/marketing/VideoHero'
+import { AgencyProofStrip } from '@/components/AgencyProofStrip'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { sblFleetImages } from '@/data/imageManifest'
 
 export const metadata: Metadata = {
   title: 'Shuttle Bus Leasing — Short & Long-Term Transit Bus Leasing | Riverside, CA',
@@ -271,6 +274,16 @@ export default function SBLHomePage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Fleet Gallery */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Available Fleet</h2>
+          <p className="text-sm text-gray-500 mb-6">1,000+ buses in inventory. All lengths, all fuel types. Ready for lease.</p>
+          <ServiceGallery images={sblFleetImages} defaultShow={6} />
+          <AgencyProofStrip />
         </div>
       </section>
 

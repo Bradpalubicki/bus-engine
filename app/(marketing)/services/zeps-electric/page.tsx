@@ -1,6 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Zap, CheckCircle, ArrowRight, DollarSign, Leaf, Clock } from 'lucide-react'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { VideoEmbed } from '@/components/VideoEmbed'
+import { ZepsConversionSequence } from '@/components/ZepsConversionSequence'
+import { zepsGalleryImages, ccwVideos } from '@/data/imageManifest'
 
 export const metadata = {
   title: 'ZEPS Zero-Emission Electric Bus Conversion | Complete Coach Works',
@@ -91,6 +95,19 @@ export default function ZepsPage() {
             ))}
           </div>
         </div>
+
+        <ZepsConversionSequence />
+        <VideoEmbed
+          src={ccwVideos.howToInstall.src}
+          poster={ccwVideos.howToInstall.poster}
+          label={ccwVideos.howToInstall.label}
+          className="mb-8"
+        />
+        <ServiceGallery
+          images={zepsGalleryImages}
+          title="ZEPS Electric Gallery"
+          defaultShow={8}
+        />
 
         {/* TCO Calculator placeholder */}
         <div className="bg-[#003087] text-white rounded-2xl p-10 text-center">

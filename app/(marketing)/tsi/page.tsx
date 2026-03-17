@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import VideoHero from '@/components/marketing/VideoHero'
 import { demoTSIInventory } from '@/lib/demo-data'
+import { AgencyProofStrip } from '@/components/AgencyProofStrip'
 
 export const metadata: Metadata = {
   title: 'Transit Sales International — Pre-Owned Transit Buses For Sale | Murrieta, CA',
@@ -282,6 +283,10 @@ export default function TSIHomePage() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-6">
+        <AgencyProofStrip />
+      </div>
 
       {/* CTA */}
       <section className="py-16 bg-[#1a5fa8] text-white">

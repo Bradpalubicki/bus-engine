@@ -2,6 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Wrench, CheckCircle, ArrowRight, Clock, DollarSign, Shield } from 'lucide-react'
 import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { VideoEmbed } from '@/components/VideoEmbed'
+import { midlifeOverhaulImages, ccwVideos } from '@/data/imageManifest'
 
 export const metadata = {
   title: 'Midlife Overhaul & Bus Remanufacturing | Complete Coach Works',
@@ -91,6 +94,18 @@ export default function MidlifeOverhaulPage() {
                   </div>
                 ))}
               </div>
+
+              <VideoEmbed
+                src={ccwVideos.muniOverhaul.src}
+                poster={ccwVideos.muniOverhaul.poster}
+                label={ccwVideos.muniOverhaul.label}
+                className="mb-8"
+              />
+              <ServiceGallery
+                images={midlifeOverhaulImages}
+                title="Program Gallery"
+                defaultShow={8}
+              />
 
               {/* SFMTA case study callout */}
               <div className="mt-10 relative rounded-2xl overflow-hidden h-56">

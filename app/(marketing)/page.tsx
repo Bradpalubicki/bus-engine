@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import VideoHero from '@/components/marketing/VideoHero'
 import Link from 'next/link'
+import { AgencyProofStrip } from '@/components/AgencyProofStrip'
 
 export const metadata: Metadata = {
   title: 'Complete Coach Works — Transit Bus Refurbishment & ZEPS Electric Conversion | Riverside, CA',
@@ -302,16 +303,9 @@ export default function CCWHomePage() {
       </section>
 
       {/* ── AGENCY TRUST BAR ── */}
-      <section className="py-12 bg-gray-50 border-y border-gray-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">Trusted By America&apos;s Transit Agencies</div>
-          <div className="flex flex-wrap justify-center gap-8 text-[#003087] font-bold text-lg">
-            {['TriMet', 'IndyGo', 'OCTA', 'Foothill Transit', 'AVTA', 'SF Muni', 'SunLine', 'Omnitrans'].map(a => (
-              <span key={a} className="hover:text-[#E8A020] transition-colors cursor-default">{a}</span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="max-w-7xl mx-auto px-6">
+        <AgencyProofStrip />
+      </div>
 
       {/* ── CTA BANNER ── */}
       <section className="py-16 bg-[#003087] text-white">

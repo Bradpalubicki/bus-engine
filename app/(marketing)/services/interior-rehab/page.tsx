@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Bus, CheckCircle, ArrowRight, Users, Accessibility, Monitor } from 'lucide-react'
 import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
+import { ServiceGallery } from '@/components/ServiceGallery'
+import { interiorRehabImages } from '@/data/imageManifest'
 
 export const metadata = {
   title: 'Interior Rehabilitation | Complete Coach Works',
@@ -112,6 +114,13 @@ export default function InteriorRehabPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ServiceGallery images={interiorRehabImages} title="Interior Rehab Gallery" defaultShow={6} />
         </div>
       </section>
 
