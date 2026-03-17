@@ -23,7 +23,7 @@ export function NavBar() {
       { href: '/', label: 'Home' },
       { href: '/#services', label: 'Services' },
       { href: '/zeps', label: 'ZEPS Electric' },
-      { href: '/#news', label: 'News & Events' },
+      { href: '/news', label: 'News & Events' },
       { href: '/careers', label: 'Employment' },
       { href: '/contact', label: 'Contact' },
     ],

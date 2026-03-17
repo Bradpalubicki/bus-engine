@@ -108,21 +108,24 @@ export default function MidlifeOverhaulPage() {
               />
 
               {/* SFMTA case study callout */}
-              <div className="mt-10 relative rounded-2xl overflow-hidden h-56">
+              <Link href="/case-studies/sfmta-219-coach-midlife-overhaul" className="mt-10 block relative rounded-2xl overflow-hidden h-64 group">
                 <Image
                   src="https://completecoach.com/wp-content/uploads/2024/06/IMG_2924.jpg"
-                  alt="SFMTA 219-coach midlife overhaul"
+                  alt="SFMTA 219-coach midlife overhaul — Complete Coach Works"
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-[#003087]/65 flex items-center">
+                <div className="absolute inset-0 bg-[#003087]/65 group-hover:bg-[#003087]/75 transition-colors flex items-center">
                   <div className="p-8">
                     <div className="text-[#E8A020] text-xs font-bold uppercase tracking-widest mb-2">Case Study</div>
-                    <div className="text-white text-xl font-bold">SFMTA — $102M Contract</div>
-                    <div className="text-blue-100 text-sm mt-1">219 coaches. CCW&apos;s largest single contract to date. Midlife overhaul + hybrid repower.</div>
+                    <div className="text-white text-xl font-bold">SFMTA — 219-Coach Midlife Overhaul</div>
+                    <div className="text-blue-100 text-sm mt-1 mb-4">CCW&apos;s largest single contract. $101.6M awarded by SFMTA Board of Directors, March 2022. 219 hybrid-electric and trolley coaches.</div>
+                    <div className="inline-flex items-center gap-2 text-[#E8A020] text-sm font-bold group-hover:gap-3 transition-all">
+                      Read Full Case Study →
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             {/* Sidebar */}
