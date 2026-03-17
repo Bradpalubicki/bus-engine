@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Bus, CheckCircle, ArrowRight, Users, Accessibility, Monitor } from 'lucide-react'
+import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
 
 export const metadata = {
   title: 'Interior Rehabilitation | Complete Coach Works',
@@ -111,6 +112,25 @@ export default function InteriorRehabPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Before / After Slider */}
+      <section className="py-16 bg-[#F8F9FB]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="text-[#E8A020] text-xs font-bold uppercase tracking-widest mb-2">Before &amp; After</div>
+            <h2 className="text-2xl font-bold text-[#003087]">Drag to Compare — Worn Interior to Passenger-Ready</h2>
+            <p className="text-gray-500 text-sm mt-2">Slide left or right to reveal the transformation</p>
+          </div>
+          <BeforeAfterSlider
+            beforeSrc="https://completecoach.com/wp-content/uploads/2024/04/st-louis-rehab.jpg"
+            afterSrc="https://completecoach.com/wp-content/uploads/2024/06/IMG_3320.jpg"
+            beforeAlt="Transit bus interior before CCW rehabilitation — worn seats and flooring"
+            afterAlt="Transit bus interior after CCW rehabilitation — new seats, flooring, and ADA upgrades"
+            initialPosition={45}
+            height={460}
+          />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Wrench, CheckCircle, ArrowRight, Clock, DollarSign, Shield } from 'lucide-react'
+import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
 
 export const metadata = {
   title: 'Midlife Overhaul & Bus Remanufacturing | Complete Coach Works',
@@ -157,6 +158,25 @@ export default function MidlifeOverhaulPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Before / After Slider */}
+      <section className="py-16 bg-[#F8F9FB]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="text-[#E8A020] text-xs font-bold uppercase tracking-widest mb-2">Before &amp; After</div>
+            <h2 className="text-2xl font-bold text-[#003087]">Drag to Compare — Same Bus, 12 Years Added Life</h2>
+            <p className="text-gray-500 text-sm mt-2">Slide left or right to reveal the transformation</p>
+          </div>
+          <BeforeAfterSlider
+            beforeSrc="https://completecoach.com/wp-content/uploads/2024/06/IMG_2924.jpg"
+            afterSrc="https://completecoach.com/wp-content/uploads/2024/06/IMG_3320.jpg"
+            beforeAlt="Transit bus before midlife overhaul — worn exterior and interior"
+            afterAlt="Transit bus after CCW midlife overhaul — like-new condition"
+            initialPosition={40}
+            height={500}
+          />
         </div>
       </section>
 

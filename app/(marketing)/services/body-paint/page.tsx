@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Shield, CheckCircle, ArrowRight, Paintbrush, Wrench, Star } from 'lucide-react'
+import { BeforeAfterSlider } from '@/components/BeforeAfterSlider'
 
 export const metadata = {
   title: 'Body, Paint & Structural Repair | Complete Coach Works',
@@ -107,6 +108,25 @@ export default function BodyPaintPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Before / After Slider */}
+      <section className="py-16 bg-[#F8F9FB]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="text-[#E8A020] text-xs font-bold uppercase tracking-widest mb-2">Before &amp; After</div>
+            <h2 className="text-2xl font-bold text-[#003087]">Drag to Compare — Collision Damage to Showroom Finish</h2>
+            <p className="text-gray-500 text-sm mt-2">Slide left or right to reveal the transformation</p>
+          </div>
+          <BeforeAfterSlider
+            beforeSrc="https://completecoach.com/wp-content/uploads/2024/08/accident2.jpg"
+            afterSrc="https://completecoach.com/wp-content/uploads/2024/08/bus-paint.jpg"
+            beforeAlt="Transit bus with collision damage before CCW body and paint repair"
+            afterAlt="Transit bus after CCW body repair and full paint restoration"
+            initialPosition={45}
+            height={460}
+          />
         </div>
       </section>
 
