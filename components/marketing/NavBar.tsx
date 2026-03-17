@@ -21,9 +21,10 @@ export function NavBar() {
   const navLinks = {
     CCW: [
       { href: '/', label: 'Home' },
+      { href: '/#services', label: 'Services' },
       { href: '/zeps', label: 'ZEPS Electric' },
-      { href: '/about', label: 'About' },
-      { href: '/locations', label: 'Locations' },
+      { href: '/#news', label: 'News & Events' },
+      { href: '/careers', label: 'Employment' },
       { href: '/contact', label: 'Contact' },
     ],
     TSI: [

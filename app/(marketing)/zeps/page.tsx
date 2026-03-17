@@ -4,6 +4,29 @@ import ZEPSCalculator from '@/components/marketing/ZEPSCalculator'
 export const metadata: Metadata = {
   title: 'ZEPS Electric Conversion — Transit Bus Battery-Electric Retrofit | Complete Coach Works',
   description: 'ZEPS converts existing transit buses to battery-electric for $580K vs $830K new OEM. 70+ conversions, 4M miles, FTA compliant, CARB certified.',
+  alternates: { canonical: 'https://completecoach.com/zeps' },
+}
+
+const zepsProductSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'ZEPS Electric Bus Conversion',
+  description: 'Battery-electric powertrain retrofit for 30–60ft transit buses. $580K vs $830K OEM. CARB certified, FTA compliant, HVIP eligible.',
+  brand: { '@type': 'Brand', name: 'Complete Coach Works' },
+  manufacturer: { '@type': 'Organization', name: 'Complete Coach Works', url: 'https://completecoach.com' },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    price: '580000',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Organization', name: 'Complete Coach Works' },
+  },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Battery Options', value: '403, 504, or 605 kWh' },
+    { '@type': 'PropertyValue', name: 'Compliance', value: 'CARB Certified, FTA Compliant, Buy America' },
+    { '@type': 'PropertyValue', name: 'HVIP Eligible', value: 'Up to $165,000 voucher per bus' },
+    { '@type': 'PropertyValue', name: 'Conversions Completed', value: '70+' },
+  ],
 }
 
 const stages = [
@@ -18,6 +41,7 @@ const stages = [
 export default function ZEPSPage() {
   return (
     <main className="bg-[#0A1628] text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(zepsProductSchema) }} />
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A1628] via-[#0d1f3a] to-[#001a4d]" />
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto py-24">

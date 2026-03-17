@@ -6,6 +6,14 @@ import VideoHero from '@/components/marketing/VideoHero'
 export const metadata: Metadata = {
   title: 'Shuttle Bus Leasing — Short & Long-Term Transit Bus Leasing | Riverside, CA',
   description: 'SBL offers seasonal, gap, contract, and lease-to-own bus programs. 2002 & 2010 Olympics supplier. 1,000+ bus inventory. FTA compliant. Get a quote in 24 hours.',
+  alternates: { canonical: 'https://completecoach.com/sbl' },
+  openGraph: {
+    title: 'Shuttle Bus Leasing | Transit Bus Rental & Lease | Seasonal & Contract',
+    description: 'Short and long-term transit bus leasing. Seasonal, gap, contract, employee shuttle, and lease-to-own programs. Official Olympic bus supplier.',
+    url: 'https://completecoach.com/sbl',
+    siteName: 'Complete Coach Works',
+    type: 'website',
+  },
 }
 
 const leasePrograms = [
@@ -66,6 +74,14 @@ export default function SBLHomePage() {
         ctaPrimary={{ label: 'View Lease Programs', href: '/sbl/fleet' }}
         ctaSecondary={{ label: 'Get a Quote', href: '/contact' }}
         brand="SBL"
+        stats={[
+          { value: '1,000+', label: 'Bus Inventory' },
+          { value: '2002 & 2010', label: 'Olympics Supplier' },
+          { value: '24 hrs', label: 'Quote Turnaround' },
+          { value: '1–60 mo', label: 'Lease Terms' },
+          { value: 'FTA', label: 'Compliant' },
+          { value: 'Nationwide', label: 'Delivery' },
+        ]}
       />
 
       {/* Olympics trust bar — lead with it, it's the biggest credential */}

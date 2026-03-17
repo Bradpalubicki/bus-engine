@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Coach Works Family — Website Audit — NuStack Digital Ventures</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --ccw-blue:   #1B9DD9;
+    --ccw-dark:   #0D2B45;
+    --ccw-mid:    #1565A0;
+    --gold:       #D4890A;
+    --red:        #C0392B;
+    --green:      #1A7A4A;
+    --light-blue: #E8F5FC;
+    --light-gray: #F7F9FC;
+    --border:     #CBE8F5;
+    --text:       #1A2535;
+    --muted:      #4D6478;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: #fff; font-size: 10.5pt; line-height: 1.65; }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    background: linear-gradient(155deg, #0D2B45 0%, #0F3D60 55%, #1565A0 100%);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 60px 72px; page-break-after: always;
+    position: relative; overflow: hidden;
+  }
+  .cover-topbar { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #1B9DD9, #5DC8F0); }
+  .cover::before { content: ''; position: absolute; top: -100px; right: -100px; width: 480px; height: 480px; border-radius: 50%; border: 1px solid rgba(27,157,217,0.15); }
+  .cover::after  { content: ''; position: absolute; bottom: -80px; left: -80px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(27,157,217,0.08); }
+
+  /* NuStack logo block */
+  .cover-logo { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+  .nustack-mark { width: 44px; height: 44px; background: var(--ccw-blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #fff; letter-spacing: -1px; flex-shrink: 0; }
+  .cover-logo-text { color: #fff; font-size: 15px; font-weight: 600; }
+  .cover-logo-sub  { color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 2px; }
+
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 0 44px; position: relative; z-index: 1; }
+  .cover-eyebrow { color: var(--ccw-blue); font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .cover-title { color: #fff; font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 14px; }
+  .cover-title span { color: #5DC8F0; }
+  .cover-subtitle { color: rgba(255,255,255,0.6); font-size: 15px; margin-bottom: 40px; max-width: 580px; line-height: 1.7; }
+  .cover-divider { width: 60px; height: 3px; background: var(--ccw-blue); border-radius: 2px; margin-bottom: 40px; }
+
+  /* 3 score cards with company logos */
+  .cover-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 44px; }
+  .cover-score-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(27,157,217,0.25); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+  .cover-score-card .co-logo { height: 40px; object-fit: contain; object-position: left; filter: brightness(0) invert(1); opacity: 0.85; }
+  .cover-score-card .site-label { color: rgba(255,255,255,0.4); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .cover-score-card .score-row { display: flex; align-items: baseline; gap: 6px; }
+  .cover-score-card .score-big { font-size: 38px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+  .cover-score-card .score-big.bad { color: #F08080; }
+  .cover-score-card .score-big.mid { color: #F0C060; }
+  .cover-score-card .score-denom { font-size: 16px; color: rgba(255,255,255,0.3); }
+  .cover-score-card .site-url { color: rgba(255,255,255,0.5); font-size: 10px; font-weight: 500; }
+
+  .cover-meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 560px; }
+  .cover-meta-item label { display: block; color: rgba(255,255,255,0.4); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .cover-meta-item span  { color: #fff; font-size: 12px; font-weight: 500; }
+
+  .cover-footer { display: flex; align-items: flex-end; justify-content: space-between; position: relative; z-index: 1; }
+  .cover-confidential { background: rgba(192,57,43,0.2); border: 1px solid rgba(192,57,43,0.45); color: #E88; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; }
+  .cover-recipient { text-align: right; }
+  .cover-recipient p { color: rgba(255,255,255,0.4); font-size: 10px; line-height: 1.7; }
+  .cover-recipient strong { color: rgba(255,255,255,0.75); }
+
+  /* ── INNER PAGE LAYOUT ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 60px 72px; }
+  .section-break { page-break-before: always; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; margin-bottom: 40px; border-bottom: 2px solid var(--ccw-dark); }
+  .page-header-left { display: flex; align-items: center; gap: 10px; }
+  .ph-mark { width: 26px; height: 26px; background: var(--ccw-dark); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: #fff; flex-shrink: 0; }
+  .page-header-brand { font-size: 11px; font-weight: 600; color: var(--ccw-dark); }
+  .page-header-right { font-size: 10px; color: var(--muted); text-align: right; }
+
+  /* ── SITE BANNER ── */
+  .site-banner { background: linear-gradient(135deg, var(--ccw-dark) 0%, #1565A0 100%); border-radius: 12px; padding: 26px 32px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; gap: 24px; }
+  .site-banner-left { flex: 1; }
+  .site-banner-logo { height: 52px; object-fit: contain; object-position: left; filter: brightness(0) invert(1); opacity: 0.9; margin-bottom: 10px; display: block; }
+  .site-banner-eyebrow { color: rgba(255,255,255,0.4); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .site-banner-url { color: #5DC8F0; font-size: 12px; font-weight: 500; }
+  .site-banner-score { text-align: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 16px 28px; flex-shrink: 0; }
+  .site-banner-score .score-num { font-size: 40px; font-weight: 800; letter-spacing: -1px; display: block; }
+  .site-banner-score .score-num.bad { color: #F08080; }
+  .site-banner-score .score-num.mid { color: #F0C060; }
+  .site-banner-score label { display: block; color: rgba(255,255,255,0.35); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── HEADINGS ── */
+  .section-eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ccw-blue); margin-bottom: 8px; }
+  h1.section-title { font-size: 26px; font-weight: 800; color: var(--ccw-dark); letter-spacing: -0.5px; margin-bottom: 6px; }
+  h2.section-title { font-size: 19px; font-weight: 700; color: var(--ccw-dark); letter-spacing: -0.3px; margin-bottom: 6px; }
+  .section-lead { font-size: 12px; color: var(--muted); margin-bottom: 32px; max-width: 640px; line-height: 1.7; }
+
+  /* ── IMPACT STRIP ── */
+  .impact-strip { background: linear-gradient(135deg, var(--ccw-dark) 0%, #0F3D60 100%); border-radius: 12px; padding: 28px 32px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+  .impact-item { text-align: center; }
+  .impact-item .val { font-size: 20px; font-weight: 800; color: #fff; display: block; letter-spacing: -0.5px; }
+  .impact-item .val.red  { color: #F08080; }
+  .impact-item .val.gold { color: #F0C060; }
+  .impact-item .val.grn  { color: #70D0A0; }
+  .impact-item .val.blu  { color: #5DC8F0; }
+  .impact-item label { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); display: block; margin-top: 5px; }
+
+  /* ── SNAPSHOT CARDS ── */
+  .snapshot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .snapshot-card { border-radius: 10px; padding: 20px 22px; border: 1px solid var(--border); }
+  .snapshot-card.critical  { background: #FDF2F0; border-color: #E8B4AD; }
+  .snapshot-card.high      { background: #FEF9EC; border-color: #EDD99A; }
+  .snapshot-card.strategic { background: var(--light-blue); border-color: #A8D8EE; }
+  .snapshot-card-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .critical .snapshot-card-label  { color: var(--red); }
+  .high .snapshot-card-label      { color: var(--gold); }
+  .strategic .snapshot-card-label { color: var(--ccw-blue); }
+  .snapshot-card-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--ccw-dark); }
+  .snapshot-card p { font-size: 10.5px; color: var(--muted); line-height: 1.6; }
+
+  /* ── FINDING CARDS ── */
+  .findings-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 40px; }
+  .finding { border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; background: #fff; border-left: 4px solid var(--border); }
+  .finding.critical { border-left-color: var(--red); }
+  .finding.high     { border-left-color: var(--gold); }
+  .finding.medium   { border-left-color: var(--ccw-blue); }
+  .finding-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; gap: 16px; }
+  .finding-number { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); white-space: nowrap; padding-top: 2px; }
+  .finding-title  { font-size: 13px; font-weight: 700; color: var(--ccw-dark); flex: 1; }
+  .badge { display: inline-block; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; white-space: nowrap; }
+  .badge.critical { background: #FDF2F0; color: var(--red); border: 1px solid #E8B4AD; }
+  .badge.high     { background: #FEF9EC; color: #9A6A10; border: 1px solid #EDD99A; }
+  .badge.medium   { background: var(--light-blue); color: var(--ccw-mid); border: 1px solid #A8D8EE; }
+  .finding-body p { font-size: 10.5px; color: var(--text); margin-bottom: 8px; line-height: 1.65; }
+  .finding-body code { background: var(--light-gray); padding: 1px 5px; border-radius: 3px; font-size: 9.5px; color: var(--ccw-mid); }
+  .finding-impact { background: var(--light-gray); border-radius: 6px; padding: 10px 14px; margin-top: 10px; }
+  .finding-impact strong { font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+  .finding-impact p { font-size: 10.5px; color: var(--muted); margin: 0; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-radius: 10px; padding: 22px 26px; margin-bottom: 24px; }
+  .callout.red  { background: #FDF2F0; border: 1px solid #E8B4AD; }
+  .callout.blue { background: var(--light-blue); border: 1px solid #A8D8EE; }
+  .callout.gold { background: #FEF9EC; border: 1px solid #EDD99A; }
+  .callout.dark { background: linear-gradient(135deg, var(--ccw-dark), #1565A0); border: none; }
+  .callout-title { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .callout.red .callout-title  { color: var(--red); }
+  .callout.blue .callout-title { color: var(--ccw-mid); }
+  .callout.gold .callout-title { color: #9A6A10; }
+  .callout.dark .callout-title { color: #5DC8F0; }
+  .callout p { font-size: 10.5px; line-height: 1.65; }
+  .callout.dark p { color: rgba(255,255,255,0.82); }
+
+  /* ── BOARD BULLETS ── */
+  .board-bullets { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+  .board-bullet { display: flex; gap: 18px; align-items: flex-start; }
+  .bb-num { width: 32px; height: 32px; background: var(--ccw-dark); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+  .bb-content strong { display: block; font-size: 12px; font-weight: 700; color: var(--ccw-dark); margin-bottom: 4px; }
+  .bb-content p { font-size: 10.5px; color: var(--muted); line-height: 1.65; }
+
+  /* ── AUTO CARDS ── */
+  .auto-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+  .auto-card { border-radius: 10px; padding: 20px 22px; background: var(--light-gray); border: 1px solid var(--border); }
+  .auto-card-icon  { font-size: 20px; margin-bottom: 10px; }
+  .auto-card-title { font-size: 12px; font-weight: 700; color: var(--ccw-dark); margin-bottom: 6px; }
+  .auto-card p { font-size: 10px; color: var(--muted); line-height: 1.6; }
+
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-bottom: 32px; }
+  thead th { background: var(--ccw-dark); color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+  tbody tr:nth-child(even) { background: var(--light-gray); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .td-yes { color: var(--red); font-weight: 700; }
+  .td-no  { color: var(--green); font-weight: 700; }
+  .td-partial { color: #9A6A10; font-weight: 700; }
+  .td-bad { color: var(--red); font-weight: 800; font-size: 13px; }
+  .td-mid { color: #9A6A10; font-weight: 800; font-size: 13px; }
+
+  /* ── ROADMAP ── */
+  .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .roadmap-phase { border-radius: 10px; padding: 20px 18px; border: 1px solid var(--border); }
+  .roadmap-phase.p1 { border-top: 3px solid var(--red); }
+  .roadmap-phase.p2 { border-top: 3px solid var(--gold); }
+  .roadmap-phase.p3 { border-top: 3px solid var(--ccw-blue); }
+  .roadmap-phase.p4 { border-top: 3px solid var(--ccw-dark); }
+  .roadmap-phase-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .p1 .roadmap-phase-label { color: var(--red); }
+  .p2 .roadmap-phase-label { color: var(--gold); }
+  .p3 .roadmap-phase-label { color: var(--ccw-blue); }
+  .p4 .roadmap-phase-label { color: var(--ccw-dark); }
+  .roadmap-phase-title { font-size: 12px; font-weight: 700; color: var(--ccw-dark); margin-bottom: 12px; }
+  .roadmap-phase ul { list-style: none; padding: 0; }
+  .roadmap-phase ul li { font-size: 10px; color: var(--muted); padding: 4px 0 4px 14px; border-bottom: 1px solid var(--border); position: relative; line-height: 1.5; }
+  .roadmap-phase ul li::before { content: '→'; position: absolute; left: 0; color: var(--ccw-blue); font-size: 9px; }
+
+  /* ── FOOTER ── */
+  .report-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .report-footer p { font-size: 9px; color: var(--muted); }
+  .report-footer .ns-mark { width: 18px; height: 18px; background: var(--ccw-dark); border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; margin-right: 6px; vertical-align: middle; }
+
+  @media print {
+    body { font-size: 10pt; }
+    .cover { min-height: 100vh; }
+    .page { padding: 48px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ COVER ══════════════════════ -->
+<div class="cover">
+  <div class="cover-topbar"></div>
+
+  <div class="cover-logo">
+    <div class="nustack-mark">N</div>
+    <div>
+      <div class="cover-logo-text">NuStack Digital Ventures</div>
+      <div class="cover-logo-sub">Digital Growth Intelligence</div>
+    </div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Confidential Website Audit Report</div>
+    <div class="cover-title">Complete Coach Works<br><span>Family of Companies</span><br>Digital Presence Audit</div>
+    <div class="cover-subtitle">A full audit of technical SEO, content architecture, lead capture, conversion gaps, and automation opportunities across all three web properties — with realistic rebuild timelines and revenue impact estimates.</div>
+    <div class="cover-divider"></div>
+
+    <div class="cover-scores">
+      <div class="cover-score-card">
+        <img class="co-logo" src="https://completecoach.com/wp-content/uploads/2021/10/CCW-logo-white-1.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" alt="Complete Coach Works">
+        <div style="display:none; color:#5DC8F0; font-size:13px; font-weight:800;">CCW</div>
+        <div class="site-label">Site 1 of 3 · Main Company</div>
+        <div class="score-row"><span class="score-big bad">48</span><span class="score-denom">/100</span></div>
+        <div class="site-url">completecoach.com</div>
+      </div>
+      <div class="cover-score-card">
+        <img class="co-logo" src="https://sblbus.com/wp-content/uploads/2019/04/SBL-logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" alt="Shuttle Bus Leasing">
+        <div style="display:none; color:#5DC8F0; font-size:13px; font-weight:800;">SBL</div>
+        <div class="site-label">Site 2 of 3 · Bus Leasing</div>
+        <div class="score-row"><span class="score-big bad">41</span><span class="score-denom">/100</span></div>
+        <div class="site-url">sblbus.com</div>
+      </div>
+      <div class="cover-score-card">
+        <img class="co-logo" src="https://transitsales.com/wp-content/uploads/2019/04/TSI-logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" alt="Transit Sales International">
+        <div style="display:none; color:#5DC8F0; font-size:13px; font-weight:800;">TSI</div>
+        <div class="site-label">Site 3 of 3 · Bus Sales</div>
+        <div class="score-row"><span class="score-big mid">52</span><span class="score-denom">/100</span></div>
+        <div class="site-url">transitsales.com</div>
+      </div>
+    </div>
+
+    <div class="cover-meta-grid">
+      <div class="cover-meta-item"><label>Prepared For</label><span>Dale Carson</span></div>
+      <div class="cover-meta-item"><label>Date Issued</label><span>March 17, 2026</span></div>
+      <div class="cover-meta-item"><label>Version</label><span>1.0 — Initial Audit</span></div>
+      <div class="cover-meta-item"><label>Prepared By</label><span>NuStack Digital Ventures</span></div>
+      <div class="cover-meta-item"><label>Scope</label><span>3 Live Web Properties</span></div>
+      <div class="cover-meta-item"><label>Classification</label><span>Strictly Confidential</span></div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-confidential">⬛ Strictly Confidential</div>
+    <div class="cover-recipient">
+      <p>Attention: <strong>Dale Carson</strong><br>
+      Complete Coach Works / Shuttle Bus Leasing / Transit Sales International<br>
+      1863 Service Court · Riverside, CA 92507 · (800) 287-7253</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ EXECUTIVE SUMMARY ══════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="ph-mark">N</div>
+      <div class="page-header-brand">NuStack Digital Ventures — Complete Coach Works Family Audit</div>
+    </div>
+    <div class="page-header-right">Strictly Confidential · March 17, 2026</div>
+  </div>
+
+  <div class="section-eyebrow">Executive Summary</div>
+  <h1 class="section-title">Three Sites. One Shared Problem.</h1>
+  <p class="section-lead">Complete Coach Works, Shuttle Bus Leasing, and Transit Sales International are well-established companies with decades of reputation in the transit industry. Their websites don't reflect that. All three share the same foundational failures — invisible to search engines, no pricing, no lead capture, and no automation. The opportunity cost is significant and the fixes are straightforward.</p>
+
+  <div class="impact-strip">
+    <div class="impact-item"><span class="val red">41–52</span><label>Avg Score Across 3 Sites</label></div>
+    <div class="impact-item"><span class="val gold">0</span><label>Sites With Visible Pricing</label></div>
+    <div class="impact-item"><span class="val red">$200K–$800K</span><label>Est. Annual Revenue Lost (CCW)</label></div>
+    <div class="impact-item"><span class="val blu">6–8 wks</span><label>Realistic Full Rebuild Timeline</label></div>
+  </div>
+
+  <div class="snapshot-grid">
+    <div class="snapshot-card critical">
+      <div class="snapshot-card-label">Critical — All 3 Sites</div>
+      <div class="snapshot-card-title">Invisible to Google</div>
+      <p>All three use Divi's JavaScript framework, which blocks Google from reading page content. The companies don't exist in search for any non-branded query.</p>
+    </div>
+    <div class="snapshot-card high">
+      <div class="snapshot-card-label">High Priority — All 3 Sites</div>
+      <div class="snapshot-card-title">No Lead Capture</div>
+      <p>No homepage form, no quote CTA, no pricing signal on any site. Every visitor who doesn't already have the phone number bounces with zero follow-up possible.</p>
+    </div>
+    <div class="snapshot-card strategic">
+      <div class="snapshot-card-label">Strategic Gap</div>
+      <div class="snapshot-card-title">Zero Cross-Company Routing</div>
+      <p>A buyer touching rehab + lease + purchase spans all three companies — no automated pathway connects them. Every handoff is manual and likely lost.</p>
+    </div>
+  </div>
+
+  <div class="callout dark">
+    <div class="callout-title">Bottom Line</div>
+    <p>All three sites run the same Divi version, managed by one developer. Every fix batches across all three simultaneously. The highest-ROI action — phone number and quote CTA in every header — takes two hours across all three properties. None of these issues require a redesign. A full professional rebuild of all three sites is realistically 6–8 weeks from signed contract to go-live.</p>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">Revenue Impact Methodology</div>
+    <p>All revenue estimates are directional. Modeled using: indexed page counts, confirmed technical issues and their documented ranking penalties (Searchmetrics/Ahrefs benchmarks), transit industry average contract values (lease: $50K–$500K/yr; used bus sale: $28K–$75K/unit; rehab contract: $100K–$1M+), 2% organic-to-lead conversion, 20% close rate.</p>
+  </div>
+
+  <div class="report-footer">
+    <p><span class="ns-mark">N</span>NuStack Digital Ventures · Confidential · March 2026</p>
+    <p>Complete Coach Works Family of Companies — Website Audit</p>
+  </div>
+</div>
+
+<!-- ══════════════════════ SITE 1: completecoach.com ══════════════════════ -->
+<div class="page section-break">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="ph-mark">N</div>
+      <div class="page-header-brand">NuStack Digital Ventures — Complete Coach Works Family Audit</div>
+    </div>
+    <div class="page-header-right">Site 1 — completecoach.com · Confidential</div>
+  </div>
+
+  <div class="site-banner">
+    <div class="site-banner-left">
+      <img class="site-banner-logo" src="https://completecoach.com/wp-content/uploads/2021/10/CCW-logo-white-1.png"
+           onerror="this.outerHTML='<div style=\'color:#5DC8F0;font-size:20px;font-weight:800;margin-bottom:10px;\'>COMPLETE COACH WORKS</div>'"
+           alt="Complete Coach Works">
+      <div class="site-banner-eyebrow">Site 1 of 3 · Main Company · WordPress + Divi 4.27.6</div>
+      <div class="site-banner-url">completecoach.com · Riverside, CA</div>
+    </div>
+    <div class="site-banner-score">
+      <span class="score-num bad">48<span style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.3)">/100</span></span>
+      <label>Overall Score</label>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Critical Issues</div>
+  <h2 class="section-title">What's Broken — and Why It Costs Money</h2>
+  <p class="section-lead">CCW is the flagship — "nation's largest" in its space. The website actively works against that claim at every level.</p>
+
+  <div class="findings-list">
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.1</div><div class="finding-title">Divi JS Rendering — All Content Invisible to Google</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Divi renders the entire homepage in JavaScript. Google sees a blank HTML shell — no headings, no body text, no semantic structure. CCW's 38 years of expertise, its services, and its credentials are invisible to every search engine.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>A transit agency searching "bus refurbishment contractor California" or "ZEPS electric bus conversion" will not find CCW. The nation's largest refurbisher ranks for essentially zero non-branded queries.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.2</div><div class="finding-title">No Sitemap — "Coming Soon" Zombie Page Is Indexed</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p><code>/sitemap.xml</code> returns 404. <code>/wp-sitemap.xml</code> also 404s. A "New Site Coming Soon" page is live, indexed, and likely what Google treats as the primary URL — signaling an under-construction domain to the algorithm.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Google may be depressing the entire domain's rankings. Fix: delete the coming-soon page, generate and submit a proper sitemap. Recovery in 2–4 weeks.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.3</div><div class="finding-title">No Meta Descriptions, No H1, No Schema Markup Anywhere</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Homepage has no meta description (Google writes its own — usually navigation text or CSS). No H1 in the DOM. No Organization, LocalBusiness, or Service schema. Competitors with schema get address and phone shown directly in search results. CCW gets a plain blue link.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Missing schema and meta descriptions reduce click-through rate 5–15% even when a page does rank. Combined with rendering issues: near-zero organic traffic from any informational query.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.4</div><div class="finding-title">No Contact Info Above the Fold on a $500K+ B2B Site</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>Phone and email require navigating to a separate page. For a company selling multi-hundred-thousand-dollar contracts to transit agencies, the phone number must be in the header of every page. This is a $0 fix with direct revenue impact.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Every visitor who doesn't already know the number has zero path to becoming a lead. Lowest effort, highest immediate return fix on the entire site.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.5</div><div class="finding-title">Only 6 Discoverable Pages — No Services Architecture</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>Only 6 pages are indexable: Coming Soon, Refurbishing, About CCW, Sales Team, Leadership, Parts. No individual service pages, no fleet-type pages, no case studies, no RFQ flow. No pages targeting the search terms transit agencies use when selecting a contractor.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Repowers, alternative fuel conversions, ZEPS battery electric, parts — each needs its own targeted page with a quote CTA. These pages don't exist and won't rank until they do.</p></div>
+      </div>
+    </div>
+    <div class="finding medium">
+      <div class="finding-header"><div><div class="finding-number">Finding 1.6</div><div class="finding-title">Active Blog Generating Zero Search Value</div></div><span class="badge medium">Medium</span></div>
+      <div class="finding-body">
+        <p>Blog is active (last post March 5, 2026). APTA award win, RATP Dev contract, new President — all newsworthy. None drives search traffic because rendering blocks indexing and there are no target keywords, internal links, or CTAs on any post.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>With rendering fixed and proper SEO, each announcement could drive 50–200 qualified procurement contacts per month, indefinitely.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Revenue Impact</div>
+  <div class="callout red">
+    <div class="callout-title">Conservative Annual Opportunity Cost: $200K–$800K in Lost Inbound Contracts</div>
+    <p>CCW wins zero leads through organic search. Three press-worthy events in early 2026 drove zero inbound inquiries because the site cannot be crawled. Each, properly SEO'd, should generate 100–500 relevant visitors per month indefinitely — exactly the procurement staff CCW wants to reach.</p>
+  </div>
+
+  <div class="section-eyebrow">Automation Opportunities</div>
+  <div class="auto-grid">
+    <div class="auto-card"><div class="auto-card-icon">📋</div><div class="auto-card-title">RFQ Pipeline Automation</div><p>Intake form (fleet size, bus type, service, timeline) → auto-assign to regional rep → CRM entry + email confirmation. Currently 100% phone-based with no digital trail.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">📣</div><div class="auto-card-title">Contract Win Syndication</div><p>New contract wins auto-post to LinkedIn + trigger email blast to agency procurement contacts. Every RATP Dev-level win should drive more than a single blog post.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🔩</div><div class="auto-card-title">Parts Inquiry Routing</div><p>Self-serve parts request form with auto-acknowledgment and estimated lead time. Eliminates routine inbound phone volume for standard parts requests.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🔗</div><div class="auto-card-title">Cross-Company Lead Routing</div><p>CCW inquiry needing leasing → auto-introduction to SBL. Buyer wanting to purchase → routed to TSI. Currently all manual, likely lost.</p></div>
+  </div>
+
+  <div class="section-eyebrow">Top 5 Fixes — Priority Order</div>
+  <div class="board-bullets">
+    <div class="board-bullet"><div class="bb-num">1</div><div class="bb-content"><strong>Fix crawlability — generate /wp-sitemap.xml, submit to Search Console, delete "Coming Soon" page</strong><p>Until Google can read the site, nothing else matters. Est. 2 hours. Results visible in 2–4 weeks.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">2</div><div class="bb-content"><strong>Add phone number and email to the header of every page</strong><p>Free. Immediate. The most impactful UX change on the site for any B2B buyer.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">3</div><div class="bb-content"><strong>Add meta descriptions and H1 tags to every key page</strong><p>Tells Google what each page is about. Improves click-through rate in search results.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">4</div><div class="bb-content"><strong>Implement Organization + LocalBusiness schema with phone, address, social links</strong><p>Enables rich results — address and phone shown in the SERP. Competitors have this. CCW does not.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">5</div><div class="bb-content"><strong>Build a Services architecture — one page per service with targeted keywords and a quote CTA</strong><p>Refurbishing, Repower, Alternative Fuel, Electric Conversions, Parts — each page ranks for the searches agencies run when selecting a contractor.</p></div></div>
+  </div>
+
+  <div class="report-footer">
+    <p><span class="ns-mark">N</span>NuStack Digital Ventures · Confidential · March 2026</p>
+    <p>Site 1 of 3 — completecoach.com</p>
+  </div>
+</div>
+
+<!-- ══════════════════════ SITE 2: sblbus.com ══════════════════════ -->
+<div class="page section-break">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="ph-mark">N</div>
+      <div class="page-header-brand">NuStack Digital Ventures — Complete Coach Works Family Audit</div>
+    </div>
+    <div class="page-header-right">Site 2 — sblbus.com · Confidential</div>
+  </div>
+
+  <div class="site-banner">
+    <div class="site-banner-left">
+      <img class="site-banner-logo" src="https://sblbus.com/wp-content/uploads/2019/04/SBL-logo.png"
+           onerror="this.outerHTML='<div style=\'color:#5DC8F0;font-size:20px;font-weight:800;margin-bottom:10px;\'>SHUTTLE BUS LEASING</div>'"
+           alt="Shuttle Bus Leasing">
+      <div class="site-banner-eyebrow">Site 2 of 3 · Lowest Score · WordPress + Divi 4.27.6 + WooCommerce</div>
+      <div class="site-banner-url">sblbus.com · Riverside, CA</div>
+    </div>
+    <div class="site-banner-score">
+      <span class="score-num bad">41<span style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.3)">/100</span></span>
+      <label>Overall Score</label>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Critical Issues</div>
+  <h2 class="section-title">A Leasing Business With No Lease Offers Visible</h2>
+  <p class="section-lead">SBL scores lowest of the three. The Divi rendering problem, a blog 17 months stale, zero pricing, and no lead capture create a site that loses business every day.</p>
+
+  <div class="findings-list">
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.1</div><div class="finding-title">Same Divi JS Rendering — Homepage Invisible to Google</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Identical to CCW: Divi renders the homepage in JavaScript. Google sees a blank shell. SBL does not exist in search for any non-branded query.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>"Short term bus lease," "gap fleet leasing transit," "seasonal shuttle bus lease" — high-intent, low-competition terms SBL should dominate. Currently ranking for none.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.2</div><div class="finding-title">No Pricing on Any Inventory Listing</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Every listing uses WooCommerce's YITH Request a Quote — no price, no range, no "starting at." For a buyer comparing leasing companies, a no-price listing is a dead end. They move to the next result.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>A transit agency on a multi-year lease is worth $50K–$500K/year. Adding "starting at $X/month" removes the friction sending those leads to competitors who show pricing.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.3</div><div class="finding-title">Blog Last Updated October 2023 — 17 Months Stale</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Google's freshness algorithm deprioritizes sites with no recent content. A leasing company with no updates in 17 months signals a dormant business. Combined with rendering issues, SBL has near-zero organic presence.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Two posts per month targeting lease-specific terms generates compounding search traffic within 60–90 days. Each post ranks indefinitely.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.4</div><div class="finding-title">No Lead Capture on the Homepage</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>No form, no phone in the hero, no "Get a Lease Quote" CTA above the fold. A visitor who is interested but doesn't have the number has zero path to becoming a lead. Every bounce is permanent.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>A quote form with fleet size, lease duration, bus type, and start date — plus a 3-day and 7-day follow-up sequence — could generate 10–30 qualified inquiries per month from existing traffic alone.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.5</div><div class="finding-title">"Prison Transports" in the Primary Navigation</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>Primary nav includes "Prison Transports" alongside transit agency inventory. For the core buyer — municipal transit agencies, shuttle operators, event companies — this creates brand perception issues and may cause procurement staff to look elsewhere.</p>
+      </div>
+    </div>
+    <div class="finding medium">
+      <div class="finding-header"><div><div class="finding-number">Finding 2.6</div><div class="finding-title">Copyright © 2022 — WooCommerce Cart Pages Indexable</div></div><span class="badge medium">Medium</span></div>
+      <div class="finding-body">
+        <p>Footer reads © 2022. It is 2026. WooCommerce cart, checkout, and my-account pages are live and indexable — dead infrastructure wasting Google's crawl budget on a B2B quote-and-call business.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Revenue Impact</div>
+  <div class="callout red">
+    <div class="callout-title">Leasing Is Recurring Revenue — Every Lost Lead Compounds</div>
+    <p>One transit agency on a 3-year lease is worth $150K–$1.5M total contract value. SBL ranks for zero lease-specific search terms. No lead capture. No follow-up. Every visitor who doesn't pick up the phone is permanently lost — along with the entire renewal relationship that follows.</p>
+  </div>
+
+  <div class="section-eyebrow">Automation Opportunities</div>
+  <div class="auto-grid">
+    <div class="auto-card"><div class="auto-card-icon">📬</div><div class="auto-card-title">Lease Inquiry Automation</div><p>Intake form → auto-route to regional rep → confirmation + available inventory PDF → 3-day and 7-day follow-up. Zero of this exists today.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🔔</div><div class="auto-card-title">Inventory Availability Alerts</div><p>"Notify me when a 40ft low-floor becomes available." Captures buyers not ready today but ready in 30–60 days.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🧮</div><div class="auto-card-title">Fleet Gap Calculator</div><p>Agencies face emergency gaps during rehab cycles. "How many buses for 90-day coverage?" calculator with lead capture generates highly qualified inquiries at the moment of need.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🔁</div><div class="auto-card-title">Lease Renewal Sequence</div><p>Automated 90/60/30-day renewal reminders. Renewals are the highest-margin sale — no new acquisition cost.</p></div>
+  </div>
+
+  <div class="section-eyebrow">Top 5 Fixes — Priority Order</div>
+  <div class="board-bullets">
+    <div class="board-bullet"><div class="bb-num">1</div><div class="bb-content"><strong>Add phone number and "Get a Lease Quote" CTA to every page header</strong><p>30-minute fix. The only action available to an interested visitor is currently to leave.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">2</div><div class="bb-content"><strong>Add "starting at" pricing to inventory listings</strong><p>"Leases from $X/month" removes the biggest conversion barrier. Buyers don't call without a price signal.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">3</div><div class="bb-content"><strong>Fix Divi crawlability and submit sitemap</strong><p>Same fix as CCW — batches across all three sites in one work session.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">4</div><div class="bb-content"><strong>Publish 2 blog posts per month targeting lease-specific terms</strong><p>"Gap fleet leasing during rehabilitation," "short-term bus lease options" — low-competition, high-intent, permanent SEO value.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">5</div><div class="bb-content"><strong>Update copyright year and relocate "Prison Transports" from primary nav</strong><p>Two quick trust-signal fixes for every first-time visitor.</p></div></div>
+  </div>
+
+  <div class="report-footer">
+    <p><span class="ns-mark">N</span>NuStack Digital Ventures · Confidential · March 2026</p>
+    <p>Site 2 of 3 — sblbus.com</p>
+  </div>
+</div>
+
+<!-- ══════════════════════ SITE 3: transitsales.com ══════════════════════ -->
+<div class="page section-break">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="ph-mark">N</div>
+      <div class="page-header-brand">NuStack Digital Ventures — Complete Coach Works Family Audit</div>
+    </div>
+    <div class="page-header-right">Site 3 — transitsales.com · Confidential</div>
+  </div>
+
+  <div class="site-banner">
+    <div class="site-banner-left">
+      <img class="site-banner-logo" src="https://transitsales.com/wp-content/uploads/2019/04/TSI-logo.png"
+           onerror="this.outerHTML='<div style=\'color:#5DC8F0;font-size:20px;font-weight:800;margin-bottom:10px;\'>TRANSIT SALES INTERNATIONAL</div>'"
+           alt="Transit Sales International">
+      <div class="site-banner-eyebrow">Site 3 of 3 · Highest Score · WordPress + Divi + WooCommerce + Yoast SEO</div>
+      <div class="site-banner-url">transitsales.com · Riverside, CA</div>
+    </div>
+    <div class="site-banner-score">
+      <span class="score-num mid">52<span style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.3)">/100</span></span>
+      <label>Overall Score</label>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Critical Issues</div>
+  <h2 class="section-title">Yoast Installed But Not Configured — Inventory UX Needs Rethinking</h2>
+  <p class="section-lead">TSI scores highest because Yoast and a functional sitemap exist. But Yoast is misconfigured on every key page, and the way inventory is presented doesn't match how the business actually works.</p>
+
+  <div class="findings-list">
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.1</div><div class="finding-title">Homepage Title Is "home - Transit Sales International" — Yoast Misconfigured</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>The word "home" leads the title tag — the single most important on-page SEO signal and the headline Google shows in every search result. Yoast SEO is installed specifically to prevent this. It has not been configured. <strong>Should read:</strong> "Transit Sales International | Used Buses for Sale | Riverside, CA"</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>The homepage earns zero keyword ranking signal for "used buses for sale" or any commercial query. Fix in 10 minutes in Yoast. Results in 2–4 weeks.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.2</div><div class="finding-title">No H1 on the Homepage — No H2 Tags Either</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Confirmed: no H1 in the DOM, no H2 tags. The page is structurally flat. H1 is the highest-weighted single on-page SEO signal. Without it, Google has no structural indicator of what the page is for.</p>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.3</div><div class="finding-title">Inventory Display Shows Only 2 Units Per Model — By Design, But Misrepresented</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>TSI has 1,000+ units across roughly 10–15 models. The site shows 2 representative listings per model — that's the intended design, not a data problem. But the execution fails: there is no "View All 15 Available 40ft Gillig" link, no count shown per model, no way for a buyer to know that 10–15 more identical units exist. The site reads as if only 2 buses are available in the entire inventory.</p>
+        <p>The fix is not to list all 1,000 units individually. It's to make the model-based system explicit: show "14 available" next to each model, link to a filtered inventory page per model, and communicate that TSI stocks multiples of each unit.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>A transit agency needing 8 buses of the same model needs to know TSI can fulfill that order. If the site shows 2 listings with no indication of depth, they call a competitor who makes their fleet depth obvious. This is the most fixable major conversion issue on the site.</p></div>
+      </div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.4</div><div class="finding-title">Zero Pricing Visible on Any Listing</div></div><span class="badge critical">Critical</span></div>
+      <div class="finding-body">
+        <p>Every listing uses YITH Request a Quote — no price, no range, no "starting at." A buyer comparing dealers from search results will not submit a quote form for a $30,000 bus. They click to the competitor who shows a number.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Estimated lift from adding pricing: $245K+ annually based on current visible inventory alone. Across the full fleet depth this multiplies significantly.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.5</div><div class="finding-title">No Available/Sold Status — Buyers Can't Trust Any Listing</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>No status indicator on any listing — Available, Pending, or Sold. For a high-turnover used vehicle dealer, a buyer who inquires on a unit and learns it sold will not come back. Listing status is table stakes for any used vehicle marketplace.</p>
+        <div class="finding-impact"><strong>Business Impact</strong><p>Real-time sync between internal inventory system and website status is the single most important technical infrastructure investment for TSI. Without it, every listing is a trust liability.</p></div>
+      </div>
+    </div>
+    <div class="finding high">
+      <div class="finding-header"><div><div class="finding-number">Finding 3.6</div><div class="finding-title">About Page Last Updated March 2021 — 5 Years Stale</div></div><span class="badge high">High</span></div>
+      <div class="finding-body">
+        <p>New President, RATP Dev delivery, TriMet BEV conversion milestone — none reflected. A buyer vetting TSI as a vendor reads a five-year-old About page and draws their own conclusions about whether the company is active.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Revenue Impact</div>
+  <div class="callout red">
+    <div class="callout-title">The Inventory Is the Product — the Web Presence That Sells It Is Broken</div>
+    <p>TSI has the fleet depth to fulfill large agency orders. The website makes it look like they have 2 buses for sale. Adding per-model unit counts, pricing, and availability status would be the highest single-impact change available to TSI in 2026. Conservative lift estimate: $245K+ annually, likely 3–5× that when fleet depth is communicated properly.</p>
+  </div>
+
+  <div class="section-eyebrow">Automation Opportunities</div>
+  <div class="auto-grid">
+    <div class="auto-card"><div class="auto-card-icon">🔄</div><div class="auto-card-title">Live Inventory Sync</div><p>Real-time Available/Pending/Sold status tied to internal system. Per-model unit counts updated automatically. A buyer can trust what they see.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">⚡</div><div class="auto-card-title">Automated Quote Response</div><p>Immediate reply with specs, comparable alternatives, and calendar link for a call. Buyers who get instant response close at 2–3× the rate of those who wait days.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🔍</div><div class="auto-card-title">Saved Search Alerts</div><p>"Notify me when a 35ft low-floor diesel comes in." Captures buyers 60 days from decision — high value, zero ongoing cost.</p></div>
+    <div class="auto-card"><div class="auto-card-icon">🏢</div><div class="auto-card-title">Fleet Procurement Track</div><p>Agencies buying 5–20 buses need a dedicated intake form routing to a senior rep with a different SLA. Captures the highest-value segment automatically.</p></div>
+  </div>
+
+  <div class="section-eyebrow">Top 5 Fixes — Priority Order</div>
+  <div class="board-bullets">
+    <div class="board-bullet"><div class="bb-num">1</div><div class="bb-content"><strong>Fix Yoast — update homepage title, write meta descriptions, add H1</strong><p>Already installed. Configuration only — under 30 minutes. Affects every page immediately.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">2</div><div class="bb-content"><strong>Add per-model unit counts and "View All X Available" links to inventory pages</strong><p>Make fleet depth visible without listing every unit individually. "14 available" next to each model is what converts a browsing agency into a calling customer.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">3</div><div class="bb-content"><strong>Add pricing ranges to all model listings</strong><p>"Starting at $28,000" with a "Get exact pricing" CTA converts dramatically better than a blank price field with a quote form.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">4</div><div class="bb-content"><strong>Add Available/Sold status to every listing and build inventory sync</strong><p>Table stakes for any used vehicle dealer. Without it, every listing is a trust liability.</p></div></div>
+    <div class="board-bullet"><div class="bb-num">5</div><div class="bb-content"><strong>Update the About page with 2026 milestones</strong><p>New President, RATP Dev, TriMet BEV — credibility builders that belong on the page buyers read when deciding whether to trust you.</p></div></div>
+  </div>
+
+  <div class="report-footer">
+    <p><span class="ns-mark">N</span>NuStack Digital Ventures · Confidential · March 2026</p>
+    <p>Site 3 of 3 — transitsales.com</p>
+  </div>
+</div>
+
+<!-- ══════════════════════ SUMMARY + ROADMAP ══════════════════════ -->
+<div class="page section-break">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="ph-mark">N</div>
+      <div class="page-header-brand">NuStack Digital Ventures — Complete Coach Works Family Audit</div>
+    </div>
+    <div class="page-header-right">Summary, Roadmap &amp; Rebuild Timeline · Confidential</div>
+  </div>
+
+  <div class="section-eyebrow">Cross-Site Summary</div>
+  <h1 class="section-title">Shared Issues, Roadmap &amp; Realistic Rebuild Timeline</h1>
+  <p class="section-lead">All three sites share the same developer, the same Divi version, and the same foundational failures. Every fix batches across all three simultaneously — the cost of fixing all three is barely more than fixing one.</p>
+
+  <table>
+    <thead><tr><th>Issue</th><th>completecoach.com</th><th>sblbus.com</th><th>transitsales.com</th></tr></thead>
+    <tbody>
+      <tr><td>Missing meta description</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td><td class="td-partial">Partial (17 chars)</td></tr>
+      <tr><td>No H1 on homepage</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td></tr>
+      <tr><td>Divi blocking Google</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td></tr>
+      <tr><td>No schema markup</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td><td class="td-partial">Partial</td></tr>
+      <tr><td>Stale content / copyright</td><td class="td-yes">Yes</td><td class="td-partial">© 2022</td><td class="td-partial">Updated 2021</td></tr>
+      <tr><td>No pricing visible</td><td>N/A</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td></tr>
+      <tr><td>No lead capture on homepage</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td><td class="td-yes">Yes</td></tr>
+      <tr><td>Functional sitemap</td><td class="td-yes">No</td><td class="td-yes">No</td><td class="td-no">Yes (Yoast)</td></tr>
+      <tr><td>Overall Score</td><td class="td-bad">48/100</td><td class="td-bad">41/100</td><td class="td-mid">52/100</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-eyebrow">Realistic Rebuild Timeline — All 3 Sites</div>
+  <h2 class="section-title" style="margin-bottom:8px;">6–8 Weeks from Signed Contract to Go-Live</h2>
+  <p class="section-lead" style="margin-bottom:24px;">This is a rebuild, not a patch job. Three modern, fast, SEO-ready sites with proper lead capture, cross-company routing, and automation — replacing three broken Divi sites with one cohesive web presence for the family of companies.</p>
+
+  <div class="roadmap">
+    <div class="roadmap-phase p1">
+      <div class="roadmap-phase-label">Week 1–2</div>
+      <div class="roadmap-phase-title">Discovery &amp; Design</div>
+      <ul>
+        <li>Brand assets, content audit</li>
+        <li>Sitemap &amp; page architecture</li>
+        <li>Design system (colors, type, components)</li>
+        <li>Copy brief for all 3 sites</li>
+        <li>Inventory model structure for TSI</li>
+        <li>Lead routing logic mapped</li>
+      </ul>
+    </div>
+    <div class="roadmap-phase p2">
+      <div class="roadmap-phase-label">Week 3–4</div>
+      <div class="roadmap-phase-title">Build — CCW &amp; SBL</div>
+      <ul>
+        <li>CCW: homepage + 6 service pages</li>
+        <li>CCW: RFQ form + parts inquiry</li>
+        <li>SBL: homepage + inventory + lease form</li>
+        <li>SBL: pricing ranges on all listings</li>
+        <li>All schema markup deployed</li>
+        <li>Sitemaps submitted to GSC</li>
+      </ul>
+    </div>
+    <div class="roadmap-phase p3">
+      <div class="roadmap-phase-label">Week 5–6</div>
+      <div class="roadmap-phase-title">Build — TSI &amp; Automation</div>
+      <ul>
+        <li>TSI: model-based inventory system</li>
+        <li>TSI: per-model unit counts + status</li>
+        <li>TSI: pricing + fleet procurement form</li>
+        <li>Cross-company lead routing (all 3)</li>
+        <li>Email follow-up sequences</li>
+        <li>Inventory availability alerts</li>
+      </ul>
+    </div>
+    <div class="roadmap-phase p4">
+      <div class="roadmap-phase-label">Week 7–8</div>
+      <div class="roadmap-phase-title">QA, SEO &amp; Launch</div>
+      <ul>
+        <li>Full mobile + desktop QA (all 3)</li>
+        <li>Speed optimization + Core Web Vitals</li>
+        <li>301 redirects from old URLs</li>
+        <li>Google Search Console verification</li>
+        <li>DNS cutover — all 3 simultaneously</li>
+        <li>30-day post-launch monitoring</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout dark">
+    <div class="callout-title">The Single Most Important Observation</div>
+    <p>All three sites run on the same Divi version, managed by one developer. The rebuild work batches efficiently — design system built once, applied three times. The result isn't three separate site rebuilds. It's one cohesive family of companies with a shared design language, cross-company lead routing, and automation infrastructure that none of the three sites have today. <strong style="color:#5DC8F0;">Six to eight weeks. Done right. No patches.</strong></p>
+  </div>
+
+  <div class="report-footer">
+    <p><span class="ns-mark">N</span>NuStack Digital Ventures · Confidential · March 2026</p>
+    <p>Complete Coach Works Family of Companies — Website Audit Report</p>
+  </div>
+</div>
+
+</body>
+</html>

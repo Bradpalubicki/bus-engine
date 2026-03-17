@@ -7,6 +7,14 @@ import { demoTSIInventory } from '@/lib/demo-data'
 export const metadata: Metadata = {
   title: 'Transit Sales International — Pre-Owned Transit Buses For Sale | Murrieta, CA',
   description: 'TSI sells pre-owned transit buses — 30 to 60ft, diesel, CNG, electric, hybrid. FTA compliant. Buy America docs available. 60-day accelerated delivery program.',
+  alternates: { canonical: 'https://completecoach.com/tsi' },
+  openGraph: {
+    title: 'Transit Sales International | Used Transit Buses for Sale | FTA Compliant',
+    description: 'Pre-owned transit buses for government agencies. All fuel types, all sizes. FTA compliant, Buy America documentation available.',
+    url: 'https://completecoach.com/tsi',
+    siteName: 'Complete Coach Works',
+    type: 'website',
+  },
 }
 
 const busPhotos = [
@@ -50,6 +58,14 @@ export default function TSIHomePage() {
         ctaPrimary={{ label: 'Browse Inventory', href: '/tsi/inventory' }}
         ctaSecondary={{ label: 'Get a Quote', href: '/contact' }}
         brand="TSI"
+        stats={[
+          { value: '500+', label: 'Buses Sold' },
+          { value: '30–60ft', label: 'All Sizes' },
+          { value: '5', label: 'Fuel Types' },
+          { value: '60 Days', label: 'Delivery Program' },
+          { value: 'FTA', label: 'Compliant' },
+          { value: '100+', label: 'Agency Clients' },
+        ]}
       />
 
       {/* Search bar */}

@@ -5,11 +5,45 @@ import SAMGovBadge from '@/components/marketing/SAMGovBadge'
 export const metadata: Metadata = {
   title: 'Compliance & Certifications — Complete Coach Works | FTA, Buy America, ADA, CARB',
   description: 'Complete Coach Works compliance documentation: FTA TVM registration, Buy America (49 USC 5323(j)), DBE Program (49 CFR 26.49), ADA, CARB ZEPS certification, SAM.gov registration UEI QN7UN15K9NP2.',
+  alternates: { canonical: 'https://completecoach.com/ccw/compliance' },
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is Complete Coach Works registered in SAM.gov?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. CCW is SAM.gov registered with UEI QN7UN15K9NP2 and CAGE 1QA89. Registration is current through August 2026. NAICS codes: 336999, 811310, 336212, 336211.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does CCW comply with Buy America requirements?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. All CCW products and services comply with Buy America provisions under 49 USC 5323(j). Pre-award and post-delivery audits available upon request.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is ZEPS electric conversion CARB certified?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The ZEPS system is California Air Resources Board (CARB) certified as a Zero-Emission Bus powertrain solution. ZEPS conversions qualify for HVIP vouchers of up to $165,000 per bus.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does CCW have a DBE program?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. CCW maintains a Disadvantaged Business Enterprise (DBE) program under 49 CFR Part 26.49. Contact compliance@completecoach.com for DBE subcontracting documentation.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are CCW buses ADA compliant?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. All CCW refurbishment programs include ADA compliance under 49 CFR Parts 27, 37, and 38. Standard specs: 32-inch doorway clearance, 30-inch ramp width, 4-point securement system.' },
+    },
+  ],
 }
 
 export default function CompliancePage() {
   return (
     <main className="pt-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       {/* Hero */}
       <section className="bg-[#003087] text-white py-16">
         <div className="max-w-7xl mx-auto px-6">

@@ -1,12 +1,45 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import VideoHero from '@/components/marketing/VideoHero'
-import StatsBar from '@/components/marketing/StatsBar'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Complete Coach Works — Transit Bus Refurbishment & ZEPS Electric Conversion | Riverside, CA',
   description: 'CCW refurbishes transit buses at half the cost of new. ZEPS electric conversion: 70+ buses, 4M miles, $580K vs $830K OEM. FTA compliant. SAM registered.',
+  alternates: { canonical: 'https://completecoach.com' },
+  openGraph: {
+    title: 'Complete Coach Works — Transit Bus Refurbishment | Riverside, CA',
+    description: 'Nation\'s largest transit bus remanufacturer. ZEPS electric conversion, CNG repower, midlife overhaul.',
+    url: 'https://completecoach.com',
+    siteName: 'Complete Coach Works',
+    type: 'website',
+  },
+}
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://completecoach.com/#business',
+  name: 'Complete Coach Works',
+  description: 'The nation\'s largest transit bus remanufacturing company. ZEPS electric conversion, CNG repower, midlife refurbishment for transit agencies.',
+  url: 'https://completecoach.com',
+  telephone: '+18003003751',
+  priceRange: '$$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '1863 Service Court',
+    addressLocality: 'Riverside',
+    addressRegion: 'CA',
+    postalCode: '92507',
+    addressCountry: 'US',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 33.9806, longitude: -117.3755 },
+  openingHoursSpecification: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '17:00' },
+  foundingDate: '1987',
+  numberOfEmployees: { '@type': 'QuantitativeValue', value: 350 },
+  hasCredential: ['SAM.gov UEI QN7UN15K9NP2', 'CAGE 1QA89', 'CARB Certified', 'FTA Compliant', 'Buy America Compliant'],
+  areaServed: { '@type': 'Country', name: 'United States' },
+  knowsAbout: ['transit bus refurbishment', 'ZEPS electric bus conversion', 'CNG bus repower', 'bus midlife overhaul', 'FTA compliance'],
 }
 
 const services = [
@@ -93,6 +126,7 @@ const news = [
 export default function CCWHomePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       {/* Hero — full viewport, CCW logo + video */}
       <VideoHero
         videoSrc="https://completecoach.com/wp-content/uploads/2024/04/CCW.mp4"
@@ -103,10 +137,15 @@ export default function CCWHomePage() {
         ctaPrimary={{ label: 'Get a Fleet Assessment', href: '/contact' }}
         ctaSecondary={{ label: 'See ZEPS Electric', href: '/zeps' }}
         brand="CCW"
+        stats={[
+          { value: '38 Yrs', label: 'In Business' },
+          { value: '350+', label: 'Employees' },
+          { value: '70+', label: 'ZEPS Conversions' },
+          { value: '4M+', label: 'Electric Miles' },
+          { value: '$102M', label: 'Annual Revenue' },
+          { value: '10', label: 'Locations' },
+        ]}
       />
-
-      {/* Animated stats bar */}
-      <StatsBar />
 
       {/* ── SERVICES ── */}
       <section id="services" className="py-20 bg-white">
