@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 export function NavBar() {
@@ -40,8 +41,19 @@ export function NavBar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href={brand === 'TSI' ? '/tsi' : brand === 'SBL' ? '/sbl' : '/'} className="font-bold text-xl" style={{ color: config.color }}>
-          {config.logo}
+        <Link href={brand === 'TSI' ? '/tsi' : brand === 'SBL' ? '/sbl' : '/'} className="flex items-center">
+          {brand === 'CCW' ? (
+            <Image
+              src="https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png"
+              alt="Complete Coach Works"
+              width={120}
+              height={40}
+              className="h-9 w-auto object-contain"
+              priority
+            />
+          ) : (
+            <span className="font-bold text-xl" style={{ color: config.color }}>{config.logo}</span>
+          )}
         </Link>
         <div className="hidden md:flex items-center gap-1 bg-gray-100 rounded-lg p-1">
           <Link href="/" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL ? 'bg-[#003087] text-white' : 'text-gray-600 hover:text-gray-900'}`}>CCW</Link>
