@@ -1,12 +1,18 @@
-import { createClient } from '@/lib/supabase/server'
 import { PipelineClient } from '@/components/dashboard/PipelineClient'
+import { demoPipeline } from '@/lib/demo-data'
 
 export default async function PipelinePage() {
-  const supabase = createClient()
-  const { data: pipeline } = await supabase
-    .from('bus_rfp_pipeline')
-    .select('*')
-    .order('created_at', { ascending: false })
+  const opportunities = demoPipeline.map((p) => ({
+    id: p.id,
+    agency_name: p.agencyName,
+    rfp_title: p.rfpTitle,
+    est_value: p.estValue,
+    deadline: p.deadline,
+    win_probability: p.winProbability,
+    bd_owner: p.bdOwner,
+    status: p.status,
+    notes: null,
+  }))
 
-  return <PipelineClient opportunities={pipeline ?? []} />
+  return <PipelineClient opportunities={opportunities} />
 }
