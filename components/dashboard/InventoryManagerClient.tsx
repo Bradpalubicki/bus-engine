@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Package, ExternalLink, CheckCircle, AlertCircle, Clock } from 'lucide-react'
+import { Package, ExternalLink, X, Plus } from 'lucide-react'
 
 type InventoryItem = {
   id: number
@@ -49,8 +49,185 @@ function formatPrice(item: InventoryItem) {
   return 'Request Quote'
 }
 
+type AddBusForm = {
+  brand: 'TSI' | 'SBL'
+  year: string; make: string; model: string; vin: string
+  length_ft: string; fuel_type: string; seats: string; mileage: string
+  condition: string; price: string; description: string; status: string
+  sbl_lease_type: string; sbl_min_term_months: string
+}
+
+function AddBusModal({ defaultBrand, onClose }: { defaultBrand: 'TSI' | 'SBL'; onClose: () => void }) {
+  const [form, setForm] = useState<AddBusForm>({
+    brand: defaultBrand, year: '', make: '', model: '', vin: '',
+    length_ft: '', fuel_type: 'diesel', seats: '', mileage: '',
+    condition: 'good', price: '', description: '', status: 'draft',
+    sbl_lease_type: 'gap', sbl_min_term_months: '1',
+  })
+  const [saved, setSaved] = useState(false)
+
+  function set(field: keyof AddBusForm, value: string) {
+    setForm(f => ({ ...f, [field]: value }))
+  }
+
+  function handleSave() {
+    // Demo: just show success state
+    setSaved(true)
+    setTimeout(() => onClose(), 1500)
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-6 border-b border-gray-100">
+          <h2 className="text-xl font-bold text-[#003087]">Add Bus to {form.brand} Inventory</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X className="w-5 h-5" /></button>
+        </div>
+        {saved ? (
+          <div className="p-12 text-center">
+            <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Plus className="w-7 h-7 text-green-600 rotate-45" />
+            </div>
+            <p className="text-lg font-bold text-green-700">Bus Added Successfully</p>
+            <p className="text-sm text-gray-500 mt-1">It will appear as a Draft until you publish it.</p>
+          </div>
+        ) : (
+          <div className="p-6 space-y-5">
+            {/* Brand toggle */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">Brand</label>
+              <div className="flex gap-2">
+                {(['TSI', 'SBL'] as const).map(b => (
+                  <button key={b} onClick={() => set('brand', b)}
+                    className={`px-5 py-2 rounded-lg text-sm font-bold border-2 transition-colors ${form.brand === b ? 'border-[#003087] bg-[#003087] text-white' : 'border-gray-200 text-gray-600 hover:border-gray-400'}`}>
+                    {b}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Year / Make / Model / VIN */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: 'Year', field: 'year', placeholder: '2019' },
+                { label: 'Make', field: 'make', placeholder: 'Gillig, New Flyer, MCI…' },
+                { label: 'Model', field: 'model', placeholder: 'Low Floor, Xcelsior…' },
+                { label: 'VIN (optional)', field: 'vin', placeholder: '1FNB123…' },
+              ].map(({ label, field, placeholder }) => (
+                <div key={field}>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">{label}</label>
+                  <input
+                    type="text"
+                    placeholder={placeholder}
+                    value={form[field as keyof AddBusForm]}
+                    onChange={e => set(field as keyof AddBusForm, e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Fuel / Length / Seats / Mileage */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Fuel Type</label>
+                <select value={form.fuel_type} onChange={e => set('fuel_type', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30">
+                  {['diesel', 'cng', 'electric', 'diesel-electric', 'hydrogen', 'gasoline'].map(f => (
+                    <option key={f} value={f}>{f.toUpperCase()}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Length (ft)</label>
+                <input type="number" placeholder="40" value={form.length_ft} onChange={e => set('length_ft', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Seats</label>
+                <input type="number" placeholder="40" value={form.seats} onChange={e => set('seats', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Mileage</label>
+                <input type="number" placeholder="150000" value={form.mileage} onChange={e => set('mileage', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30" />
+              </div>
+            </div>
+
+            {/* Condition / Price / Status */}
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Condition</label>
+                <select value={form.condition} onChange={e => set('condition', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30">
+                  {['excellent', 'good', 'fair', 'refurbished'].map(c => (
+                    <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">{form.brand === 'TSI' ? 'Price ($)' : 'Monthly Rate ($)'}</label>
+                <input type="number" placeholder={form.brand === 'TSI' ? '185000' : '2800'} value={form.price} onChange={e => set('price', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30" />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Status</label>
+                <select value={form.status} onChange={e => set('status', e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30">
+                  <option value="draft">Draft (Hidden)</option>
+                  <option value="active">Active (Live)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* SBL-only: lease type + min term */}
+            {form.brand === 'SBL' && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Lease Type</label>
+                  <select value={form.sbl_lease_type} onChange={e => set('sbl_lease_type', e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30">
+                    {['gap', 'contract', 'lease-to-own', 'shuttle'].map(t => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Min Term (months)</label>
+                  <input type="number" placeholder="3" value={form.sbl_min_term_months} onChange={e => set('sbl_min_term_months', e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30" />
+                </div>
+              </div>
+            )}
+
+            {/* Description */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Description (optional)</label>
+              <textarea rows={3} placeholder="Additional notes, features, history…" value={form.description} onChange={e => set('description', e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30 resize-none" />
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button onClick={handleSave}
+                className="flex-1 bg-[#003087] text-white font-bold py-3 rounded-lg hover:bg-[#002070] transition-colors text-sm">
+                Save Bus Listing
+              </button>
+              <button onClick={onClose}
+                className="px-6 py-3 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 export function InventoryManagerClient({ inventory }: { inventory: InventoryItem[] }) {
   const [activeTab, setActiveTab] = useState<'TSI' | 'SBL'>('TSI')
+  const [showAddModal, setShowAddModal] = useState(false)
 
   const filtered = inventory.filter(i => i.brand === activeTab)
   const tsiCount = inventory.filter(i => i.brand === 'TSI').length
@@ -64,7 +241,10 @@ export function InventoryManagerClient({ inventory }: { inventory: InventoryItem
           <h1 className="text-2xl font-bold text-[#003087]">Inventory Management</h1>
           <p className="text-gray-500 text-sm">TSI for-sale buses + SBL lease fleet · {activeCount} active listings</p>
         </div>
-        <button className="bg-[#003087] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#002070] transition-colors flex items-center gap-2">
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="bg-[#003087] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#002070] transition-colors flex items-center gap-2"
+        >
           <Package className="w-4 h-4" />
           Add Bus
         </button>
@@ -173,6 +353,10 @@ export function InventoryManagerClient({ inventory }: { inventory: InventoryItem
           DEMO — Active listings appear live on the {activeTab === 'TSI' ? '/tsi/inventory' : '/sbl/fleet'} page. Marked-sold buses auto-hide.
         </div>
       </div>
+
+      {showAddModal && (
+        <AddBusModal defaultBrand={activeTab} onClose={() => setShowAddModal(false)} />
+      )}
     </div>
   )
 }
