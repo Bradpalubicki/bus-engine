@@ -170,6 +170,25 @@
   .lead { font-size:12px; color:var(--muted); margin-bottom:28px; max-width:700px; line-height:1.7; }
 
   /* ── SITE BANNER ── */
+  /* ── PSI BAR ── */
+  .psi-bar {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .psi-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+  }
+  .psi-chip .pci-val { font-size: 14px; font-weight: 700; color: #fff; }
+  .psi-chip .pci-val.bad { color: #F08080; }
+  .psi-chip .pci-val.mid { color: #F0C060; }
+  .psi-chip .pci-val.good { color: #5DC990; }
+  .psi-chip .pci-lbl { font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
   .site-banner {
     background:linear-gradient(135deg, var(--ccw-dark) 0%, #1565A0 100%);
     border-radius:12px; padding:22px 28px;
@@ -395,6 +414,15 @@
           <img class="sb-logo" src="https://completecoach.com/wp-content/uploads/2021/10/CCW-logo-white-1.png" onerror="this.style.display='none'" alt="Complete Coach Works">
           <div class="sb-eyebrow">Site 1 of 3 · Main Company · WordPress + Divi 4.27.6 · Riverside, CA</div>
           <div class="sb-url">completecoach.com</div>
+          <div class="psi-bar">
+            <div class="psi-chip"><span class="pci-val bad">45</span><span class="pci-lbl">Mobile Perf</span></div>
+            <div class="psi-chip"><span class="pci-val mid">63</span><span class="pci-lbl">Desktop Perf</span></div>
+            <div class="psi-chip"><span class="pci-val bad">17.6s</span><span class="pci-lbl">LCP Mobile</span></div>
+            <div class="psi-chip"><span class="pci-val good">0.007</span><span class="pci-lbl">CLS</span></div>
+            <div class="psi-chip"><span class="pci-val bad">430ms</span><span class="pci-lbl">TBT</span></div>
+            <div class="psi-chip"><span class="pci-val mid">54</span><span class="pci-lbl">Accessibility</span></div>
+            <div class="psi-chip"><span class="pci-val bad">54</span><span class="pci-lbl">SEO Score</span></div>
+          </div>
         </div>
         <div class="sb-score">
           <span class="sb-score-num bad">48<span style="font-size:15px;font-weight:400;color:rgba(255,255,255,0.28)">/100</span></span>
@@ -439,6 +467,15 @@
           <img class="sb-logo" src="https://sblbus.com/wp-content/uploads/2019/04/SBL-logo.png" onerror="this.style.display='none'" alt="Shuttle Bus Leasing">
           <div class="sb-eyebrow">Site 2 of 3 · Lowest Score · WordPress + Divi 4.27.6 + WooCommerce · Riverside, CA</div>
           <div class="sb-url">sblbus.com</div>
+          <div class="psi-bar">
+            <div class="psi-chip"><span class="pci-val mid">54</span><span class="pci-lbl">Mobile Perf</span></div>
+            <div class="psi-chip"><span class="pci-val mid">60</span><span class="pci-lbl">Desktop Perf</span></div>
+            <div class="psi-chip"><span class="pci-val bad">9.9s</span><span class="pci-lbl">LCP Mobile</span></div>
+            <div class="psi-chip"><span class="pci-val bad">0.119</span><span class="pci-lbl">CLS</span></div>
+            <div class="psi-chip"><span class="pci-val good">220ms</span><span class="pci-lbl">TBT</span></div>
+            <div class="psi-chip"><span class="pci-val mid">81</span><span class="pci-lbl">Accessibility</span></div>
+            <div class="psi-chip"><span class="pci-val mid">85</span><span class="pci-lbl">SEO Score</span></div>
+          </div>
         </div>
         <div class="sb-score">
           <span class="sb-score-num bad">41<span style="font-size:15px;font-weight:400;color:rgba(255,255,255,0.28)">/100</span></span>
@@ -486,6 +523,15 @@
           <img class="sb-logo" src="https://transitsales.com/wp-content/uploads/2019/04/TSI-logo.png" onerror="this.style.display='none'" alt="Transit Sales International">
           <div class="sb-eyebrow">Site 3 of 3 · Highest Score · WordPress + Divi + WooCommerce + Yoast SEO · Riverside, CA</div>
           <div class="sb-url">transitsales.com</div>
+          <div class="psi-bar">
+            <div class="psi-chip"><span class="pci-val bad">25</span><span class="pci-lbl">Mobile Perf</span></div>
+            <div class="psi-chip"><span class="pci-val mid">61</span><span class="pci-lbl">Desktop Perf</span></div>
+            <div class="psi-chip"><span class="pci-val bad">14.7s</span><span class="pci-lbl">LCP Mobile</span></div>
+            <div class="psi-chip"><span class="pci-val bad">0.555</span><span class="pci-lbl">CLS ⚠️</span></div>
+            <div class="psi-chip"><span class="pci-val bad">570ms</span><span class="pci-lbl">TBT</span></div>
+            <div class="psi-chip"><span class="pci-val mid">85</span><span class="pci-lbl">Accessibility</span></div>
+            <div class="psi-chip"><span class="pci-val mid">85</span><span class="pci-lbl">SEO Score</span></div>
+          </div>
         </div>
         <div class="sb-score">
           <span class="sb-score-num mid">52<span style="font-size:15px;font-weight:400;color:rgba(255,255,255,0.28)">/100</span></span>
