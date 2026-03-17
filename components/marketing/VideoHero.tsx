@@ -39,7 +39,7 @@ export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, 
   const logo = brandLogos[brand]
 
   return (
-    <section className="relative h-[100dvh] -mt-16 flex items-center justify-center overflow-hidden">
+    <section className="relative h-[82vh] flex items-center justify-center overflow-hidden">
       <video
         autoPlay
         loop
