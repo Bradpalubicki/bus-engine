@@ -372,6 +372,19 @@ export const demoSBLFleetUtilization = [
   { vin: 'SBL-007', make: 'Gillig', model: 'Advantage 35ft', lessee: null, utilization: 0, status: 'maintenance' },
 ]
 
+// Website Health Scores
+export const websiteHealthScores = {
+  lastUpdated: '2026-03-14',
+  scores: [
+    { label: 'SEO Score', current: 42, target: 88, status: 'critical', note: 'No title tags, meta descriptions, or keyword targeting on any page' },
+    { label: 'Schema Markup', current: 0, target: 92, status: 'critical', note: 'Zero structured data — required for Google AI Overviews and rich results' },
+    { label: 'Image SEO', current: 0, target: 96, status: 'critical', note: '250+ images with no SEO filenames or alt text — Google Image Search disabled' },
+    { label: 'Performance', current: 61, target: 91, status: 'warning', note: 'Core Web Vitals below threshold — affects ranking and user experience' },
+    { label: 'Accessibility', current: 55, target: 95, status: 'warning', note: 'WCAG 2.1 AA — government contractor digital standard' },
+    { label: 'GBP Health', current: 0, target: 90, status: 'critical', note: '13 CCW locations with zero Google Business Profiles — no local search visibility' },
+  ],
+}
+
 // Technicians with hourly rates
 export const demoTechnicianRates: Record<string, number> = {
   'Mike Reyes': 42,

@@ -1,8 +1,10 @@
 import { MorningHuddle } from '@/components/dashboard/MorningHuddle'
+import { WebsiteHealthScores } from '@/components/dashboard/WebsiteHealthScores'
 import {
   demoDashboardKPIs,
   demoWorkOrders,
   demoRecentActivity,
+  websiteHealthScores,
 } from '@/lib/demo-data'
 
 export const dynamic = 'force-dynamic'
@@ -50,20 +52,29 @@ export default async function DashboardPage() {
   }
 
   return (
-    <MorningHuddle
-      data={{
-        workOrders,
-        urgentItems,
-        stats: {
-          busesInProduction: demoDashboardKPIs.busesInProduction,
-          pipelineValue: demoDashboardKPIs.pipelineValue,
-          overdueInvoices,
-          openWorkOrders: demoWorkOrders.filter(
-            (wo) => wo.status !== 'delivered' && wo.status !== 'complete'
-          ).length,
-          deliveriesThisWeek: 1,
-        },
-      }}
-    />
+    <div className="space-y-8">
+      <MorningHuddle
+        data={{
+          workOrders,
+          urgentItems,
+          stats: {
+            busesInProduction: demoDashboardKPIs.busesInProduction,
+            pipelineValue: demoDashboardKPIs.pipelineValue,
+            overdueInvoices,
+            openWorkOrders: demoWorkOrders.filter(
+              (wo) => wo.status !== 'delivered' && wo.status !== 'complete'
+            ).length,
+            deliveriesThisWeek: 1,
+          },
+        }}
+      />
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-slate-900">Website Health Scores</h2>
+          <span className="text-xs text-slate-400">Updated {websiteHealthScores.lastUpdated} · Hover each for detail</span>
+        </div>
+        <WebsiteHealthScores data={websiteHealthScores} />
+      </section>
+    </div>
   )
 }
