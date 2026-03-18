@@ -38,6 +38,7 @@ const CCW_GROUPS: NavGroup[] = [
       { label: 'Fleet',          href: '/dashboard/fleet',              icon: Bus },
       { label: 'Work Orders',    href: '/dashboard/work-orders',        icon: ClipboardList },
       { label: 'Inspections',    href: '/dashboard/fleet/inspect',      icon: ClipboardCheck },
+      { label: 'Maintenance',    href: '/dashboard/maintenance',        icon: Wrench },
       { label: 'Technicians',    href: '/dashboard/technicians',        icon: Users },
       { label: 'Parts',          href: '/dashboard/parts',              icon: Wrench },
     ],
