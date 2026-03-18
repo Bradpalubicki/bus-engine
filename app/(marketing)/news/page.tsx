@@ -56,6 +56,42 @@ const posts = [
     excerpt: 'SBL breaks down the four key scenarios where short-term and contract leasing beats buying — and why more agencies are choosing flexible fleet solutions.',
     href: '/news',
   },
+  {
+    img: 'https://completecoach.com/wp-content/uploads/2026/01/259815575_4678958475502208_3840108230888364033_n-400x250.jpg',
+    title: 'SBL Announces Two-Bus Lease for Ozark Regional Transit Authority',
+    date: 'January 2026',
+    category: 'Contract Award',
+    brand: 'SBL',
+    excerpt: 'Shuttle Bus Leasing adds Ozark Regional Transit to its growing list of mid-size transit agency clients with a flexible short-term lease program.',
+    href: '/news',
+  },
+  {
+    img: 'https://completecoach.com/wp-content/uploads/2026/01/CCW-Murrieta-11-400x250.jpg',
+    title: 'TSI Introduces Accelerated Delivery Program — 60-Day Guarantee',
+    date: 'January 2026',
+    category: 'Press Release',
+    brand: 'TSI',
+    excerpt: 'Transit Sales International launches a formal 60-day accelerated delivery guarantee for pre-owned transit buses — addressing the 18–36 month lead time problem for new buses.',
+    href: '/news',
+  },
+  {
+    img: 'https://completecoach.com/wp-content/uploads/2025/11/Screenshot-2025-11-24-154806-400x250.jpg',
+    title: 'SBL Named Official Bus Supplier for Regional Athletic Games — Continuing Olympic Legacy',
+    date: 'October 2025',
+    category: 'Press Release',
+    brand: 'SBL',
+    excerpt: 'Building on its 2002 and 2010 Olympic Games experience, SBL continues to win major event leasing contracts for high-stakes multi-venue operations.',
+    href: '/news',
+  },
+  {
+    img: 'https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg',
+    title: 'TSI Completes Fleet Expansion for Western United States Transit Agency',
+    date: 'August 2025',
+    category: 'Contract Award',
+    brand: 'TSI',
+    excerpt: 'Transit Sales International delivers a mixed fleet of CNG and diesel-electric buses to expand service on the western coast — all within the 60-day accelerated delivery window.',
+    href: '/news',
+  },
 ]
 
 const brandColor: Record<string, string> = {
@@ -144,6 +180,22 @@ export default function NewsPage() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* TSI + SBL Case Studies callout */}
+        <div className="mb-14 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link href="/tsi/case-studies/ratp-dev-bus-delivery" className="group block bg-gradient-to-br from-[#0f3a6e] to-[#1a5fa8] rounded-2xl p-8 hover:shadow-xl transition-shadow">
+            <div className="inline-block bg-[#60a5fa]/20 border border-[#60a5fa]/40 rounded-full px-3 py-1 text-[#60a5fa] text-xs font-bold uppercase tracking-widest mb-4">TSI Case Study</div>
+            <h2 className="text-xl font-bold text-white mb-2">RATP Dev — 10-Bus Fleet Delivery</h2>
+            <p className="text-blue-200 text-sm leading-relaxed mb-4">TSI delivered 10 pre-owned transit buses to RATP Dev USA in 60 days under an accelerated delivery contract.</p>
+            <span className="text-sm font-bold text-[#60a5fa] group-hover:underline flex items-center gap-1">Read Case Study <ArrowRight className="w-4 h-4" /></span>
+          </Link>
+          <Link href="/sbl/case-studies/olympic-games-bus-supplier" className="group block bg-gradient-to-br from-[#1a2e1a] to-[#2d7a3a] rounded-2xl p-8 hover:shadow-xl transition-shadow">
+            <div className="inline-block bg-[#86efac]/20 border border-[#86efac]/40 rounded-full px-3 py-1 text-[#86efac] text-xs font-bold uppercase tracking-widest mb-4">SBL Case Study</div>
+            <h2 className="text-xl font-bold text-white mb-2">Olympic Games Bus Supplier — 2002 &amp; 2010</h2>
+            <p className="text-green-200 text-sm leading-relaxed mb-4">SBL served as official bus supplier for the 2002 Salt Lake City and 2010 Vancouver Winter Olympics with zero service failures.</p>
+            <span className="text-sm font-bold text-[#86efac] group-hover:underline flex items-center gap-1">Read Case Study <ArrowRight className="w-4 h-4" /></span>
+          </Link>
         </div>
 
         {/* News grid */}

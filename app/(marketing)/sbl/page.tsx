@@ -19,6 +19,19 @@ export const metadata: Metadata = {
   },
 }
 
+const sblOrganizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Shuttle Bus Leasing',
+  url: 'https://completecoach.com/sbl',
+  logo: 'https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png',
+  description: 'Short-term, contract, and lease-to-own transit bus programs. Official bus supplier for the 2002 Salt Lake City and 2010 Vancouver Winter Olympic Games.',
+  parentOrganization: { '@type': 'Organization', name: 'Carson Capital Corp' },
+  address: { '@type': 'PostalAddress', streetAddress: '1313 Columbia Ave', addressLocality: 'Riverside', addressRegion: 'CA', postalCode: '92507', addressCountry: 'US' },
+  telephone: '+19516849585',
+  email: 'info@completecoach.com',
+}
+
 const leasePrograms = [
   {
     type: 'Short-Term / Gap',
@@ -68,6 +81,7 @@ const news = [
 export default function SBLHomePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblOrganizationSchema) }} />
       <VideoHero
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/06/SBL.jpg"

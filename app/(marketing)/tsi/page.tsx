@@ -18,6 +18,19 @@ export const metadata: Metadata = {
   },
 }
 
+const tsiOrganizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Transit Sales International',
+  url: 'https://completecoach.com/tsi',
+  logo: 'https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png',
+  description: 'Pre-owned transit bus sales for government agencies. 30 to 60ft buses, all fuel types, FTA compliant, Buy America documentation available. 60-day accelerated delivery.',
+  parentOrganization: { '@type': 'Organization', name: 'Carson Capital Corp' },
+  address: { '@type': 'PostalAddress', streetAddress: '25280 Nance Street', addressLocality: 'Murrieta', addressRegion: 'CA', postalCode: '92562', addressCountry: 'US' },
+  telephone: '+19516849585',
+  email: 'info@transitsales.com',
+}
+
 const busPhotos = [
   'https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg',
   'https://completecoach.com/wp-content/uploads/2024/03/muni.jpg',
@@ -50,6 +63,7 @@ const news = [
 export default function TSIHomePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tsiOrganizationSchema) }} />
       <VideoHero
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/03/facility.jpg"
