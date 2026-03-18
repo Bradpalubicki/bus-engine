@@ -32,7 +32,7 @@ export function NavBar() {
 
   const navLinks = {
     CCW: [
-      { href: '/#services', label: 'Services' },
+      { href: '/services', label: 'Services' },
       { href: '/zeps', label: 'ZEPS Electric' },
       { href: '/news', label: 'News & Events' },
       { href: '/careers', label: 'Employment' },
@@ -41,6 +41,7 @@ export function NavBar() {
     TSI: [
       { href: '/tsi/inventory', label: 'Inventory' },
       { href: '/news', label: 'News' },
+      { href: '/tsi/resources', label: 'Resources' },
       { href: '/careers', label: 'Careers' },
       { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
@@ -48,6 +49,7 @@ export function NavBar() {
     SBL: [
       { href: '/sbl/fleet', label: 'Fleet' },
       { href: '/news', label: 'News' },
+      { href: '/sbl/resources', label: 'Resources' },
       { href: '/careers', label: 'Careers' },
       { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
