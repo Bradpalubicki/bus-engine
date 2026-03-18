@@ -253,6 +253,7 @@ function DamageModal({ vehicle, onAddDamage, onClose }: {
 }) {
   const [form, setForm] = useState({ photoUrl: '', description: '', severity: 'minor' as DamageSeverity, area: 'Exterior' })
   const [saved, setSaved] = useState(false)
+  const [damagePhotoPreview, setDamagePhotoPreview] = useState('')
 
   const AREAS = ['Exterior', 'Front End', 'Rear End', 'Driver Side', 'Passenger Side', 'Roof', 'Interior', 'Undercarriage', 'Engine Bay', 'Door Systems']
 
@@ -310,12 +311,29 @@ function DamageModal({ vehicle, onAddDamage, onClose }: {
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#003087]/20" />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Photo URL (optional)</label>
-              <div className="flex gap-2">
-                <Camera className="w-4 h-4 text-gray-400 mt-2 flex-shrink-0" />
-                <input type="url" value={form.photoUrl} onChange={e => setForm(f => ({ ...f, photoUrl: e.target.value }))}
-                  placeholder="https://..."
-                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/20" />
+              <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Photo (optional)</label>
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-2 cursor-pointer border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">
+                  <Camera className="w-4 h-4" />
+                  {damagePhotoPreview ? 'Change Photo' : 'Attach Photo'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={e => {
+                      const file = e.target.files?.[0]
+                      if (file) {
+                        const url = URL.createObjectURL(file)
+                        setDamagePhotoPreview(url)
+                        setForm(f => ({ ...f, photoUrl: url }))
+                      }
+                    }}
+                  />
+                </label>
+                {damagePhotoPreview && (
+                  <img src={damagePhotoPreview} alt="damage" className="w-14 h-14 rounded object-cover border border-gray-200" />
+                )}
               </div>
             </div>
             <div className="flex gap-3 pt-2">

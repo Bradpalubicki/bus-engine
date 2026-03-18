@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle2, XCircle, MinusCircle, ChevronDown, ChevronUp, Save, ArrowLeft } from 'lucide-react'
+import { CheckCircle2, XCircle, MinusCircle, ChevronDown, ChevronUp, Save, ArrowLeft, Camera } from 'lucide-react'
 import Link from 'next/link'
 
 type ItemResult = 'pass' | 'fail' | 'na'
@@ -11,7 +11,10 @@ type CheckItem = {
   label: string
   result: ItemResult
   notes: string
-  photoUrl: string
+  notesOpen: boolean
+  photoFile: File | null
+  photoPreview: string
+  photoUploadedUrl: string
 }
 
 type Section = {
@@ -31,9 +34,12 @@ function makeItems(labels: string[]): CheckItem[] {
   return labels.map((label, i) => ({
     id: `item-${i}-${label.replace(/\s+/g, '-').toLowerCase()}`,
     label,
-    result: 'na',
+    result: 'na' as ItemResult,
     notes: '',
-    photoUrl: '',
+    notesOpen: false,
+    photoFile: null,
+    photoPreview: '',
+    photoUploadedUrl: '',
   }))
 }
 
@@ -215,10 +221,19 @@ export default function InspectPage() {
     setSections(ss => ss.map(s => s.id === id ? { ...s, open: !s.open } : s))
   }
 
-  function updateItem(sectionId: string, itemId: string, field: keyof CheckItem, value: string) {
+  function updateItem(sectionId: string, itemId: string, field: keyof CheckItem, value: string | boolean) {
     setSections(ss => ss.map(s => s.id === sectionId ? {
       ...s,
       items: s.items.map(it => it.id === itemId ? { ...it, [field]: value } : it)
+    } : s))
+  }
+
+  function handlePhotoCapture(sectionId: string, itemId: string, file: File | null) {
+    if (!file) return
+    const previewUrl = URL.createObjectURL(file)
+    setSections(ss => ss.map(s => s.id === sectionId ? {
+      ...s,
+      items: s.items.map(it => it.id === itemId ? { ...it, photoFile: file, photoPreview: previewUrl } : it)
     } : s))
   }
 
@@ -253,6 +268,8 @@ export default function InspectPage() {
   }
 
   function resetForm() {
+    // Revoke any object URLs to prevent memory leaks
+    sections.forEach(s => s.items.forEach(it => { if (it.photoPreview) URL.revokeObjectURL(it.photoPreview) }))
     setSections(INITIAL_SECTIONS.map(s => ({ ...s, open: false, items: makeItems(s.items.map(i => i.label)) })))
     setVin('')
     setInspector('')
@@ -423,7 +440,15 @@ export default function InspectPage() {
                   {section.items.map(item => (
                     <div key={item.id} className={`px-4 py-3 ${item.result === 'fail' ? 'bg-red-50' : ''}`}>
                       <div className="flex items-start justify-between gap-3">
-                        <span className="text-sm text-gray-700 flex-1 pt-0.5">{item.label}</span>
+                        <div className="flex-1 pt-0.5">
+                          <button
+                            onClick={() => updateItem(section.id, item.id, 'notesOpen', !item.notesOpen)}
+                            className="text-sm text-gray-700 text-left flex items-center gap-1.5 w-full"
+                          >
+                            <span>{item.label}</span>
+                            {item.notes && <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" title="Has notes" />}
+                          </button>
+                        </div>
                         <div className="flex gap-1.5 flex-shrink-0">
                           {(['pass', 'fail', 'na'] as ItemResult[]).map(r => (
                             <ResultButton key={r} value={r} current={item.result}
@@ -431,14 +456,52 @@ export default function InspectPage() {
                           ))}
                         </div>
                       </div>
-                      {item.result === 'fail' && (
-                        <div className="mt-2 space-y-2">
-                          <input type="text" placeholder="Notes on failure…" value={item.notes}
-                            onChange={e => updateItem(section.id, item.id, 'notes', e.target.value)}
-                            className="w-full border border-red-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300" />
-                          <input type="url" placeholder="Photo URL (optional)…" value={item.photoUrl}
-                            onChange={e => updateItem(section.id, item.id, 'photoUrl', e.target.value)}
-                            className="w-full border border-red-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300" />
+
+                      {/* Notes — expanded for fail always, or when notesOpen */}
+                      {(item.result === 'fail' || item.notesOpen) && (
+                        <textarea
+                          placeholder={item.result === 'fail' ? 'Notes on failure…' : 'Add note…'}
+                          value={item.notes}
+                          onChange={e => updateItem(section.id, item.id, 'notes', e.target.value)}
+                          rows={2}
+                          className={`mt-2 w-full rounded-lg px-3 py-1.5 text-sm resize-none focus:outline-none focus:ring-2 border ${item.result === 'fail' ? 'border-red-200 focus:ring-red-300' : 'border-gray-200 focus:ring-[#003087]/20'}`}
+                        />
+                      )}
+
+                      {/* Photo capture — always available, auto-shown on fail */}
+                      {(item.result === 'fail' || item.notesOpen || item.photoPreview) && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <label className="flex items-center gap-1.5 cursor-pointer bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                            <Camera className="w-3.5 h-3.5" />
+                            {item.photoPreview ? 'Change Photo' : 'Add Photo'}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              capture="environment"
+                              className="hidden"
+                              onChange={e => handlePhotoCapture(section.id, item.id, e.target.files?.[0] ?? null)}
+                            />
+                          </label>
+                          {item.photoPreview && (
+                            <img src={item.photoPreview} alt="inspection photo" className="w-12 h-12 rounded object-cover border border-gray-200" />
+                          )}
+                        </div>
+                      )}
+
+                      {/* Small camera icon for items not in fail/notes-open state */}
+                      {item.result !== 'fail' && !item.notesOpen && !item.photoPreview && (
+                        <div className="mt-1">
+                          <label className="inline-flex items-center gap-1 cursor-pointer text-gray-300 hover:text-gray-500 text-xs">
+                            <Camera className="w-3 h-3" />
+                            <span>Photo</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              capture="environment"
+                              className="hidden"
+                              onChange={e => handlePhotoCapture(section.id, item.id, e.target.files?.[0] ?? null)}
+                            />
+                          </label>
                         </div>
                       )}
                     </div>
