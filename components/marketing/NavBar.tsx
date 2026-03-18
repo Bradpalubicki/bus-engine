@@ -32,7 +32,6 @@ export function NavBar() {
 
   const navLinks = {
     CCW: [
-      { href: '/', label: 'Home' },
       { href: '/#services', label: 'Services' },
       { href: '/zeps', label: 'ZEPS Electric' },
       { href: '/news', label: 'News & Events' },
@@ -40,16 +39,13 @@ export function NavBar() {
       { href: '/contact', label: 'Contact' },
     ],
     TSI: [
-      { href: '/tsi', label: 'Home' },
       { href: '/tsi/inventory', label: 'Inventory' },
       { href: '/news', label: 'News' },
-      { href: '/contact', label: 'Resources' },
       { href: '/careers', label: 'Careers' },
       { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
     ],
     SBL: [
-      { href: '/sbl', label: 'Home' },
       { href: '/sbl/fleet', label: 'Fleet' },
       { href: '/news', label: 'News' },
       { href: '/careers', label: 'Careers' },
@@ -60,19 +56,35 @@ export function NavBar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href={brand === 'TSI' ? '/tsi' : brand === 'SBL' ? '/sbl' : '/'} className="flex items-center">
           {brand === 'CCW' ? (
             <Image
               src="https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png"
               alt="Complete Coach Works"
-              width={120}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={220}
+              height={80}
+              className="h-16 w-auto object-contain"
+              priority
+            />
+          ) : brand === 'TSI' ? (
+            <Image
+              src="https://transitsales.com/wp-content/uploads/2023/08/TSI_NEW2023.jpg"
+              alt="Transit Sales International"
+              width={180}
+              height={64}
+              className="h-14 w-auto object-contain"
               priority
             />
           ) : (
-            <span className="font-bold text-xl" style={{ color: config.color }}>{config.logo}</span>
+            <Image
+              src="https://sblbus.com/wp-content/uploads/2023/08/SBL_NEW2023.jpg"
+              alt="Shuttle Bus Leasing"
+              width={180}
+              height={64}
+              className="h-14 w-auto object-contain"
+              priority
+            />
           )}
         </Link>
         <div className="hidden md:flex items-center gap-1 bg-gray-100 rounded-lg p-1">

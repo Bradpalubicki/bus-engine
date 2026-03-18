@@ -13,19 +13,39 @@ export const metadata = {
 
 export default function ZepsPage() {
   return (
-    <div className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#003087] text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
+    <div>
+      {/* Full-bleed hero with real ZEPS electric bus */}
+      <div className="relative h-[520px] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/zeps-electric/zeps-zero-emission-electric-bus-conversion-complete-coach-works.jpg"
+          alt="ZEPS zero-emission electric bus by Complete Coach Works"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#003087]/80 via-[#003087]/60 to-[#001a4d]/80" />
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-[#E8A020] text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
             <Zap className="w-4 h-4" /> Proprietary CCW Technology
           </div>
-          <h1 className="text-4xl font-bold text-[#003087] mb-4">ZEPS Zero-Emission Propulsion System</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Convert your existing diesel or hybrid bus fleet to fully electric propulsion — at a fraction of the cost of purchasing new electric buses.</p>
+          <h1 className="text-5xl font-bold text-white mb-4 leading-tight">ZEPS Zero-Emission<br />Propulsion System</h1>
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">Convert your existing diesel or hybrid fleet to fully electric — at 60–80% less than buying new electric buses.</p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/contact" className="bg-[#E8A020] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#f5b84a] transition-colors">
+              Get a Fleet Assessment
+            </Link>
+            <Link href="#how-it-works" className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+              How It Works
+            </Link>
+          </div>
         </div>
+      </div>
+
+      <div className="py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div id="how-it-works" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {[
             { icon: Zap, value: '21', label: 'Buses Converted', sub: 'Indianapolis Public Transit' },
             { icon: Clock, value: '1M+', label: 'Revenue Miles', sub: 'Proven in daily service' },
@@ -117,6 +137,7 @@ export default function ZepsPage() {
             Get a Custom TCO Analysis <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
+      </div>
       </div>
     </div>
   )
