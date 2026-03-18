@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { Plus, CheckCircle, XCircle, Clock } from 'lucide-react'
+import { Plus, CheckCircle, XCircle, Clock, Package, DollarSign } from 'lucide-react'
 import { addLineItem, logTime, updateQACheckpoint, updateWONotes, assignTechnician, updateWOStatus } from '@/app/dashboard/work-orders/actions'
 import type { Database } from '@/lib/database.types'
+import { demoParts, demoTechnicianRates } from '@/lib/demo-data'
 
 type LineItem = Database['public']['Tables']['bus_wo_line_items']['Row']
 type TimeLog = Database['public']['Tables']['bus_wo_time_logs']['Row']
@@ -11,7 +12,21 @@ type QACheckpoint = Database['public']['Tables']['bus_qa_checkpoints']['Row']
 type Assignment = { id: string; technician_id: string | null; name: string | null }
 type Tech = { id: string; name: string }
 
-const tabs = ['Line Items', 'Time Log', 'QA', 'Notes', 'Techs', 'Status']
+type PartUsageEntry = {
+  id: string
+  partId: string
+  partNumber: string
+  description: string
+  qtyUsed: number
+  unitCost: number
+  lineCost: number
+}
+
+const tabs = ['Line Items', 'Time Log', 'QA', 'Parts & Cost', 'Notes', 'Techs', 'Status']
+
+function fmt(n: number) {
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+}
 const statusLabels: Record<string, string> = {
   queued: 'Queued', in_progress: 'In Progress', qa_hold: 'QA Hold', complete: 'Complete', delivered: 'Delivered'
 }
@@ -25,6 +40,7 @@ export function WODetailClient({
   qaCheckpoints,
   assignments,
   allTechs,
+  techAssigned,
 }: {
   woId: string
   woStatus: string | null
@@ -34,6 +50,7 @@ export function WODetailClient({
   qaCheckpoints: QACheckpoint[]
   assignments: Assignment[]
   allTechs: Tech[]
+  techAssigned?: string | null
 }) {
   const [activeTab, setActiveTab] = useState('Line Items')
   const [isPending, startTransition] = useTransition()
@@ -59,7 +76,40 @@ export function WODetailClient({
   // Techs
   const [selectedTech, setSelectedTech] = useState('')
 
+  // Parts & Cost
+  const [partsUsed, setPartsUsed] = useState<PartUsageEntry[]>([])
+  const [selectedPartId, setSelectedPartId] = useState('')
+  const [partQty, setPartQty] = useState('1')
+
   const totalHours = timeLogs.reduce((s, l) => s + l.hours, 0)
+
+  // Labor cost
+  const techRate = techAssigned ? (demoTechnicianRates[techAssigned] ?? 40) : 40
+  const laborCost = totalHours * techRate
+  const partsCost = partsUsed.reduce((s, p) => s + p.lineCost, 0)
+  const totalCost = laborCost + partsCost
+
+  function addPart() {
+    const part = demoParts.find(p => p.id === selectedPartId)
+    if (!part) return
+    const qty = parseInt(partQty) || 1
+    const entry: PartUsageEntry = {
+      id: `pu-${Date.now()}`,
+      partId: part.id,
+      partNumber: part.partNumber,
+      description: part.description,
+      qtyUsed: qty,
+      unitCost: part.unitCost,
+      lineCost: qty * part.unitCost,
+    }
+    setPartsUsed(prev => [...prev, entry])
+    setSelectedPartId('')
+    setPartQty('1')
+  }
+
+  function removePart(id: string) {
+    setPartsUsed(prev => prev.filter(p => p.id !== id))
+  }
 
   const run = (fn: () => Promise<void>) => {
     setError(null)
@@ -221,6 +271,113 @@ export function WODetailClient({
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* PARTS & COST */}
+        {activeTab === 'Parts & Cost' && (
+          <div className="space-y-5">
+            {/* Job Cost Summary */}
+            <div className="bg-[#003087] text-white rounded-xl p-4 space-y-2">
+              <div className="flex items-center gap-2 mb-3">
+                <DollarSign className="w-4 h-4 text-[#E8A020]" />
+                <span className="font-bold text-sm">Total Job Cost: {fmt(totalCost)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-blue-200">🔧 Labor</span>
+                <span className="font-semibold">{fmt(laborCost)} <span className="text-blue-300 text-xs">({totalHours.toFixed(1)}h × ${techRate}/hr{techAssigned ? ` · ${techAssigned}` : ''})</span></span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-blue-200">📦 Parts</span>
+                <span className="font-semibold">{fmt(partsCost)}</span>
+              </div>
+            </div>
+
+            {/* Parts Used */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-1.5">
+                <Package className="w-4 h-4" /> Parts Used ({partsUsed.length})
+              </h3>
+
+              {/* Add Part Form */}
+              <div className="bg-[#F8F9FB] rounded-lg p-3 space-y-2 mb-3">
+                <div className="flex gap-2">
+                  <select
+                    value={selectedPartId}
+                    onChange={e => setSelectedPartId(e.target.value)}
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                  >
+                    <option value="">Select part from inventory…</option>
+                    {demoParts.map(p => (
+                      <option key={p.id} value={p.id}>{p.partNumber} — {p.description} ({fmt(p.unitCost)})</option>
+                    ))}
+                  </select>
+                  <input
+                    type="number"
+                    min="1"
+                    value={partQty}
+                    onChange={e => setPartQty(e.target.value)}
+                    className="w-16 border border-gray-200 rounded-lg px-2 py-2 text-sm text-center"
+                    placeholder="Qty"
+                  />
+                  <button
+                    onClick={addPart}
+                    disabled={!selectedPartId}
+                    className="bg-[#003087] text-white px-3 py-2 rounded-lg text-xs font-semibold disabled:opacity-40"
+                  >
+                    Add
+                  </button>
+                </div>
+                {selectedPartId && (() => {
+                  const part = demoParts.find(p => p.id === selectedPartId)
+                  const qty = parseInt(partQty) || 1
+                  if (!part) return null
+                  const stock = part.qtyOnHand
+                  return (
+                    <div className={`text-xs flex items-center gap-1 ${qty > stock ? 'text-amber-600' : 'text-gray-400'}`}>
+                      {qty > stock ? `⚠️ Only ${stock} in stock` : `${stock} in stock`} · Line total: {fmt(part.unitCost * qty)}
+                    </div>
+                  )
+                })()}
+              </div>
+
+              {/* Parts List */}
+              {partsUsed.length === 0 ? (
+                <p className="text-gray-400 text-sm text-center py-4">No parts added yet</p>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-xs text-gray-500 border-b border-gray-100">
+                      <th className="text-left pb-2 font-medium">Part #</th>
+                      <th className="text-left pb-2 font-medium">Description</th>
+                      <th className="text-right pb-2 font-medium">Qty</th>
+                      <th className="text-right pb-2 font-medium">Unit</th>
+                      <th className="text-right pb-2 font-medium">Total</th>
+                      <th className="pb-2" />
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {partsUsed.map(p => (
+                      <tr key={p.id}>
+                        <td className="py-2 font-mono text-xs text-[#003087]">{p.partNumber}</td>
+                        <td className="py-2 text-gray-700 text-xs">{p.description}</td>
+                        <td className="py-2 text-right">{p.qtyUsed}</td>
+                        <td className="py-2 text-right text-gray-500">{fmt(p.unitCost)}</td>
+                        <td className="py-2 text-right font-semibold text-[#E8A020]">{fmt(p.lineCost)}</td>
+                        <td className="py-2 text-right">
+                          <button onClick={() => removePart(p.id)} className="text-gray-300 hover:text-red-500 text-xs">✕</button>
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="border-t border-gray-200">
+                      <td colSpan={4} className="py-2 text-right text-xs font-bold text-gray-600">Parts Subtotal</td>
+                      <td className="py-2 text-right font-bold text-[#003087]">{fmt(partsCost)}</td>
+                      <td />
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+            </div>
           </div>
         )}
 
