@@ -130,7 +130,7 @@ export default function CCWHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       {/* Hero — full viewport, CCW logo + video */}
       <VideoHero
-        videoSrc="https://completecoach.com/wp-content/uploads/2024/04/CCW.mp4"
+        videoSrc="/videos/ccw-hero.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg"
         overlay="from-[#0A1628]/85 to-[#003087]/55"
         headline="America's Transit Bus Refurbishment Leader"
