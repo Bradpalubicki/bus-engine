@@ -83,8 +83,17 @@ const TSI_GROUPS: NavGroup[] = [
   {
     label: 'Operations',
     items: [
-      { label: 'Bus Inventory', href: '/dashboard/inventory', icon: Package },
-      { label: 'Analytics',     href: '/dashboard/analytics', icon: BarChart3 },
+      { label: 'Bus Inventory',   href: '/dashboard/inventory',        icon: Package },
+      { label: 'Sales Pipeline',  href: '/dashboard/tsi-pipeline',     icon: TrendingUp },
+      { label: 'Buyer Leads',     href: '/dashboard/tsi-leads',        icon: Users },
+      { label: 'Analytics',       href: '/dashboard/analytics',        icon: BarChart3 },
+    ],
+  },
+  {
+    label: 'Business',
+    items: [
+      { label: 'Contracts',  href: '/dashboard/contracts', icon: FileText },
+      { label: 'Finance',    href: '/dashboard/finance',   icon: DollarSign },
     ],
   },
   {
@@ -99,8 +108,17 @@ const SBL_GROUPS: NavGroup[] = [
   {
     label: 'Operations',
     items: [
-      { label: 'Lease Fleet',  href: '/dashboard/inventory', icon: Truck },
-      { label: 'Analytics',    href: '/dashboard/analytics', icon: BarChart3 },
+      { label: 'Active Leases',      href: '/dashboard/leases',       icon: Truck },
+      { label: 'Fleet Utilization',  href: '/dashboard/sbl-fleet',    icon: BarChart3 },
+      { label: 'Payments Due',       href: '/dashboard/sbl-payments', icon: DollarSign },
+      { label: 'Analytics',          href: '/dashboard/analytics',    icon: BarChart3 },
+    ],
+  },
+  {
+    label: 'Business',
+    items: [
+      { label: 'Contracts',  href: '/dashboard/contracts', icon: FileText },
+      { label: 'Finance',    href: '/dashboard/finance',   icon: DollarSign },
     ],
   },
   {

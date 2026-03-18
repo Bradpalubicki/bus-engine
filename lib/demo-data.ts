@@ -334,3 +334,52 @@ export const demoTSIInventory = [
   { id: 11, year: 2014, make: 'Gillig', model: 'Advantage', length: 40, fuelType: 'cng', seats: 40, mileage: 355000, condition: 'refurbished', status: 'available', price: 198000 },
   { id: 12, year: 2020, make: 'BYD', model: 'K9M', length: 40, fuelType: 'electric', seats: 38, mileage: 120000, condition: 'refurbished', status: 'available', price: 385000 },
 ]
+
+// TSI Sales Pipeline
+export const demoTSISalesPipeline = [
+  { id: 'tsi-rfq-1', agency: 'Greater Cleveland RTA', busType: '40ft Diesel', qty: 8, estValue: 1480000, status: 'quoted', contact: 'Tom Byrd', daysInStage: 12 },
+  { id: 'tsi-rfq-2', agency: 'Omaha Metro Transit', busType: '40ft CNG', qty: 5, estValue: 1200000, status: 'negotiating', contact: 'Sandra Lee', daysInStage: 8 },
+  { id: 'tsi-rfq-3', agency: 'RATP Dev USA', busType: '60ft Articulated', qty: 3, estValue: 885000, status: 'won', contact: 'Pierre Martin', daysInStage: 0 },
+  { id: 'tsi-rfq-4', agency: 'Laketran Lake County', busType: '35ft Diesel', qty: 4, estValue: 580000, status: 'prospect', contact: 'Jim Novak', daysInStage: 3 },
+  { id: 'tsi-rfq-5', agency: 'First Transit Phoenix', busType: '40ft Electric', qty: 6, estValue: 1920000, status: 'lost', contact: 'Amy Ruiz', daysInStage: 0 },
+]
+
+// TSI Buyer Leads
+export const demoBuyerLeads = [
+  { id: 'lead-1', agency: 'Champaign-Urbana MTD', state: 'IL', contact: 'Rachel Torres', email: 'rtorres@cumtd.com', busesNeeded: '6–8 × 40ft diesel', budget: '$1.2M', notes: 'Seeking FTA-compliant, 2015+, under 250k miles', status: 'hot' },
+  { id: 'lead-2', agency: 'Flagstaff Pulliam Transit', state: 'AZ', contact: 'Chris Valdez', email: 'cvaldez@flagstaff.az.gov', busesNeeded: '4 × 35ft any fuel', budget: '$600K', notes: 'Budget approved, needs Q2 delivery', status: 'warm' },
+  { id: 'lead-3', agency: 'Macon-Bibb County Transit', state: 'GA', contact: 'Deanna Fox', email: 'dfox@maconbibb.us', busesNeeded: '10 × 40ft CNG', budget: '$2.4M', notes: 'Converting depot to CNG — prefers CNG fleet', status: 'warm' },
+  { id: 'lead-4', agency: 'Redding Area Bus Authority', state: 'CA', contact: 'Kevin Marsh', email: 'kmarsh@rabaride.com', busesNeeded: '3 × 40ft electric', budget: '$900K', notes: 'CARB mandate compliance by 2027', status: 'cold' },
+]
+
+// SBL Active Leases
+export const demoSBLLeases = [
+  { id: 'lease-1', lessee: 'Olympic Committee — LA28', busCount: 12, busType: '40ft Diesel', monthlyPayment: 54000, startDate: '2025-07-01', endDate: '2026-09-30', status: 'active', daysRemaining: 197 },
+  { id: 'lease-2', lessee: 'Coachella Music Festival', busCount: 8, busType: '35ft Diesel', monthlyPayment: 28800, startDate: '2026-04-01', endDate: '2026-04-30', status: 'upcoming', daysRemaining: 15 },
+  { id: 'lease-3', lessee: 'University of Southern California', busCount: 5, busType: '40ft CNG', monthlyPayment: 18500, startDate: '2025-09-01', endDate: '2026-08-31', status: 'active', daysRemaining: 167 },
+  { id: 'lease-4', lessee: 'Warner Bros. Studios', busCount: 3, busType: '35ft Diesel', monthlyPayment: 9600, startDate: '2026-01-15', endDate: '2026-07-15', status: 'active', daysRemaining: 120 },
+  { id: 'lease-5', lessee: 'Anaheim Convention Center', busCount: 6, busType: '40ft Diesel', monthlyPayment: 21600, startDate: '2025-11-01', endDate: '2026-10-31', status: 'active', daysRemaining: 228 },
+]
+
+// SBL Fleet Utilization
+export const demoSBLFleetUtilization = [
+  { vin: 'SBL-001', make: 'Gillig', model: 'Low Floor 40ft', lessee: 'Olympic Committee — LA28', utilization: 94, status: 'on_lease' },
+  { vin: 'SBL-002', make: 'Gillig', model: 'Low Floor 40ft', lessee: 'Olympic Committee — LA28', utilization: 91, status: 'on_lease' },
+  { vin: 'SBL-003', make: 'New Flyer', model: 'Xcelsior 40ft', lessee: 'USC', utilization: 88, status: 'on_lease' },
+  { vin: 'SBL-004', make: 'Gillig', model: 'Advantage 35ft', lessee: 'Warner Bros.', utilization: 72, status: 'on_lease' },
+  { vin: 'SBL-005', make: 'New Flyer', model: 'Xcelsior 40ft', lessee: 'Anaheim Convention', utilization: 85, status: 'on_lease' },
+  { vin: 'SBL-006', make: 'Gillig', model: 'Low Floor 40ft', lessee: null, utilization: 0, status: 'available' },
+  { vin: 'SBL-007', make: 'Gillig', model: 'Advantage 35ft', lessee: null, utilization: 0, status: 'maintenance' },
+]
+
+// Technicians with hourly rates
+export const demoTechnicianRates: Record<string, number> = {
+  'Mike Reyes': 42,
+  'Sarah Kim': 45,
+  'Carlos Mendez': 48,
+  'James Wilson': 44,
+  'Tom Bradley': 38,
+  'Lisa Park': 36,
+  'David Chen': 41,
+  'Maria Santos': 40,
+}
