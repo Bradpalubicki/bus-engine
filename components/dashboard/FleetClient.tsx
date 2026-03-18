@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search, Plus, X, Edit2, Trash2, ClipboardCheck, AlertTriangle, Camera, ChevronDown } from 'lucide-react'
+import { Search, Plus, X, Edit2, Trash2, ClipboardCheck, AlertTriangle, Camera, ChevronDown, ClipboardList, Tag, CheckCircle2 } from 'lucide-react'
+import { demoWorkOrders } from '@/lib/demo-data'
 import Link from 'next/link'
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -372,7 +373,24 @@ function VehicleDrawer({
   onLogDamage: (v: ExtendedVehicle) => void
 }) {
   const STATUS_ORDER: VehicleStatus[] = ['intake', 'queued', 'in_progress', 'qa_hold', 'complete', 'delivered']
-  const [tab, setTab] = useState<'info' | 'damage'>('info')
+  const [tab, setTab] = useState<'info' | 'damage' | 'history'>('info')
+
+  // Build history events for this VIN
+  const vinWOs = demoWorkOrders.filter(wo => wo.vin === vehicle.vin)
+  type HistoryEvent = { date: string; icon: 'wo' | 'inspection' | 'status'; label: string; badge?: string }
+  const historyEvents: HistoryEvent[] = [
+    ...vinWOs.map(wo => ({
+      date: wo.openedAt,
+      icon: 'wo' as const,
+      label: `${wo.woNumber} opened — ${wo.serviceType}`,
+      badge: wo.status,
+    })),
+    ...(vehicle.intake_date ? [{
+      date: vehicle.intake_date,
+      icon: 'status' as const,
+      label: `Vehicle intake — status: Intake`,
+    }] : []),
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const agencyName = vehicle.agency_id ? agencies.find(a => a.id === vehicle.agency_id)?.name ?? '—' : '—'
   const locationName = vehicle.location_id ? locations.find(l => l.id === vehicle.location_id)?.name ?? '—' : '—'
@@ -396,10 +414,10 @@ function VehicleDrawer({
 
         {/* Tabs */}
         <div className="flex border-b border-gray-100">
-          {(['info','damage'] as const).map(t => (
+          {(['info','damage','history'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
-              className={`flex-1 py-3 text-sm font-semibold transition-colors ${tab === t ? 'text-[#003087] border-b-2 border-[#003087]' : 'text-gray-500 hover:text-gray-700'}`}>
-              {t === 'info' ? 'Vehicle Info' : `Damage Log (${vehicle._damageRecords.length})`}
+              className={`flex-1 py-3 text-xs font-semibold transition-colors ${tab === t ? 'text-[#003087] border-b-2 border-[#003087]' : 'text-gray-500 hover:text-gray-700'}`}>
+              {t === 'info' ? 'Vehicle Info' : t === 'damage' ? `Damage Log (${vehicle._damageRecords.length})` : 'History'}
             </button>
           ))}
         </div>
@@ -448,6 +466,36 @@ function VehicleDrawer({
                 <ClipboardCheck className="w-4 h-4" />
                 Start Inspection Form
               </Link>
+            </div>
+          ) : tab === 'history' ? (
+            <div className="space-y-3">
+              {historyEvents.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <ClipboardList className="w-10 h-10 mx-auto mb-2 opacity-30" />
+                  <p className="text-sm">No history yet</p>
+                  <p className="text-xs mt-1">Events appear as work orders and inspections are completed</p>
+                </div>
+              ) : historyEvents.map((evt, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${evt.icon === 'wo' ? 'bg-blue-100' : evt.icon === 'inspection' ? 'bg-green-100' : 'bg-gray-100'}`}>
+                      {evt.icon === 'wo' ? <ClipboardList className="w-4 h-4 text-blue-600" /> :
+                       evt.icon === 'inspection' ? <CheckCircle2 className="w-4 h-4 text-green-600" /> :
+                       <Tag className="w-4 h-4 text-gray-500" />}
+                    </div>
+                    {i < historyEvents.length - 1 && <div className="w-px h-4 bg-gray-200 mt-1" />}
+                  </div>
+                  <div className="flex-1 pb-2">
+                    <p className="text-sm text-gray-800 font-medium">{evt.label}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{new Date(evt.date).toLocaleDateString()}</p>
+                    {evt.badge && (
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium mt-1 inline-block ${STATUS_CONFIG[evt.badge]?.badge ?? 'bg-gray-100 text-gray-600'}`}>
+                        {STATUS_CONFIG[evt.badge]?.label ?? evt.badge}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
             <div className="space-y-4">
