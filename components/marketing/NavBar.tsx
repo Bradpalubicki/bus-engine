@@ -117,6 +117,9 @@ export function NavBar() {
               </Link>
             )
           })}
+          <Link href="/client-login" className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-300 hover:border-gray-400 hover:text-gray-900 transition-colors">
+            Client Login
+          </Link>
           <Link href="/dashboard" className="px-4 py-2 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90" style={{ backgroundColor: config.color }}>
             Dashboard →
           </Link>
@@ -135,8 +138,9 @@ export function NavBar() {
             <Link href="/sbl" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>SBL</Link>
           </div>
           {navLinks[brand].map(link => (
-            <Link key={link.href} href={link.href} className="block text-sm font-medium text-gray-700" onClick={() => setOpen(false)}>{link.label}</Link>
+            <Link key={link.href + link.label} href={link.href} className="block text-sm font-medium text-gray-700" onClick={() => setOpen(false)}>{link.label}</Link>
           ))}
+          <Link href="/client-login" className="block text-sm font-medium text-gray-600" onClick={() => setOpen(false)}>Client Login</Link>
           <Link href="/dashboard" className="block text-sm font-bold" style={{ color: config.color }} onClick={() => setOpen(false)}>Dashboard →</Link>
         </div>
       )}
