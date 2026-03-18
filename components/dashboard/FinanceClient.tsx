@@ -351,26 +351,35 @@ export function FinanceClient({
       {overdueCount > 0 && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3">
           <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0" />
-          <span className="text-red-800 font-semibold">{overdueCount} overdue invoice{overdueCount > 1 ? 's' : ''} require immediate attention</span>
+          <span className="text-red-800 font-semibold">{overdueCount} overdue invoice{overdueCount > 1 ? 's' : ''} require{overdueCount === 1 ? 's' : ''} immediate attention</span>
         </div>
       )}
 
       {/* Revenue Bar Chart */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
         <h2 className="font-semibold text-[#003087] mb-4">Monthly Revenue (Last 6 Months)</h2>
-        <div className="flex items-end gap-3 h-32">
-          {monthlyData.map(m => (
-            <div key={m.label} className="flex-1 flex flex-col items-center gap-1">
-              <div className="text-xs text-gray-500 font-medium">{m.amount > 0 ? fmt(m.amount) : ''}</div>
-              <div className="w-full bg-gray-100 rounded-t-md overflow-hidden" style={{ height: '80px' }}>
-                <div
-                  className="w-full bg-[#003087] rounded-t-md transition-all"
-                  style={{ height: `${(m.amount / maxBar) * 100}%`, marginTop: `${100 - (m.amount / maxBar) * 100}%` }}
-                />
+        <div className="flex gap-3">
+          {/* Y-axis labels */}
+          <div className="flex flex-col justify-between text-xs text-gray-400 text-right pr-1" style={{ height: '96px' }}>
+            <span>${(maxBar / 1000).toFixed(0)}K</span>
+            <span>${(maxBar / 2000).toFixed(0)}K</span>
+            <span>$0</span>
+          </div>
+          {/* Bars */}
+          <div className="flex items-end gap-3 flex-1" style={{ height: '96px' }}>
+            {monthlyData.map(m => (
+              <div key={m.label} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div className="text-xs text-gray-500 font-medium">{m.amount > 0 ? `$${(m.amount / 1000).toFixed(0)}K` : '$0'}</div>
+                <div className="w-full bg-gray-100 rounded-t-md overflow-hidden flex flex-col justify-end" style={{ height: '72px' }}>
+                  <div
+                    className={`w-full rounded-t-md transition-all ${m.amount > 0 ? 'bg-[#003087]' : 'bg-gray-200'}`}
+                    style={{ height: m.amount > 0 ? `${Math.max((m.amount / maxBar) * 100, 4)}%` : '4px' }}
+                  />
+                </div>
+                <div className="text-xs text-gray-400">{m.label}</div>
               </div>
-              <div className="text-xs text-gray-400">{m.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

@@ -166,6 +166,7 @@ export default function VendorsPage() {
 
   const daysUntil = (date: string | null) => date ? Math.ceil((new Date(date).getTime() - Date.now()) / 86400000) : null
   const expiringSoon = vendors.filter(v => { const d = daysUntil(v.contract_end); return d !== null && d >= 0 && d <= 60 })
+  const expired = vendors.filter(v => { const d = daysUntil(v.contract_end); return d !== null && d < 0 })
   const underReview = vendors.filter(v => v.status === 'under_review')
 
   const filtered = filterStatus === 'all' ? vendors : vendors.filter(v => v.status === filterStatus)
@@ -185,11 +186,14 @@ export default function VendorsPage() {
         </button>
       </div>
 
-      {(expiringSoon.length > 0 || underReview.length > 0) && (
+      {(expired.length > 0 || expiringSoon.length > 0 || underReview.length > 0) && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
           <div>
             <div className="font-bold text-amber-900 mb-1">Attention Required</div>
+            {expired.map(v => (
+              <div key={v.id} className="text-sm text-red-700 font-medium">{v.name} — contract expired {v.contract_end ? new Date(v.contract_end).toLocaleDateString() : ''} — renewal needed</div>
+            ))}
             {expiringSoon.map(v => {
               const d = daysUntil(v.contract_end)!
               return <div key={v.id} className="text-sm text-amber-700">{v.name} — contract expires in {d} day{d !== 1 ? 's' : ''}</div>
@@ -235,8 +239,9 @@ export default function VendorsPage() {
             ) : filtered.map(v => {
               const d = daysUntil(v.contract_end)
               const expiring = d !== null && d >= 0 && d <= 60
+              const isExpired = d !== null && d < 0
               return (
-                <tr key={v.id} className={`hover:bg-gray-50 ${expiring ? 'bg-amber-50/30' : ''}`}>
+                <tr key={v.id} className={`hover:bg-gray-50 ${isExpired ? 'bg-red-50/30' : expiring ? 'bg-amber-50/30' : ''}`}>
                   <td className="px-4 py-3">
                     <div className="font-semibold text-gray-900">{v.name}</div>
                     {v.notes && <div className="text-xs text-gray-400">{v.notes}</div>}
@@ -260,9 +265,10 @@ export default function VendorsPage() {
                   <td className="px-4 py-3 text-right font-semibold text-gray-800">
                     {v.contract_value ? `$${(v.contract_value / 1_000_000).toFixed(1)}M` : '—'}
                   </td>
-                  <td className={`px-4 py-3 ${expiring ? 'text-amber-700 font-bold' : 'text-gray-500'} text-xs`}>
+                  <td className={`px-4 py-3 ${isExpired ? 'text-red-700 font-bold' : expiring ? 'text-amber-700 font-bold' : 'text-gray-500'} text-xs`}>
                     {v.contract_end ? new Date(v.contract_end).toLocaleDateString() : '—'}
-                    {expiring && <span className="ml-1">({d}d)</span>}
+                    {isExpired && <span className="ml-1.5 bg-red-100 text-red-700 text-xs px-1.5 py-0.5 rounded-full font-bold">Expired</span>}
+                    {expiring && !isExpired && <span className="ml-1">({d}d)</span>}
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-1 rounded-full font-bold capitalize ${STATUS_COLORS[v.status]}`}>

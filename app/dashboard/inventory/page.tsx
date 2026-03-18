@@ -23,7 +23,7 @@ export default async function InventoryPage() {
     features: [],
     photos: [],
     primary_photo_url: null,
-    status: b.status,
+    status: b.status === 'available' ? 'active' : b.status,
     sbl_lease_type: null,
     sbl_min_term_months: null,
     created_at: null,
