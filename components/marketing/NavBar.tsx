@@ -42,11 +42,18 @@ export function NavBar() {
     TSI: [
       { href: '/tsi', label: 'Home' },
       { href: '/tsi/inventory', label: 'Inventory' },
+      { href: '/news', label: 'News' },
+      { href: '/contact', label: 'Resources' },
+      { href: '/careers', label: 'Careers' },
+      { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
     ],
     SBL: [
       { href: '/sbl', label: 'Home' },
       { href: '/sbl/fleet', label: 'Fleet' },
+      { href: '/news', label: 'News' },
+      { href: '/careers', label: 'Careers' },
+      { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
     ],
   } as const
