@@ -58,6 +58,7 @@ const CCW_GROUPS: NavGroup[] = [
       { label: 'Compliance Docs', href: '/dashboard/compliance', icon: Shield },
       { label: 'Insurance',       href: '/dashboard/insurance',  icon: Lock },
       { label: 'Federal Opp.',    href: '/dashboard/federal',    icon: Globe },
+      { label: 'Fleet Intel Map', href: '/fleet-map',            icon: MapPin, external: true },
     ],
   },
   {

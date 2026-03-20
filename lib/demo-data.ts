@@ -385,6 +385,277 @@ export const websiteHealthScores = {
   ],
 }
 
+// ============================================================
+// FTA PIPELINE INTELLIGENCE — Live grant awards, pre-RFP opportunities
+// Source: FTA Federal Register 91 FR 12902, WHYY, Fox8, USAspending
+// Updated: 2026-03-20
+// ============================================================
+export const demoFTAPipeline = [
+  // 🔴 ACT NOW
+  {
+    id: 'fta-dart',
+    projectId: 'D2026-BUSC-108',
+    agency: 'Delaware Transit Corporation (DART First State)',
+    city: 'Dover', state: 'DE', region: 'East',
+    grantAmount: 14260000,
+    grantDate: '2026-03-17',
+    busCount: 51,
+    status: 'pre_rfp',
+    urgency: 'critical',
+    angle: 'CCW',
+    angleDetail: 'Rehabilitate buses. CXO Albert Loyola on record: "$150K repair vs. $500K–$1M new bus = 6 more years." RFP not yet issued.',
+    contact: 'procurement@dartfirststate.com',
+    source: 'FTA Federal Register 91 FR 12902',
+    note: 'URGENT — announced March 17. Riverside→Dover = 2,600 miles. Transport ~$510K against ~$7.65M rehab budget (6.7%). Viable if Memphis TN facility active.',
+  },
+  {
+    id: 'fta-norta',
+    projectId: 'D2026-BUSC-114',
+    agency: 'New Orleans RTA (NORTA)',
+    city: 'New Orleans', state: 'LA', region: 'South',
+    grantAmount: 27200000,
+    grantDate: '2026-02-25',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'high',
+    angle: 'CCW/TSI/SBL',
+    angleDetail: 'Purchase replacement buses + rehabilitate 2 O&M facilities. CCW=O&M facility rehab, TSI=used bus replacement, SBL=gap leasing while new buses on order.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902 / Fox8 Feb 25 2026',
+    note: 'New RTA board (4 new members by Mayor Moreno) — governance reset. Timeline TBD.',
+  },
+  // 🔴 RFP OPEN NOW
+  {
+    id: 'fta-srta',
+    projectId: 'RFP-26-01',
+    agency: 'Southeastern RTA (SRTA)',
+    city: 'New Bedford', state: 'MA', region: 'East',
+    grantAmount: null,
+    grantDate: null,
+    busCount: null,
+    status: 'open_rfp',
+    urgency: 'critical',
+    angle: 'TSI',
+    angleDetail: 'Joint procurement heavy-duty transit buses. CalACT/MBTA joint — multiple agencies can piggyback. Check if used/remanufactured qualify under spec.',
+    contact: null,
+    source: 'Public RFP 26-01',
+    note: 'CLOSES MAY 8, 2026. Pull spec and verify eligibility.',
+  },
+  // 🟡 MONITOR
+  {
+    id: 'fta-kc',
+    projectId: 'D2026-BUSC-117',
+    agency: 'Kansas City Area Transportation Authority',
+    city: 'Kansas City', state: 'MO', region: 'Midwest',
+    grantAmount: 13333000,
+    grantDate: '2026-03-17',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'monitor',
+    angle: 'TSI',
+    angleDetail: 'Purchase replacement buses + rehabilitate bus facility. TSI used buses angle.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902',
+    note: '',
+  },
+  {
+    id: 'fta-petersburg',
+    projectId: 'D2026-BUSC-131',
+    agency: 'Petersburg Area Transit',
+    city: 'Petersburg', state: 'VA', region: 'East',
+    grantAmount: 23820750,
+    grantDate: '2026-03-17',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'monitor',
+    angle: 'TSI',
+    angleDetail: 'Replacement buses + construct O&M facility. TSI used buses.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902',
+    note: 'Small agency.',
+  },
+  {
+    id: 'fta-transit-frederick',
+    projectId: 'D2026-BUSC-115',
+    agency: 'TransIT Services of Frederick County',
+    city: 'Frederick', state: 'MD', region: 'East',
+    grantAmount: 336000,
+    grantDate: '2026-03-17',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'high',
+    angle: 'ZEPS',
+    angleDetail: 'Purchase replacement vehicles. EXISTING ZEPS CUSTOMER — 5 buses already deployed. Natural follow-on for ZEPS.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902',
+    note: 'Existing relationship. High probability.',
+  },
+  {
+    id: 'fta-avta',
+    projectId: 'D2026-BUSC-102',
+    agency: 'Antelope Valley Transit Authority (AVTA)',
+    city: 'Lancaster', state: 'CA', region: 'West',
+    grantAmount: 16640000,
+    grantDate: '2026-03-17',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'monitor',
+    angle: 'ZEPS',
+    angleDetail: 'Construct O&M facility. EXISTING ZEPS CUSTOMER. Watch for fleet expansion procurement.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902',
+    note: 'Construction contract, not bus purchase — but ZEPS relationship opens fleet expansion conversation.',
+  },
+  {
+    id: 'fta-nevada',
+    projectId: 'D2026-BUSC-122',
+    agency: 'Regional Transportation Commission of Southern Nevada',
+    city: 'Las Vegas', state: 'NV', region: 'West',
+    grantAmount: 8843449,
+    grantDate: '2026-03-17',
+    busCount: null,
+    status: 'pre_rfp',
+    urgency: 'monitor',
+    angle: 'TSI',
+    angleDetail: 'Purchase replacement buses + equipment. Las Vegas market — close to Riverside.',
+    contact: null,
+    source: 'FTA Federal Register 91 FR 12902',
+    note: '',
+  },
+]
+
+// Full FTA FY2026 Bus Competitive grant table — all 34 projects
+// Source: Federal Register 91 FR 12902 — FR Doc. 2026-05152
+export const demoFTAGrantTable = [
+  { projectId: 'D2026-BUSC-100', state: 'AK', recipient: 'Manokotak Village', description: 'Purchase expansion bus', award: 205000 },
+  { projectId: 'D2026-BUSC-101', state: 'AK', recipient: 'University of Alaska Fairbanks', description: 'Expand and rehabilitate maintenance facility', award: 5440000 },
+  { projectId: 'D2026-BUSC-102', state: 'CA', recipient: 'Antelope Valley Transit Authority', description: 'Construct O&M facility', award: 16640000, carsonAngle: 'ZEPS existing customer' },
+  { projectId: 'D2026-BUSC-103', state: 'CA', recipient: 'City of Santa Ana', description: 'Rehabilitate and replace bus infrastructure', award: 3472000 },
+  { projectId: 'D2026-BUSC-104', state: 'CA', recipient: 'Foothill Transit', description: 'Construct a mobility hub', award: 20800000, carsonAngle: 'CCW past customer (56 buses repainted)' },
+  { projectId: 'D2026-BUSC-105', state: 'CA', recipient: 'Golden Gate Bridge Highway & Transportation District', description: 'Relocate bus transit center', award: 25600000 },
+  { projectId: 'D2026-BUSC-106', state: 'CA', recipient: 'Orange County Transportation Authority', description: 'Purchase safety and security equipment', award: 960000 },
+  { projectId: 'D2026-BUSC-107', state: 'CA', recipient: 'San Diego MTS', description: 'Construct bus transit center', award: 14680000 },
+  { projectId: 'D2026-BUSC-108', state: 'DE', recipient: 'Delaware DOT (DART First State)', description: 'Rehabilitate buses', award: 14260000, carsonAngle: 'CCW — 51 buses, pre-RFP, URGENT' },
+  { projectId: 'D2026-BUSC-109', state: 'FL', recipient: 'City of Gainesville', description: 'Replacement buses + bus transfer station + bus stops', award: 10263750, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-110', state: 'FL', recipient: 'Florida DOT obo LYNX', description: 'Purchase replacement buses', award: 9270640, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-111', state: 'HI', recipient: 'Honolulu DOT Services', description: 'Replacement buses + equipment', award: 11569965 },
+  { projectId: 'D2026-BUSC-112', state: 'IA', recipient: 'Des Moines Area RTA', description: 'Expand bus facility', award: 20000000, carsonAngle: 'CCW historical customer (6 buses 2015)' },
+  { projectId: 'D2026-BUSC-113', state: 'IL', recipient: 'Springfield Mass Transit District', description: 'Construct bus fueling station', award: 6733300, carsonAngle: 'CCW historical customer (City Utilities Springfield MO nearby)' },
+  { projectId: 'D2026-BUSC-114', state: 'LA', recipient: 'New Orleans RTA (NORTA)', description: 'Purchase replacement buses + rehabilitate 2 O&M facilities', award: 27200000, carsonAngle: 'CCW/TSI/SBL three-angle play' },
+  { projectId: 'D2026-BUSC-115', state: 'MD', recipient: 'TransIT Services of Frederick County', description: 'Purchase replacement vehicles', award: 336000, carsonAngle: 'ZEPS existing customer — follow-on' },
+  { projectId: 'D2026-BUSC-116', state: 'MI', recipient: 'Ann Arbor Area Transportation Authority', description: 'Purchase new bus facility', award: 7220095 },
+  { projectId: 'D2026-BUSC-117', state: 'MO', recipient: 'Kansas City Area Transportation Authority', description: 'Purchase replacement buses + rehabilitate bus facility', award: 13333000, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-118', state: 'NC', recipient: 'City of Durham', description: 'Purchase replacement buses', award: 6142400, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-119', state: 'NC', recipient: 'GoTriangle', description: 'Expand and rehabilitate O&M facility', award: 17718750 },
+  { projectId: 'D2026-BUSC-120', state: 'NC', recipient: 'Town of Chapel Hill', description: 'Purchase replacement vehicles + safety training equipment', award: 8802268, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-121', state: 'ND', recipient: 'North Dakota DOT', description: 'Purchase replacement buses', award: 5070000, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-122', state: 'NV', recipient: 'Regional Transportation Commission of Southern Nevada', description: 'Purchase replacement buses + equipment', award: 8843449, carsonAngle: 'TSI/CCW — Las Vegas, close to Riverside' },
+  { projectId: 'D2026-BUSC-123', state: 'NY', recipient: 'Central New York RTA (CNYRTA)', description: 'Construct bus maintenance/storage/admin facility', award: 28800000 },
+  { projectId: 'D2026-BUSC-124', state: 'NY', recipient: 'New York City DOT', description: 'Construct and rehabilitate bus stops', award: 10000000 },
+  { projectId: 'D2026-BUSC-125', state: 'NY', recipient: 'Niagara Frontier Transportation Authority', description: 'Rehabilitate three bus facilities', award: 21600000 },
+  { projectId: 'D2026-BUSC-126', state: 'OR', recipient: 'Salem Area Mass Transit District', description: 'Construct bus transit center', award: 3000000, carsonAngle: 'CCW WA/OR cooperative territory' },
+  { projectId: 'D2026-BUSC-127', state: 'PR', recipient: 'Puerto Rico TA obo Aguada', description: 'Expansion buses + rehabilitate bus terminal', award: 2477341 },
+  { projectId: 'D2026-BUSC-128', state: 'PR', recipient: 'Puerto Rico TA obo San German', description: 'Expansion buses + bus stops', award: 1182550 },
+  { projectId: 'D2026-BUSC-129', state: 'TN', recipient: 'City of Clarksville', description: 'Construct bus transit center', award: 16000000 },
+  { projectId: 'D2026-BUSC-131', state: 'VA', recipient: 'Petersburg Area Transit', description: 'Replacement buses + construct O&M facility', award: 23820750, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-132', state: 'VA', recipient: 'Transportation District Commission of Hampton Roads', description: 'Purchase replacement buses', award: 10620000, carsonAngle: 'TSI watch' },
+  { projectId: 'D2026-BUSC-133', state: 'WA', recipient: 'Kitsap Transit', description: 'Construct bus driver training facility', award: 15000000, carsonAngle: 'CCW WA cooperative territory' },
+  { projectId: 'D2026-BUSC-134', state: 'WA', recipient: 'Sauk-Suiattle Indian Tribe', description: 'Replacement buses + construct bus facility', award: 1218625, carsonAngle: 'CCW WA cooperative territory' },
+]
+
+// ============================================================
+// ZEPS DEPLOYMENT HISTORY — Verified agency list
+// Source: CPTDB Wiki, CCW press releases, Mass Transit Magazine
+// 14 agencies | 70+ conversions since 2012 | 4M+ revenue miles
+// ============================================================
+export const demoZEPSDeployments = [
+  { id: 'z-1',  agency: 'IndyGo',                          city: 'Indianapolis',  state: 'IN', region: 'Midwest', buses: 21, year: 2015, procurementType: 'competitive_bid', source: 'IndyGo / Mass Transit', note: 'TIGER grant funded. Largest single ZEPS fleet. Jay Raber: "selected through competitive bidding."' },
+  { id: 'z-2',  agency: 'SF Muni (SFMTA)',                  city: 'San Francisco', state: 'CA', region: 'West',    buses: null, year: 2022, procurementType: 'contract', source: 'SFMTA Board', note: 'Part of $101.6M midlife overhaul contract. Ongoing.' },
+  { id: 'z-3',  agency: 'TriMet',                           city: 'Portland',      state: 'OR', region: 'West',    buses: 4,    year: 2022, procurementType: 'cooperative', source: 'Mass Transit / CCW', note: '3x40ft + 1x60ft articulated "Desert Rose." First 60-ft ZEPS conversion.' },
+  { id: 'z-4',  agency: 'TransIT Frederick County',         city: 'Frederick',     state: 'MD', region: 'East',    buses: 5,    year: 2019, procurementType: 'unknown', source: 'CPTDB Wiki', note: 'East Coast ZEPS confirmed. FY2026 FTA grant recipient — follow-on opportunity.' },
+  { id: 'z-5',  agency: 'Wichita Transit',                  city: 'Wichita',       state: 'KS', region: 'Midwest', buses: 7,    year: 2020, procurementType: 'unknown', source: 'CPTDB Wiki', note: '' },
+  { id: 'z-6',  agency: 'Indianapolis Intl Airport',        city: 'Indianapolis',  state: 'IN', region: 'Midwest', buses: 9,    year: 2017, procurementType: 'unknown', source: 'CCW press', note: 'Airside shuttle buses.' },
+  { id: 'z-7',  agency: 'GTrans (Gardena Municipal)',       city: 'Gardena',       state: 'CA', region: 'West',    buses: 5,    year: 2018, procurementType: 'unknown', source: 'CPTDB Wiki', note: '' },
+  { id: 'z-8',  agency: 'Montebello Bus Lines',             city: 'Montebello',    state: 'CA', region: 'West',    buses: 3,    year: 2019, procurementType: 'unknown', source: 'CPTDB Wiki', note: '' },
+  { id: 'z-9',  agency: 'Metro McAllen',                    city: 'McAllen',       state: 'TX', region: 'South',   buses: 2,    year: 2019, procurementType: 'unknown', source: 'CPTDB Wiki', note: 'Bus #93 + #94 — likely origin of "94 contracts" myth.' },
+  { id: 'z-10', agency: 'Ben Franklin Transit',             city: 'Richland',      state: 'WA', region: 'West',    buses: 1,    year: 2018, procurementType: 'cooperative', source: 'CPTDB Wiki', note: 'WA State cooperative.' },
+  { id: 'z-11', agency: 'Twin Transit',                     city: 'Centralia',     state: 'WA', region: 'West',    buses: 2,    year: 2018, procurementType: 'cooperative', source: 'CPTDB Wiki', note: 'WA State cooperative.' },
+  { id: 'z-12', agency: 'Josephine Community Transit',      city: 'Grants Pass',   state: 'OR', region: 'West',    buses: 3,    year: 2018, procurementType: 'cooperative', source: 'CPTDB Wiki / FTA OR-2019-045', note: 'FTA grant OR-2019-045 explicitly names CCW Riverside CA as conversion facility. 1 bus destroyed in thermal event 2025. 4 currently being refurbished.' },
+  { id: 'z-13', agency: 'Utah Transit Authority',           city: 'Salt Lake City',state: 'UT', region: 'West',    buses: 1,    year: 2017, procurementType: 'unknown', source: 'CPTDB Wiki', note: 'University of Utah shuttle.' },
+  { id: 'z-14', agency: 'Monterey-Salinas Transit',         city: 'Monterey',      state: 'CA', region: 'West',    buses: 1,    year: 2019, procurementType: 'unknown', source: 'CPTDB Wiki', note: '' },
+  { id: 'z-15', agency: 'Weber State University',           city: 'Ogden',         state: 'UT', region: 'West',    buses: 1,    year: 2017, procurementType: 'unknown', source: 'CPTDB Wiki', note: '' },
+]
+
+// ============================================================
+// SBL FEDERAL CONTRACT HISTORY — From USAspending.gov
+// Pulled live 2026-03-20 via API
+// ============================================================
+export const demoSBLFederalContracts = [
+  { id: 'sbl-f1', awardId: '70B03C22C00000043', agency: 'DHS / CBP', description: 'T42 Bus Services — Border Operations', city: 'Del Rio', state: 'TX', amount: 24602213, awardDate: '2022-05-13', status: 'expired', note: 'EXPIRED MAY 2025. No re-award found in public records. VERIFY WITH DALE BEFORE MEETING.' },
+  { id: 'sbl-f2', awardId: '70B03C23C00000052', agency: 'DHS / CBP', description: 'CBP Bus Services', city: 'Riverside', state: 'CA', amount: 8899427, awardDate: '2023-08-08', status: 'active', note: 'Active CBP contract.' },
+  { id: 'sbl-f3', awardId: '70B03C21C00000102', agency: 'DHS / CBP', description: 'CBP Bus Services — Prior Cycle', city: 'Del Rio', state: 'TX', amount: 3394311, awardDate: '2021-09-30', status: 'completed', note: 'Prior CBP cycle.' },
+  { id: 'sbl-f4', awardId: 'W911SA04A0020 (IDV)', agency: 'Dept of Defense — Army', description: 'Bus Leasing IDV — Fort McCoy WI series', city: 'Fort McCoy', state: 'WI', amount: 1134279, awardDate: '2005-10-17', status: 'completed', note: 'Multiple delivery orders 2005-2008. Army base bus services.' },
+  { id: 'sbl-f5', awardId: 'DJBP0418PG340013', agency: 'DOJ / Bureau of Prisons', description: 'Bus Services — Federal Prison', city: 'Terre Haute', state: 'IN', amount: 4635, awardDate: '2015-08-10', status: 'completed', note: '' },
+  { id: 'sbl-f6', awardId: 'HSFLAR07P00145', agency: 'DHS — FLETC', description: 'Bus Services — Federal Law Enforcement Training Center', city: 'Artesia', state: 'NM', amount: 27400, awardDate: '2007-08-23', status: 'completed', note: '' },
+]
+
+// ============================================================
+// CCW RECENT CONTRACT WINS 2024-2025 — From press releases
+// ============================================================
+export const demoCCWRecentWins = [
+  // 2022
+  { id: 'ccw-w1', agency: 'SF Muni (SFMTA)', type: 'ZEPS + Midlife Overhaul', city: 'San Francisco', state: 'CA', amount: 101659122, date: '2022-03-01', source: 'SFMTA Board CS-1227', note: '219 buses, 5-year contract. CCW WAS SOLE BIDDER. Largest single CCW contract ever.' },
+  // 2024
+  { id: 'ccw-w2', agency: 'Everett Transit', type: 'Refurb', city: 'Everett', state: 'WA', amount: null, date: '2024-04-02', source: 'Mass Transit Mag', note: '5 x 35-ft Gillig. Buses sourced by TSI. WA State DES cooperative.' },
+  { id: 'ccw-w3', agency: 'Fresno Area Express', type: 'Midlife Rehab', city: 'Fresno', state: 'CA', amount: null, date: '2024-01-01', source: 'CCW press', note: '11 x 40-ft CNG buses.' },
+  { id: 'ccw-w4', agency: 'Long Beach Transit', type: 'Midlife Refurb', city: 'Long Beach', state: 'CA', amount: null, date: '2024-12-01', source: 'Mass Transit Mag', note: '13 x 60-ft New Flyer CNG. Repeat customer.' },
+  // 2025
+  { id: 'ccw-w5', agency: 'Everett Transit', type: 'Refurb (follow-on)', city: 'Everett', state: 'WA', amount: null, date: '2025-06-04', source: 'Mass Transit Mag', note: '7 buses (5x35ft + 2x40ft). Repeat customer. WA State coop.' },
+  { id: 'ccw-w6', agency: 'SunLine Transit', type: 'Midlife Rehab', city: 'Thousand Palms', state: 'CA', amount: null, date: '2025-08-01', source: 'CCW press', note: '10 x 2020 New Flyer XN40.' },
+  { id: 'ccw-w7', agency: 'Rochester RTS (RGRTA)', type: 'Refurb', city: 'Rochester', state: 'NY', amount: null, date: '2025-08-05', source: 'Mass Transit Mag', note: '5 buses. Via WA State DES cooperative. FURTHEST EAST — 2,700 miles from Riverside.' },
+  { id: 'ccw-w8', agency: 'C-TRAN (Clark County WA)', type: 'Driver Barriers', city: 'Vancouver', state: 'WA', amount: null, date: '2025-10-01', source: 'APTA', note: 'Wabtec vShield barriers fleet-wide.' },
+  // Historical
+  { id: 'ccw-h1', agency: 'Yamhill County Transit', type: 'Remanufacture', city: 'McMinnville', state: 'OR', amount: null, date: '2020-01-01', source: 'CCW press', note: '5 buses + follow-on orders. OR statewide cooperative.' },
+  { id: 'ccw-h2', agency: 'Des Moines Area RTA', type: 'Rebuild', city: 'Des Moines', state: 'IA', amount: null, date: '2015-01-01', source: 'CCW press', note: '6 low-floor rebuilds. Historical — Midwest reach confirmed.' },
+  { id: 'ccw-h3', agency: 'City Utilities Springfield', type: 'Refurb', city: 'Springfield', state: 'MO', amount: null, date: '2016-01-01', source: 'CCW press', note: '7 x 35ft buses.' },
+  { id: 'ccw-h4', agency: 'OCTA (Orange County TA)', type: 'Refurb', city: 'Orange', state: 'CA', amount: null, date: '1986-01-01', source: 'CCW history', note: '175 GMC buses — CCW\'s first contract. 1986.' },
+]
+
+// ============================================================
+// CCW SATELLITE FACILITIES — Confirmed 2018 (BUSRide), current status unknown
+// ============================================================
+export const demoCCWSatelliteFacilities = [
+  { id: 'sf-1', city: 'Riverside', state: 'CA', status: 'confirmed_active', purpose: 'HQ + Primary production', note: '15 acres. 1863 Service Court.' },
+  { id: 'sf-2', city: 'Alameda', state: 'CA', status: 'confirmed_active', purpose: 'Bay Area delivery/finishing yard', note: '2301 Monarch St. Used for SFMTA contract deliveries.' },
+  { id: 'sf-3', city: 'Waukesha/Fort McCoy', state: 'WI', status: 'unknown_2026', purpose: 'Army base support (SBL Fort McCoy)', note: 'Confirmed 2018. SBL Army IDV contracts 2005–2008.' },
+  { id: 'sf-4', city: 'Yuma', state: 'AZ', status: 'likely_active', purpose: 'SBL federal ops / CBP border', note: 'SBL corporate address: 2150 E. Lincoln Road, Yuma AZ 85365.' },
+  { id: 'sf-5', city: 'Memphis', state: 'TN', status: 'unknown_2026', purpose: 'Midcontinent logistics hub', note: 'Confirmed 2018. If active = enables Eastern US contracts (Delaware, Virginia, NC).' },
+  { id: 'sf-6', city: 'El Paso', state: 'TX', status: 'unknown_2026', purpose: 'CBP border corridor', note: 'Confirmed 2018.' },
+  { id: 'sf-7', city: 'Del Rio', state: 'TX', status: 'unknown_2026', purpose: 'CBP border corridor — T42 operations', note: 'Confirmed 2018. SBL CBP T42 contract (expired May 2025) was Del Rio TX.' },
+  { id: 'sf-8', city: 'Laredo', state: 'TX', status: 'unknown_2026', purpose: 'CBP border corridor', note: 'Confirmed 2018.' },
+  { id: 'sf-9', city: 'San Benito', state: 'TX', status: 'unknown_2026', purpose: 'South Texas border ops', note: 'Confirmed 2018 (Chamber of Commerce listing).' },
+]
+
+// ============================================================
+// COMPETITOR ANALYSIS — All 4 verticals
+// Source: Live site audits, press releases — March 2026
+// ============================================================
+export const demoCompetitors = [
+  // CCW competitors (bus rehabilitation)
+  { id: 'comp-1', company: 'Midwest Bus Corporation', vertical: 'CCW', website: 'midwestbus.com', seoScore: 32, grade: 'D+', geography: 'Midwest / Northeast', peBackled: false, recentWins: 'Feb 2026: PACE Chicago 5-year accident repair; Feb 2026: U of Michigan remanufacturing; Active: MBTA 60-bus overhaul $40M+', threat: 'high', note: 'Dominates Chicago + Boston — markets where CCW has no facility. 7th MBTA project.' },
+  { id: 'comp-2', company: 'NEBR (National Express Bus Rehabilitation)', vertical: 'CCW', website: 'nebr.us', seoScore: 26, grade: 'D', geography: 'Northeast only (NY, NJ, MA, PA, DC)', peBackled: true, recentWins: '4 active MTA contracts', threat: 'high', note: 'PE-backed by Linx Partners (late 2024) — national expansion planned. Watch for Midwest facility opening.' },
+  // TSI competitors (used bus sales)
+  { id: 'comp-3', company: 'ABC Companies', vertical: 'TSI', website: 'abc-companies.com', seoScore: 40, grade: 'C', geography: 'National', peBackled: false, recentWins: null, threat: 'medium', note: 'Motorcoach focus (Van Hool exclusive). Overlaps TSI only on used transit.' },
+  { id: 'comp-4', company: 'LV Bus Sales', vertical: 'TSI', website: 'lasvegasbussales.com', seoScore: 30, grade: 'D', geography: 'Las Vegas, NV', peBackled: false, recentWins: null, threat: 'low', note: 'WordPress, vague title, no meta, no schema. Small operation.' },
+  // SBL competitors (federal bus leasing)
+  { id: 'comp-5', company: 'Transit Bus Leasing', vertical: 'SBL', website: 'transitbusleasing.com', seoScore: 18, grade: 'F', geography: 'Los Angeles, CA', peBackled: false, recentWins: null, threat: 'low', note: 'GoDaddy site, 4 bus listings, one-person LA operation. Not a real competitor.' },
+  // ZEPS competitors (electric conversion)
+  { id: 'comp-6', company: 'ABC Companies Repowered', vertical: 'ZEPS', website: 'abc-companies.com/repowered', seoScore: 36, grade: 'C', geography: 'National', peBackled: false, recentWins: null, threat: 'none', note: 'Targets shuttle/cutaway only — NOT 40ft heavy-duty transit. Depended on Lightning eMotors kits (bankrupt Dec 2023). No confirmed transit agency customer.' },
+  { id: 'comp-7', company: 'Motiv Power Systems', vertical: 'ZEPS', website: 'motivtrucks.com', seoScore: 34, grade: 'C-', geography: 'National', peBackled: false, recentWins: null, threat: 'none', note: 'Medium-duty only (Class 4-6). Never confirmed a 40ft heavy-duty transit bus.' },
+  { id: 'comp-8', company: 'Lightning eMotors', vertical: 'ZEPS', website: null, seoScore: null, grade: null, geography: null, peBackled: false, recentWins: null, threat: 'none', note: 'BANKRUPT. Entered receivership Dec 2023. Liquidated. GILLIG bought engineering assets only. Zero 40ft transit deliveries ever made.' },
+  { id: 'comp-9', company: 'Proterra', vertical: 'ZEPS', website: null, seoScore: null, grade: null, geography: null, peBackled: false, recentWins: null, threat: 'none', note: 'BANKRUPT. Chapter 11 Aug 2023. Transit bus business sold for $10M (from $1B+ valuation). Agencies selling Proterra buses at auction for $20K.' },
+]
+
 // Technicians with hourly rates
 export const demoTechnicianRates: Record<string, number> = {
   'Mike Reyes': 42,

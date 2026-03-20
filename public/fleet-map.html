@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carson Capital — Market Intelligence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0e0f11;
+    --surface: #161719;
+    --surface2: #1e2023;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --dim: #4a4845;
+    --ccw: #4ade80;
+    --tsi: #60a5fa;
+    --sbl: #f59e0b;
+    --zeps: #a78bfa;
+    --hot: #f87171;
+    --warm: #fb923c;
+    --cool: #94a3b8;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; overflow-x: hidden; }
+
+  /* HEADER */
+  .header {
+    padding: 20px 28px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    backdrop-filter: blur(8px);
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .title { font-size: 15px; font-weight: 500; color: var(--text); }
+  .company-pills { display: flex; gap: 6px; }
+  .cpill {
+    font-family: var(--mono); font-size: 10px; font-weight: 500;
+    padding: 3px 8px; border-radius: 4px; cursor: pointer;
+    border: 1px solid transparent; transition: all .15s;
+    opacity: .45;
+  }
+  .cpill.active { opacity: 1; }
+  .cpill.ccw { color: var(--ccw); border-color: var(--ccw); background: rgba(74,222,128,.08); }
+  .cpill.tsi { color: var(--tsi); border-color: var(--tsi); background: rgba(96,165,250,.08); }
+  .cpill.sbl { color: var(--sbl); border-color: var(--sbl); background: rgba(245,158,11,.08); }
+  .cpill.zeps { color: var(--zeps); border-color: var(--zeps); background: rgba(167,139,250,.08); }
+
+  /* LAYOUT */
+  .body { display: grid; grid-template-columns: 320px 1fr; height: calc(100vh - 57px); }
+
+  /* LEFT PANEL */
+  .left-panel {
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 0;
+  }
+  .left-panel::-webkit-scrollbar { width: 4px; }
+  .left-panel::-webkit-scrollbar-track { background: transparent; }
+  .left-panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  .panel-section { border-bottom: 1px solid var(--border); }
+  .section-head {
+    padding: 12px 16px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-head:hover { background: var(--surface); }
+  .section-label { font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .section-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+  .section-body { padding: 0 0 8px; }
+
+  /* AGENCY LIST */
+  .agency-item {
+    padding: 7px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all .12s;
+  }
+  .agency-item:hover { background: var(--surface); }
+  .agency-item.selected { background: var(--surface2); border-left-color: var(--ccw); }
+  .agency-name { font-size: 12px; color: var(--text); font-weight: 400; }
+  .agency-sub { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .agency-tags { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+  .tag {
+    font-family: var(--mono); font-size: 9px; padding: 1px 5px;
+    border-radius: 3px; border: 1px solid;
+  }
+  .tag.ccw { color: var(--ccw); border-color: rgba(74,222,128,.3); background: rgba(74,222,128,.06); }
+  .tag.tsi { color: var(--tsi); border-color: rgba(96,165,250,.3); background: rgba(96,165,250,.06); }
+  .tag.sbl { color: var(--sbl); border-color: rgba(245,158,11,.3); background: rgba(245,158,11,.06); }
+  .tag.zeps { color: var(--zeps); border-color: rgba(167,139,250,.3); background: rgba(167,139,250,.06); }
+  .tag.open { color: var(--hot); border-color: rgba(248,113,113,.3); background: rgba(248,113,113,.06); }
+  .tag.pre { color: var(--warm); border-color: rgba(251,146,60,.3); background: rgba(251,146,60,.06); }
+  .fleet-num { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+  /* FILTERS */
+  .filters {
+    padding: 10px 16px;
+    display: flex; gap: 6px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-btn {
+    font-size: 10px; font-weight: 500; padding: 3px 8px;
+    border-radius: 4px; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border2);
+    color: var(--muted); transition: all .15s; white-space: nowrap;
+  }
+  .filter-btn.active { background: var(--surface2); color: var(--text); border-color: var(--border2); }
+  .filter-btn:hover { color: var(--text); }
+
+  /* RIGHT PANEL — MAP */
+  .right-panel { position: relative; overflow: hidden; background: var(--bg); }
+  #map-container {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+  svg#us-map {
+    width: 100%; height: 100%;
+    display: block;
+  }
+
+  /* MAP ELEMENTS */
+  .state-path { fill: #1a1c1f; stroke: #2a2c30; stroke-width: .5; transition: fill .15s; }
+  .state-path:hover { fill: #22252a; }
+  .state-path.has-agency { fill: #1e2228; }
+  .state-path.active-state { fill: #1e2a1e; }
+
+  .facility-ring {
+    fill: none; stroke-width: 1; stroke-dasharray: 3 2;
+    opacity: .25;
+  }
+  .facility-ring.r1 { stroke: var(--ccw); }
+  .facility-ring.r2 { stroke: var(--ccw); opacity: .12; }
+
+  .agency-dot {
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .agency-dot circle { transition: all .15s; }
+  .agency-dot:hover circle { opacity: 1; r: 8; }
+  .agency-dot.highlighted circle { opacity: 1; }
+
+  .facility-marker { cursor: default; }
+
+  /* TOOLTIP */
+  #tooltip {
+    position: absolute; pointer-events: none;
+    background: var(--surface2); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 11px; max-width: 220px;
+    opacity: 0; transition: opacity .15s;
+    z-index: 50;
+  }
+  #tooltip.visible { opacity: 1; }
+  #tooltip .tt-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 3px; }
+  #tooltip .tt-label { color: var(--muted); }
+  #tooltip .tt-val { font-family: var(--mono); color: var(--text); }
+
+  /* DETAIL PANEL */
+  #detail-panel {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 280px; background: var(--surface);
+    border-left: 1px solid var(--border2);
+    padding: 16px; overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform .2s ease;
+    z-index: 40;
+  }
+  #detail-panel.open { transform: translateX(0); }
+  #detail-panel::-webkit-scrollbar { width: 3px; }
+  #detail-panel::-webkit-scrollbar-thumb { background: var(--border2); }
+  .dp-close { float: right; cursor: pointer; color: var(--muted); font-size: 16px; line-height: 1; padding: 2px 4px; }
+  .dp-close:hover { color: var(--text); }
+  .dp-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; padding-right: 20px; }
+  .dp-state { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .dp-section { margin-bottom: 12px; }
+  .dp-label { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); font-weight: 500; margin-bottom: 5px; }
+  .dp-stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .dp-stat:last-child { border-bottom: none; }
+  .dp-stat-label { color: var(--muted); font-size: 11px; }
+  .dp-stat-val { font-family: var(--mono); font-size: 11px; color: var(--text); }
+  .dp-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .dp-note { font-size: 11px; color: var(--muted); line-height: 1.6; background: var(--surface2); border-radius: 6px; padding: 8px 10px; margin-top: 4px; }
+  .dp-note b { color: var(--text); font-weight: 500; }
+  .dp-dist { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .dp-dist span { color: var(--text); font-family: var(--mono); }
+
+  /* LEGEND */
+  .legend {
+    position: absolute; bottom: 16px; left: 16px;
+    background: rgba(14,15,17,.85); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 10px; backdrop-filter: blur(8px);
+  }
+  .legend-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; color: var(--muted); }
+  .legend-row:last-child { margin-bottom: 0; }
+  .ldot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .lring { width: 12px; height: 12px; border-radius: 50%; border: 1.5px dashed; flex-shrink: 0; background: transparent; }
+
+  /* STATS BAR */
+  .stats-bar {
+    position: absolute; top: 12px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 1px;
+    background: var(--border);
+    border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border2);
+  }
+  .stat-cell { padding: 6px 14px; background: var(--surface2); text-align: center; }
+  .stat-cell .sv { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--text); }
+  .stat-cell .sl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 1px; }
+
+  /* SEARCH */
+  .search-wrap { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .search-input {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+    border-radius: 6px; padding: 6px 10px; color: var(--text);
+    font-family: var(--sans); font-size: 12px; outline: none;
+  }
+  .search-input:focus { border-color: rgba(255,255,255,.2); }
+  .search-input::placeholder { color: var(--dim); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">Carson Capital</div>
+    <div class="title">Market Intelligence — Transit Opportunity Map</div>
+  </div>
+  <div class="company-pills">
+    <div class="cpill ccw active" onclick="toggleCompany('ccw',this)">CCW</div>
+    <div class="cpill tsi active" onclick="toggleCompany('tsi',this)">TSI</div>
+    <div class="cpill sbl active" onclick="toggleCompany('sbl',this)">SBL</div>
+    <div class="cpill zeps active" onclick="toggleCompany('zeps',this)">ZEPS</div>
+  </div>
+</div>
+
+<div class="body">
+  <!-- LEFT PANEL -->
+  <div class="left-panel" id="left-panel">
+    <div class="search-wrap">
+      <input class="search-input" type="text" placeholder="Search agencies, cities, states…" oninput="filterAgencies(this.value)" id="search-input">
+    </div>
+    <div class="filters" id="filter-row">
+      <div class="filter-btn active" onclick="setFilter('all',this)">All</div>
+      <div class="filter-btn" onclick="setFilter('existing',this)">Existing clients</div>
+      <div class="filter-btn" onclick="setFilter('open',this)">Open contracts</div>
+      <div class="filter-btn" onclick="setFilter('pre',this)">Pre-RFP</div>
+      <div class="filter-btn" onclick="setFilter('large',this)">Large fleets (500+)</div>
+      <div class="filter-btn" onclick="setFilter('reachable',this)">CCW reachable</div>
+    </div>
+    <div id="agency-list"></div>
+  </div>
+
+  <!-- MAP PANEL -->
+  <div class="right-panel">
+    <!-- Stats bar -->
+    <div class="stats-bar" id="stats-bar">
+      <div class="stat-cell"><div class="sv" id="s-agencies">47</div><div class="sl">Agencies</div></div>
+      <div class="stat-cell"><div class="sv" id="s-buses">58,400</div><div class="sl">Bus fleet size</div></div>
+      <div class="stat-cell"><div class="sv" id="s-grants">$388M</div><div class="sl">FTA FY2026 grants</div></div>
+      <div class="stat-cell"><div class="sv" id="s-open">3</div><div class="sl">Open RFPs</div></div>
+    </div>
+
+    <!-- US Map SVG -->
+    <svg id="us-map" viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg">
+      <!-- State paths will be injected by JS -->
+      <g id="states-layer"></g>
+      <g id="facility-rings-layer"></g>
+      <g id="agencies-layer"></g>
+      <g id="facilities-layer"></g>
+    </svg>
+
+    <!-- Tooltip -->
+    <div id="tooltip"></div>
+
+    <!-- Detail panel -->
+    <div id="detail-panel">
+      <span class="dp-close" onclick="closeDetail()">×</span>
+      <div id="detail-content"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-row"><div class="ldot" style="background:var(--ccw)"></div> CCW existing client</div>
+      <div class="legend-row"><div class="ldot" style="background:var(--tsi)"></div> TSI opportunity</div>
+      <div class="legend-row"><div class="ldot" style="background:var(--sbl)"></div> SBL federal contract</div>
+      <div class="legend-row"><div class="ldot" style="background:var(--zeps)"></div> ZEPS deployment</div>
+      <div class="legend-row"><div class="ldot" style="background:var(--hot)"></div> Open contract / Pre-RFP</div>
+      <div class="legend-row"><div class="lring" style="border-color:var(--ccw)"></div> CCW facility + reach zone</div>
+      <div class="legend-row"><div class="ldot" style="background:#fff;opacity:.6;width:6px;height:6px;border:1px solid #aaa;border-radius:0"></div> CCW facility</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const FACILITIES = [
+  { name:"Riverside CA (HQ)", lat:33.95, lon:-117.39, status:"confirmed", note:"15 acres, primary production, 350+ staff" },
+  { name:"Alameda CA", lat:37.77, lon:-122.27, status:"confirmed", note:"Bay Area delivery/finishing. SFMTA contract." },
+  { name:"Memphis TN", lat:35.15, lon:-90.05, status:"unknown", note:"2018 satellite. Status unconfirmed." },
+  { name:"Wisconsin (Fort McCoy area)", lat:43.95, lon:-90.65, status:"unknown", note:"2018 satellite. Supported Army IDV W911SA04A0020." },
+  { name:"Arizona (border ops)", lat:32.7, lon:-114.6, status:"unknown", note:"2018 satellite. SBL Yuma AZ address suggests still active." },
+  { name:"South TX cluster (El Paso/Del Rio/Laredo/San Benito)", lat:26.1, lon:-97.7, status:"unknown", note:"4 locations listed 2018. CBP border corridor. Status unconfirmed." },
+];
+
+const AGENCIES = [
+  // CALIFORNIA — confirmed CCW
+  { id:'sfmta', name:'SFMTA', city:'San Francisco', state:'CA', lat:37.78, lon:-122.42, fleet:700, companies:['ccw'], status:'existing', contract:'$101.7M — CS-1227 sole bid, 219 buses, ongoing through 2027', note:'CCW was the ONLY bidder. 40-year relationship.' },
+  { id:'fthill', name:'Foothill Transit', city:'Arcadia', state:'CA', lat:34.09, lon:-117.89, fleet:330, companies:['ccw'], status:'existing', contract:'56 buses repainted', note:'Local to Riverside HQ.' },
+  { id:'lbt', name:'Long Beach Transit', city:'Long Beach', state:'CA', lat:33.77, lon:-118.19, fleet:190, companies:['ccw'], status:'existing', contract:'13 × 60ft CNG Xcelsior midlife rehab, Dec 2024', note:'Repeat customer.' },
+  { id:'sunline', name:'SunLine Transit', city:'Palm Springs', state:'CA', lat:33.83, lon:-116.54, fleet:80, companies:['ccw'], status:'existing', contract:'10 × 2020 New Flyer XN40 rehab, Aug 2025' },
+  { id:'fresno', name:'Fresno Area Express', city:'Fresno', state:'CA', lat:36.74, lon:-119.77, fleet:115, companies:['ccw'], status:'existing', contract:'11 × 40ft CNG buses, 2024' },
+  { id:'avta', name:'AVTA', city:'Lancaster', state:'CA', lat:34.69, lon:-118.14, fleet:95, companies:['ccw','zeps'], status:'existing', contract:'ZEPS customer. FY2026 FTA $16.6M facility grant.', note:'FTA grant D2026-BUSC-102. Watch for fleet expansion order.' },
+  { id:'octa', name:'OCTA', city:'Orange County', state:'CA', lat:33.74, lon:-117.87, fleet:550, companies:['ccw'], status:'existing', contract:"CCW's very first contract (1986) — 175 GMC buses", note:'Historical relationship origin.' },
+  { id:'sdmts', name:'San Diego MTS', city:'San Diego', state:'CA', lat:32.72, lon:-117.15, fleet:360, companies:['tsi'], status:'prospect', note:'FTA FY2026 $14.7M facility grant. Large fleet, close to Riverside.' },
+  { id:'lametro', name:'LA Metro', city:'Los Angeles', state:'CA', lat:34.05, lon:-118.25, fleet:2300, companies:['ccw','tsi'], status:'prospect', note:"Largest CA fleet. 2,300 buses. CCW's natural expansion target." },
+  { id:'santaana', name:'City of Santa Ana', city:'Santa Ana', state:'CA', lat:33.74, lon:-117.87, fleet:40, companies:['ccw'], status:'pre', contract:'FTA FY2026 $3.5M — Rehabilitate and replace bus infrastructure (D2026-BUSC-103)', note:'Grant is for infrastructure, not bus rehab. Monitor.' },
+  { id:'ggbridge', name:'Golden Gate Transit', city:'San Rafael', state:'CA', lat:37.97, lon:-122.53, fleet:80, companies:['tsi'], status:'pre', contract:'FTA FY2026 $25.6M — Relocate bus transit center (D2026-BUSC-105)', note:'Facility relocation grant. May need used buses during transition.' },
+  // WASHINGTON — confirmed CCW
+  { id:'everett', name:'Everett Transit', city:'Everett', state:'WA', lat:47.97, lon:-122.20, fleet:55, companies:['ccw'], status:'existing', contract:'5 × 35ft Gillig via WA State DES coop, Aug 2024' },
+  { id:'kitsap', name:'Kitsap Transit', city:'Bremerton', state:'WA', lat:47.56, lon:-122.63, fleet:110, companies:['ccw'], status:'pre', contract:'FTA FY2026 $15M — Construct driver training facility (D2026-BUSC-133)', note:'WA state agency. CCW can access via DES coop.' },
+  { id:'intercity', name:'Intercity Transit', city:'Olympia', state:'WA', lat:47.04, lon:-122.90, fleet:90, companies:['ccw'], status:'prospect', note:'WA state coop agency. CCW natural prospect.' },
+  // OREGON
+  { id:'trimet', name:'TriMet', city:'Portland', state:'OR', lat:45.52, lon:-122.68, fleet:680, companies:['ccw','zeps'], status:'existing', contract:'ZEPS fleet transfer documented in FTA grant OR-2019-045', note:'Josephine County received 4 TriMet ZEPS buses refurbed at Riverside CA.' },
+  { id:'josephine', name:'Josephine County Transit', city:'Grants Pass', state:'OR', lat:42.44, lon:-123.33, fleet:12, companies:['zeps'], status:'existing', contract:'7 ZEPS buses (3 active, 4 being refurbed at Riverside CA)', note:'FTA grant OR-2019-045 explicitly states buses transported to Riverside CA. $2.5M grant.' },
+  // NEW YORK — via coop, farthest east confirmed
+  { id:'rts', name:'Rochester RTS (RGRTA)', city:'Rochester', state:'NY', lat:43.16, lon:-77.61, fleet:285, companies:['ccw'], status:'existing', contract:'5 buses via WA State DES coop, Aug 2025', note:"Furthest east confirmed CCW rehab. 2,700 miles from Riverside. Small coop order — margin works at this scale." },
+  { id:'mta', name:'MTA New York City', city:'New York City', state:'NY', lat:40.71, lon:-74.01, fleet:5800, companies:['tsi'], status:'prospect', note:"World's largest transit bus fleet. 5,800+ buses. Geography makes CCW rehab unviable. TSI used bus sales possible." },
+  { id:'cnyrta', name:'Centro (CNYRTA)', city:'Syracuse', state:'NY', lat:43.05, lon:-76.15, fleet:140, companies:['tsi'], status:'pre', contract:'FTA FY2026 $28.8M — Construct bus maintenance/storage facility (D2026-BUSC-123)', note:'Facility grant, not bus procurement. Monitor for follow-on.' },
+  { id:'nfta', name:'NFTA Metro', city:'Buffalo', state:'NY', lat:42.88, lon:-78.88, fleet:220, companies:['tsi'], status:'pre', contract:'FTA FY2026 $21.6M — Rehabilitate three bus facilities (D2026-BUSC-125)', note:'Facility rehab. New facilities may trigger fleet refresh — TSI watch.' },
+  // DELAWARE — HOT
+  { id:'dart', name:'DART First State', city:'Wilmington', state:'DE', lat:39.74, lon:-75.55, fleet:250, companies:['ccw','tsi'], status:'pre', contract:'FTA FY2026 $14.26M — Rehabilitate 51 buses (D2026-BUSC-108) — RFP NOT YET ISSUED', note:'$150K/bus rehab budget confirmed by agency. 2,600 miles from Riverside. Transport cost ~$510K for 51 buses. Memphis TN satellite (if active) changes math.' },
+  // NEW ORLEANS — HOT
+  { id:'norta', name:'NORTA', city:'New Orleans', state:'LA', lat:29.95, lon:-90.07, fleet:160, companies:['tsi','sbl'], status:'pre', contract:'FTA FY2026 $27.2M — Replacement buses + rehabilitate 2 O&M facilities', note:'O&M facility rehab is construction, not bus rehab. Bus replacement = TSI. SBL can provide gap leasing.' },
+  // INDIANA — ZEPS east of Mississippi
+  { id:'indygo', name:'IndyGo', city:'Indianapolis', state:'IN', lat:39.77, lon:-86.16, fleet:185, companies:['zeps'], status:'existing', contract:'21 ZEPS buses, 2015 — largest single ZEPS deployment', note:'Proof that CCW/ZEPS can execute east of Mississippi. 1,900 miles from Riverside.' },
+  // MARYLAND — ZEPS
+  { id:'transit_fred', name:'TransIT Frederick', city:'Frederick', state:'MD', lat:39.41, lon:-77.41, fleet:45, companies:['zeps'], status:'existing', contract:'5 ZEPS buses. FTA FY2026 $336K replacement vehicle grant (D2026-BUSC-115)', note:'Existing ZEPS customer. Small agency. Watch for ZEPS follow-on as fleet ages.' },
+  // VIRGINIA
+  { id:'petersburg', name:'Petersburg Area Transit', city:'Petersburg', state:'VA', lat:37.23, lon:-77.40, fleet:25, companies:['tsi'], status:'pre', contract:'FTA FY2026 $23.8M — Replacement buses + O&M facility (D2026-BUSC-131)', note:'Small agency, large grant relative to fleet. TSI used buses likely affordable fit.' },
+  { id:'hampton', name:'Hampton Roads Transit', city:'Hampton', state:'VA', lat:37.03, lon:-76.34, fleet:205, companies:['tsi'], status:'pre', contract:'FTA FY2026 $10.6M — Purchase replacement buses (D2026-BUSC-132)', note:'Mid-size fleet. Replacement buses = TSI watch.' },
+  // TEXAS — SBL federal, ZEPS
+  { id:'mcallen', name:'McAllen Metro', city:'McAllen', state:'TX', lat:26.20, lon:-98.23, fleet:35, companies:['zeps','sbl'], status:'existing', contract:'2 ZEPS + WAVE charging. SBL CBP border corridor.', note:'South TX — near SBL border operations.' },
+  // KANSAS CITY
+  { id:'kcata', name:'Kansas City Area TA', city:'Kansas City', state:'MO', lat:39.10, lon:-94.58, fleet:200, companies:['tsi'], status:'pre', contract:'FTA FY2026 $13.3M — Replacement buses + facility rehab (D2026-BUSC-117)', note:'Bus replacement component = TSI opportunity. CCW geography is marginal (1,600 miles).' },
+  // NEW BEDFORD — open RFP
+  { id:'srta', name:'SRTA', city:'New Bedford', state:'MA', lat:41.64, lon:-70.93, fleet:85, companies:['tsi'], status:'open', contract:'RFP 26-01 OPEN — Joint procurement heavy-duty buses — Due May 8 2026', note:'Check if used/remanufactured buses qualify. CalACT/MBTA joint procurement — multiple agencies can piggyback.' },
+  // NEVADA
+  { id:'rtcsnv', name:'RTC Southern Nevada', city:'Las Vegas', state:'NV', lat:36.17, lon:-115.14, fleet:440, companies:['tsi','ccw'], status:'pre', contract:'FTA FY2026 $8.8M — Replacement buses + equipment (D2026-BUSC-122)', note:'Large desert fleet. Close to Riverside (270 miles). CCW natural prospect.' },
+  // IOWA
+  { id:'dart_dsm', name:'Des Moines Area RTA', city:'Des Moines', state:'IA', lat:41.59, lon:-93.62, fleet:130, companies:['ccw','tsi'], status:'existing', contract:'6 low-floor bus rebuilds, 2015. FTA FY2026 $20M facility expansion grant.', note:'Historical CCW customer. Facility grant may precede fleet refresh.' },
+  // ILLINOIS — competitor turf
+  { id:'cta', name:'CTA', city:'Chicago', state:'IL', lat:41.88, lon:-87.63, fleet:1750, companies:['tsi'], status:'prospect', note:'2nd largest US bus fleet. Midwest Bus home turf. 2,000+ miles from Riverside. TSI used bus opportunity only.' },
+  // MASSACHUSETTS
+  { id:'mbta', name:'MBTA', city:'Boston', state:'MA', lat:42.36, lon:-71.06, fleet:1000, companies:['tsi'], status:'prospect', note:'Large fleet. NEBR home turf. 3,000 miles from Riverside. TSI only.' },
+  // HAWAII
+  { id:'honolulu', name:'Honolulu DTS', city:'Honolulu', state:'HI', lat:21.31, lon:-157.86, fleet:530, companies:['ccw','tsi'], status:'pre', contract:'FTA FY2026 $11.6M — Replacement buses + equipment (D2026-BUSC-111)', note:'Island logistics makes transport expensive but predictable. Large fleet. CCW historically strong in Hawaii (Dale Carson origin story).' },
+  // FLORIDA
+  { id:'pasco', name:'Pasco County / Zephyrhills', city:'Zephyrhills', state:'FL', lat:28.23, lon:-82.18, fleet:55, companies:['zeps'], status:'existing', contract:'Multiple ZEPS FTA grants 2018-2025. $7.8M total.', note:'Long-term ZEPS customer. Multiple grant cycles.' },
+  { id:'gainesville', name:'City of Gainesville', city:'Gainesville', state:'FL', lat:29.65, lon:-82.32, fleet:70, companies:['tsi'], status:'pre', contract:'FTA FY2026 $10.3M — Replacement buses + transfer station + bus stops (D2026-BUSC-109)', note:'Bus replacement component = TSI watch.' },
+  { id:'lynx', name:'LYNX', city:'Orlando', state:'FL', lat:28.54, lon:-81.38, fleet:290, companies:['tsi'], status:'pre', contract:'FTA FY2026 $9.3M obo LYNX — Purchase replacement buses (D2026-BUSC-110)', note:'Mid-size FL fleet. TSI used buses.' },
+  // MISSOURI
+  { id:'springfield', name:'City Utilities Springfield', city:'Springfield', state:'MO', lat:37.21, lon:-93.29, fleet:55, companies:['ccw'], status:'existing', contract:'7 × 35ft buses, historical', note:'Midwest CCW customer.' },
+  // NORTH CAROLINA
+  { id:'durham', name:'Durham Transit', city:'Durham', state:'NC', lat:35.99, lon:-78.90, fleet:65, companies:['tsi'], status:'pre', contract:'FTA FY2026 $6.1M — Replacement buses (D2026-BUSC-118)', note:'NC cluster watch. Three NC agencies received FY2026 grants.' },
+  { id:'chapel_hill', name:'Chapel Hill Transit', city:'Chapel Hill', state:'NC', lat:35.91, lon:-79.05, fleet:70, companies:['tsi'], status:'pre', contract:'FTA FY2026 $8.8M — Replacement vehicles + safety equipment (D2026-BUSC-120)' },
+  // NEVADA — Las Vegas Bus Sales competitor
+  { id:'lv_bus', name:'LV Bus Sales (competitor)', city:'Las Vegas', state:'NV', lat:36.15, lon:-115.18, fleet:0, companies:['tsi'], status:'competitor', note:'TSI competitor. Score 30/70. TSI at 57/70 post-redesign. TSI wins on inventory depth.' },
+];
+
+// State SVG paths (simplified Albers projection approximation)
+const STATE_COORDS = {
+  AL:{x:600,y:380,w:50,h:60}, AK:{x:100,y:480,w:90,h:70},
+  AZ:{x:175,y:340,w:65,h:70}, AR:{x:545,y:355,w:55,h:50},
+  CA:{x:90,y:270,w:75,h:130}, CO:{x:260,y:290,w:70,h:55},
+  CT:{x:755,y:195,w:25,h:20}, DE:{x:740,y:225,w:15,h:20},
+  FL:{x:620,y:430,w:80,h:90}, GA:{x:630,y:385,w:60,h:65},
+  HI:{x:280,y:510,w:80,h:40}, ID:{x:195,y:175,w:60,h:80},
+  IL:{x:555,y:260,w:50,h:75}, IN:{x:580,y:265,w:40,h:60},
+  IA:{x:505,y:225,w:65,h:50}, KS:{x:420,y:300,w:75,h:50},
+  KY:{x:590,y:300,w:80,h:35}, LA:{x:530,y:415,w:60,h:55},
+  ME:{x:775,y:130,w:40,h:50}, MD:{x:710,y:225,w:50,h:25},
+  MA:{x:760,y:175,w:50,h:25}, MI:{x:580,y:195,w:70,h:65},
+  MN:{x:490,y:155,w:70,h:70}, MS:{x:560,y:385,w:45,h:65},
+  MO:{x:510,y:295,w:70,h:60}, MT:{x:245,y:145,w:95,h:60},
+  NE:{x:415,y:255,w:80,h:50}, NV:{x:145,y:235,w:65,h:85},
+  NH:{x:755,y:160,w:25,h:40}, NJ:{x:735,y:215,w:25,h:35},
+  NM:{x:255,y:360,w:70,h:70}, NY:{x:695,y:175,w:80,h:50},
+  NC:{x:660,y:315,w:90,h:40}, ND:{x:415,y:155,w:80,h:50},
+  OH:{x:620,y:245,w:55,h:55}, OK:{x:415,y:345,w:80,h:50},
+  OR:{x:105,y:185,w:80,h:65}, PA:{x:680,y:210,w:70,h:40},
+  RI:{x:765,y:190,w:15,h:15}, SC:{x:660,y:350,w:55,h:45},
+  SD:{x:415,y:200,w:80,h:55}, TN:{x:565,y:330,w:90,h:35},
+  TX:{x:340,y:370,w:120,h:110}, UT:{x:200,y:260,w:65,h:75},
+  VT:{x:745,y:155,w:20,h:40}, VA:{x:670,y:280,w:85,h:40},
+  WA:{x:120,y:145,w:80,h:55}, WV:{x:648,y:265,w:40,h:40},
+  WI:{x:530,y:195,w:55,h:60}, WY:{x:270,y:215,w:80,h:60},
+};
+
+// Project lat/lon to SVG coordinates (Albers-like)
+function project(lat, lon) {
+  // Simple equirectangular for CONUS
+  const x = (lon + 130) * (700/60) + 70;
+  const y = (55 - lat) * (460/30) + 60;
+  return { x, y };
+}
+
+// Size dot by fleet
+function fleetRadius(fleet) {
+  if (fleet === 0) return 4;
+  if (fleet > 3000) return 14;
+  if (fleet > 1000) return 11;
+  if (fleet > 400) return 9;
+  if (fleet > 150) return 7;
+  return 5;
+}
+
+// Color by primary company
+function agencyColor(agency) {
+  if (agency.status === 'open' || agency.status === 'pre') return 'var(--hot)';
+  if (agency.companies.includes('ccw')) return 'var(--ccw)';
+  if (agency.companies.includes('zeps')) return 'var(--zeps)';
+  if (agency.companies.includes('sbl')) return 'var(--sbl)';
+  if (agency.companies.includes('tsi')) return 'var(--tsi)';
+  return 'var(--cool)';
+}
+
+// Distance from Riverside CA
+function distFromRiverside(lat, lon) {
+  const rlat = 33.95, rlon = -117.39;
+  const dlat = lat - rlat, dlon = lon - rlon;
+  const a = Math.sin(dlat*Math.PI/360)**2 + Math.cos(lat*Math.PI/180)*Math.cos(rlat*Math.PI/180)*Math.sin(dlon*Math.PI/360)**2;
+  return Math.round(3959 * 2 * Math.asin(Math.sqrt(a)));
+}
+
+function transportCost(miles) {
+  if (miles < 200) return '$500–1,500';
+  if (miles < 600) return '$2,000–4,000';
+  if (miles < 1200) return '$4,000–6,000';
+  if (miles < 2000) return '$6,000–10,000';
+  return '$10,000–14,000';
+}
+
+function reachable(agency) {
+  const d = distFromRiverside(agency.lat, agency.lon);
+  return d < 1500;
+}
+
+// Active company filters
+let activeCompanies = new Set(['ccw','tsi','sbl','zeps']);
+let activeFilter = 'all';
+let searchText = '';
+let selectedAgency = null;
+
+function toggleCompany(co, el) {
+  if (activeCompanies.has(co)) {
+    if (activeCompanies.size > 1) { activeCompanies.delete(co); el.classList.remove('active'); }
+  } else {
+    activeCompanies.add(co); el.classList.add('active');
+  }
+  renderAgencyList(); updateMapDots();
+}
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderAgencyList(); updateMapDots();
+}
+
+function filterAgencies(val) {
+  searchText = val.toLowerCase();
+  renderAgencyList(); updateMapDots();
+}
+
+function agencyVisible(a) {
+  if (a.status === 'competitor') return false;
+  const hasCompany = a.companies.some(c => activeCompanies.has(c));
+  if (!hasCompany) return false;
+  if (activeFilter === 'existing' && a.status !== 'existing') return false;
+  if (activeFilter === 'open' && a.status !== 'open') return false;
+  if (activeFilter === 'pre' && a.status !== 'pre') return false;
+  if (activeFilter === 'large' && a.fleet < 500) return false;
+  if (activeFilter === 'reachable' && !reachable(a)) return false;
+  if (searchText && !a.name.toLowerCase().includes(searchText) && !a.city.toLowerCase().includes(searchText) && !a.state.toLowerCase().includes(searchText)) return false;
+  return true;
+}
+
+function renderAgencyList() {
+  const list = document.getElementById('agency-list');
+  const visible = AGENCIES.filter(a => agencyVisible(a));
+
+  // Update stats
+  const totalFleet = visible.reduce((s,a) => s+a.fleet, 0);
+  document.getElementById('s-agencies').textContent = visible.length;
+  document.getElementById('s-buses').textContent = totalFleet.toLocaleString();
+  const openCount = visible.filter(a => a.status === 'open' || a.status === 'pre').length;
+  document.getElementById('s-open').textContent = openCount;
+
+  // Group by state
+  const byState = {};
+  visible.forEach(a => {
+    if (!byState[a.state]) byState[a.state] = [];
+    byState[a.state].push(a);
+  });
+
+  list.innerHTML = '';
+  Object.keys(byState).sort().forEach(state => {
+    const sec = document.createElement('div');
+    sec.className = 'panel-section';
+    const stateFleet = byState[state].reduce((s,a)=>s+a.fleet,0);
+    sec.innerHTML = `<div class="section-head"><span class="section-label">${state}</span><span class="section-count">${byState[state].length} agencies · ${stateFleet.toLocaleString()} buses</span></div><div class="section-body" id="s-${state}"></div>`;
+    list.appendChild(sec);
+    const body = sec.querySelector('.section-body');
+    byState[state].forEach(a => {
+      const d = distFromRiverside(a.lat, a.lon);
+      const item = document.createElement('div');
+      item.className = `agency-item${selectedAgency===a.id?' selected':''}`;
+      item.setAttribute('data-id', a.id);
+      const tags = a.companies.map(c=>`<span class="tag ${c}">${c.toUpperCase()}</span>`).join('');
+      const statusTag = (a.status==='open'||a.status==='pre') ? `<span class="tag ${a.status==='open'?'open':'pre'}">${a.status==='open'?'RFP':'PRE-RFP'}</span>` : '';
+      item.innerHTML = `<div><div class="agency-name">${a.name}</div><div class="agency-sub">${a.city} · ${d.toLocaleString()} mi from Riverside</div></div><div class="agency-tags">${statusTag}${tags}<span class="fleet-num">${a.fleet > 0 ? a.fleet.toLocaleString()+' buses' : ''}</span></div>`;
+      item.onclick = () => selectAgency(a.id);
+      body.appendChild(item);
+    });
+  });
+}
+
+function updateMapDots() {
+  const layer = document.getElementById('agencies-layer');
+  layer.innerHTML = '';
+  AGENCIES.filter(a => agencyVisible(a)).forEach(a => {
+    const pos = project(a.lat, a.lon);
+    const r = fleetRadius(a.fleet);
+    const color = agencyColor(a);
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','agency-dot');
+    g.setAttribute('data-id', a.id);
+    if (a.status==='open'||a.status==='pre') {
+      // Pulsing ring for open/pre
+      const ring = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      ring.setAttribute('cx', pos.x); ring.setAttribute('cy', pos.y);
+      ring.setAttribute('r', r+4); ring.setAttribute('fill','none');
+      ring.setAttribute('stroke', color); ring.setAttribute('stroke-width','1.5');
+      ring.setAttribute('opacity','0.4');
+      g.appendChild(ring);
+    }
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx', pos.x); c.setAttribute('cy', pos.y);
+    c.setAttribute('r', r); c.setAttribute('fill', color);
+    c.setAttribute('opacity', a.status==='existing'?'0.85':'0.65');
+    c.setAttribute('stroke', color); c.setAttribute('stroke-width','1');
+    g.appendChild(c);
+    g.addEventListener('mouseenter', (e) => showTooltip(e, a));
+    g.addEventListener('mouseleave', hideTooltip);
+    g.addEventListener('click', () => selectAgency(a.id));
+    layer.appendChild(g);
+  });
+}
+
+function renderFacilities() {
+  const layer = document.getElementById('facilities-layer');
+  const rings = document.getElementById('facility-rings-layer');
+  layer.innerHTML = ''; rings.innerHTML = '';
+
+  // Reach rings from Riverside
+  const riv = project(33.95, -117.39);
+  [700,1500].forEach((mi, i) => {
+    const deg = mi / 69;
+    const px = deg * (700/60);
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    circle.setAttribute('cx', riv.x); circle.setAttribute('cy', riv.y);
+    circle.setAttribute('rx', px); circle.setAttribute('ry', px*0.75);
+    circle.setAttribute('class', `facility-ring r${i+1}`);
+    rings.appendChild(circle);
+  });
+
+  FACILITIES.forEach(f => {
+    if (f.lat > 48 || f.lat < 24) return; // skip HI/AK for now
+    const pos = project(f.lat, f.lon);
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','facility-marker');
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', pos.x-5); rect.setAttribute('y', pos.y-5);
+    rect.setAttribute('width','10'); rect.setAttribute('height','10');
+    rect.setAttribute('fill', f.status==='confirmed' ? '#e8e6e0' : '#4a4845');
+    rect.setAttribute('stroke', f.status==='confirmed' ? 'var(--ccw)' : '#6a6865');
+    rect.setAttribute('stroke-width','1.5');
+    rect.setAttribute('transform', `rotate(45 ${pos.x} ${pos.y})`);
+    g.appendChild(rect);
+    layer.appendChild(g);
+  });
+}
+
+function showTooltip(e, agency) {
+  const tt = document.getElementById('tooltip');
+  const d = distFromRiverside(agency.lat, agency.lon);
+  const tc = transportCost(d);
+  tt.innerHTML = `
+    <div class="tt-name">${agency.name} — ${agency.city}, ${agency.state}</div>
+    <div class="tt-row"><span class="tt-label">Fleet size</span><span class="tt-val">${agency.fleet > 0 ? agency.fleet.toLocaleString()+' buses' : 'N/A'}</span></div>
+    <div class="tt-row"><span class="tt-label">From Riverside</span><span class="tt-val">${d.toLocaleString()} mi</span></div>
+    <div class="tt-row"><span class="tt-label">Transport/bus</span><span class="tt-val">${tc}</span></div>
+    <div class="tt-row"><span class="tt-label">Companies</span><span class="tt-val">${agency.companies.map(c=>c.toUpperCase()).join(' · ')}</span></div>
+  `;
+  tt.classList.add('visible');
+  const rect = document.getElementById('us-map').getBoundingClientRect();
+  const parentRect = document.querySelector('.right-panel').getBoundingClientRect();
+  let tx = e.clientX - parentRect.left + 12;
+  let ty = e.clientY - parentRect.top + 12;
+  if (tx + 230 > parentRect.width) tx = tx - 250;
+  tt.style.left = tx + 'px'; tt.style.top = ty + 'px';
+}
+
+function hideTooltip() { document.getElementById('tooltip').classList.remove('visible'); }
+
+function selectAgency(id) {
+  selectedAgency = id;
+  const agency = AGENCIES.find(a => a.id === id);
+  if (!agency) return;
+
+  // Highlight in list
+  document.querySelectorAll('.agency-item').forEach(el => {
+    el.classList.toggle('selected', el.getAttribute('data-id') === id);
+  });
+
+  // Open detail panel
+  const d = distFromRiverside(agency.lat, agency.lon);
+  const tc = transportCost(d);
+  const reach = d < 1500 ? `<span style="color:var(--ccw)">Within CCW core zone</span>` :
+                d < 2500 ? `<span style="color:var(--warm)">Extended reach — higher transport cost</span>` :
+                `<span style="color:var(--hot)">Outside practical CCW rehab range</span>`;
+  const tags = agency.companies.map(c=>`<span class="tag ${c}">${c.toUpperCase()}</span>`).join('');
+  const statusTag = agency.status==='open' ? `<span class="tag open">RFP OPEN</span>` :
+                    agency.status==='pre' ? `<span class="tag pre">PRE-RFP</span>` :
+                    agency.status==='existing' ? `<span class="tag ccw">EXISTING</span>` : '';
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="dp-name">${agency.name}</div>
+    <div class="dp-state">${agency.city}, ${agency.state}</div>
+    <div class="dp-tags">${statusTag}${tags}</div>
+    <div class="dp-section" style="margin-top:10px">
+      <div class="dp-label">Fleet & Geography</div>
+      <div class="dp-stat"><span class="dp-stat-label">Bus fleet</span><span class="dp-stat-val">${agency.fleet.toLocaleString()}</span></div>
+      <div class="dp-stat"><span class="dp-stat-label">From Riverside CA</span><span class="dp-stat-val">${d.toLocaleString()} mi</span></div>
+      <div class="dp-stat"><span class="dp-stat-label">Transport cost/bus</span><span class="dp-stat-val">${tc}</span></div>
+      <div class="dp-dist">${reach}</div>
+    </div>
+    ${agency.contract ? `
+    <div class="dp-section">
+      <div class="dp-label">Contract / Opportunity</div>
+      <div class="dp-note">${agency.contract}</div>
+    </div>` : ''}
+    ${agency.note ? `
+    <div class="dp-section">
+      <div class="dp-label">Analysis</div>
+      <div class="dp-note">${agency.note}</div>
+    </div>` : ''}
+  `;
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').classList.remove('open');
+  selectedAgency = null;
+  document.querySelectorAll('.agency-item').forEach(el => el.classList.remove('selected'));
+}
+
+// Render state backgrounds
+function renderStates() {
+  const layer = document.getElementById('states-layer');
+  const stateNames = Object.keys(STATE_COORDS);
+  stateNames.forEach(st => {
+    const {x,y,w,h} = STATE_COORDS[st];
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', w); rect.setAttribute('height', h);
+    rect.setAttribute('rx', '2');
+    rect.setAttribute('class', 'state-path');
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', x + w/2); label.setAttribute('y', y + h/2 + 4);
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('fill','#2e3035'); label.setAttribute('font-size','9');
+    label.setAttribute('font-family','DM Sans, sans-serif');
+    label.setAttribute('pointer-events','none');
+    label.textContent = st;
+    layer.appendChild(rect);
+    layer.appendChild(label);
+  });
+}
+
+// INIT
+renderStates();
+renderFacilities();
+renderAgencyList();
+updateMapDots();
+
+// Keyboard shortcut
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeDetail(); });
+</script>
+</body>
+</html>
