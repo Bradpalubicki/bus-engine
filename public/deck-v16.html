@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NuStack × Carson Capital — March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#020911; --bg2:#050e1c; --bg3:#091526; --bg4:#0d1c34;
+  --gold:#c8a84b; --gold2:#e8c97a; --gold3:#f5e0a0;
+  --g2:#22c55e; --g3:#4ade80; --r2:#ef4444; --r3:#fca5a5;
+  --am:#f59e0b; --am2:#fbbf24; --bl:#3b82f6; --tl:#14b8a6;
+  --ccw:#c8a84b; --tsi:#14b8a6; --sbl:#818cf8;
+  --tx:#f1f4fa; --tx2:#94a3b8; --tx3:#475569;
+  --bor:rgba(200,168,75,.11); --borw:rgba(255,255,255,.06);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:16px;}
+body::after{content:'';position:fixed;inset:0;opacity:.02;pointer-events:none;z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.amb-a{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(200,168,75,.065) 0%,transparent 65%);top:-250px;left:-250px;}
+.amb-b{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(20,184,166,.05) 0%,transparent 65%);bottom:-150px;right:-150px;}
+#tb{position:fixed;top:0;left:0;right:0;z-index:200;height:50px;background:rgba(2,9,17,.93);border-bottom:1px solid var(--bor);backdrop-filter:blur(20px);display:flex;align-items:center;padding:0 1.5rem;justify-content:space-between;}
+.tl{display:flex;align-items:center;gap:8px;}
+.tl svg{width:18px;height:18px;}
+.tbr{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);}
+.tdv{width:1px;height:16px;background:var(--bor);margin:0 11px;}
+.tco{display:flex;gap:4px;align-items:center;}
+.tcp{font-size:9.5px;font-weight:600;letter-spacing:.05em;padding:.16rem .55rem;border-radius:20px;}
+.tc-ccw{background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.22);color:var(--ccw);}
+.tc-tsi{background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.22);color:var(--tsi);}
+.tc-sbl{background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.22);color:var(--sbl);}
+.trt{font-size:9.5px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;}
+#pb{position:fixed;top:50px;left:0;right:0;height:2px;background:var(--bg3);z-index:200;}
+#pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3));transition:width .4s cubic-bezier(.22,1,.36,1);box-shadow:0 0 8px rgba(200,168,75,.5);}
+#deck{position:fixed;inset:0;z-index:1;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 4.5rem 5rem;overflow:hidden;opacity:0;pointer-events:none;}
+.slide.active{opacity:1;pointer-events:all;}
+.slide.entering{animation:sin .5s cubic-bezier(.22,1,.36,1) both;}
+.slide.leaving{animation:sout .28s cubic-bezier(.4,0,1,1) both;}
+@keyframes sin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-14px)}}
+.slide.active .a1{animation:au .5s .04s cubic-bezier(.22,1,.36,1) both;}
+.slide.active .a2{animation:au .5s .13s cubic-bezier(.22,1,.36,1) both;}
+.slide.active .a3{animation:au .5s .22s cubic-bezier(.22,1,.36,1) both;}
+.slide.active .a4{animation:au .5s .31s cubic-bezier(.22,1,.36,1) both;}
+.slide.active .a5{animation:au .5s .40s cubic-bezier(.22,1,.36,1) both;}
+.slide.active .a6{animation:au .5s .49s cubic-bezier(.22,1,.36,1) both;}
+@keyframes au{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;font-weight:500;}
+h1.dp{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,4.5rem);line-height:1.06;font-weight:400;color:var(--gold2);}
+h1.dp em{color:var(--gold3);font-style:italic;}
+h2.sh{font-family:var(--serif);font-size:clamp(1.4rem,2.8vw,2.1rem);font-weight:400;color:var(--gold2);margin-bottom:.45rem;}
+.sub{font-size:.88rem;color:var(--tx2);line-height:1.78;max-width:680px;}
+.cl{border-left:3px solid var(--gold);padding:.9rem 1.15rem;background:linear-gradient(135deg,rgba(200,168,75,.07),rgba(200,168,75,.02));border-radius:0 10px 10px 0;font-size:.83rem;}
+.cl strong{color:var(--gold2);display:block;margin-bottom:.2rem;}
+.cl p{color:var(--tx2);line-height:1.65;}
+.cl.g{background:linear-gradient(135deg,rgba(34,197,94,.07),transparent);border-left-color:var(--g2);}
+.cl.g strong{color:var(--g3)!important;}
+.cl.r{background:linear-gradient(135deg,rgba(239,68,68,.07),transparent);border-left-color:var(--r2);}
+.cl.r strong{color:var(--r2)!important;}
+.cl.t{background:linear-gradient(135deg,rgba(20,184,166,.07),transparent);border-left-color:var(--tl);}
+.cl.t strong{color:var(--tl)!important;}
+.cl.a{background:linear-gradient(135deg,rgba(245,158,11,.07),transparent);border-left-color:var(--am);}
+.cl.a strong{color:var(--am2)!important;}
+.card{background:rgba(5,14,28,.96);border:1px solid var(--borw);border-radius:13px;padding:1.3rem 1.4rem;}
+.card h4{font-family:var(--serif);font-size:1rem;color:var(--gold2);margin-bottom:.45rem;font-weight:400;}
+.card p{font-size:.81rem;color:var(--tx2);line-height:1.65;}
+.sc{overflow-y:auto;max-height:calc(100vh - 160px);width:100%;padding-right:.3rem;scrollbar-width:thin;scrollbar-color:rgba(200,168,75,.18) transparent;}
+.sc::-webkit-scrollbar{width:3px;}
+.sc::-webkit-scrollbar-thumb{background:rgba(200,168,75,.18);border-radius:3px;}
+#nav{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%);z-index:300;display:flex;align-items:center;gap:1.1rem;}
+.nb{background:rgba(255,255,255,.055);border:1px solid var(--bor);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx2);font-size:.95rem;transition:all .18s;backdrop-filter:blur(10px);}
+.nb:hover{background:rgba(200,168,75,.15);border-color:var(--gold);color:var(--gold2);}
+#ctr{font-size:.72rem;color:var(--tx3);letter-spacing:.1em;min-width:48px;text-align:center;}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:4px;height:4px;border-radius:50%;background:var(--tx3);transition:all .28s;cursor:pointer;}
+.dot.on{background:var(--gold);width:16px;border-radius:2px;box-shadow:0 0 7px rgba(200,168,75,.55);}
+.aud-btn{background:rgba(255,255,255,.055);border:1px solid var(--bor);width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx2);font-size:.75rem;transition:all .18s;backdrop-filter:blur(10px);}
+.aud-btn:hover{background:rgba(200,168,75,.15);border-color:var(--gold);color:var(--gold2);}
+.aud-btn.muted{color:var(--r2);border-color:rgba(239,68,68,.35);}
+#aud-divider{width:1px;height:20px;background:var(--bor);}
+@keyframes hlPulse{0%{box-shadow:0 0 0 0 rgba(200,168,75,0);border-color:inherit;}15%{box-shadow:0 0 0 6px rgba(200,168,75,.55),0 0 22px rgba(200,168,75,.25);border-color:rgba(200,168,75,.8);}60%{box-shadow:0 0 0 4px rgba(200,168,75,.35),0 0 18px rgba(200,168,75,.15);border-color:rgba(200,168,75,.6);}100%{box-shadow:0 0 0 0 rgba(200,168,75,0);border-color:inherit;}}
+.hl-pulse{animation:hlPulse 2.8s cubic-bezier(.22,1,.36,1) forwards;}
+@keyframes hlText{0%{color:inherit;text-shadow:none;}20%{color:#f5f0e8;text-shadow:0 0 12px rgba(245,240,232,.3);}65%{color:#dde3ec;text-shadow:none;}100%{color:inherit;text-shadow:none;}}
+.hl-text{animation:hlText 2.5s cubic-bezier(.22,1,.36,1) forwards;}
+/* Timeline */
+.tl-node{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.45rem;}
+.tl-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.tl-card{background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:10px;padding:.7rem .65rem;width:100%;}
+.tl-card.active-node{border-color:rgba(200,168,75,.35);background:rgba(200,168,75,.04);}
+/* Dashboard mock */
+.db-tile{background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:10px;padding:.9rem 1rem;}
+.db-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:.3rem;font-weight:600;}
+.db-val{font-family:var(--serif);font-size:1.6rem;line-height:1;}
+.db-sub{font-size:.65rem;color:var(--tx3);margin-top:.2rem;}
+</style>
+</head>
+<body>
+
+<div class="amb"><div class="amb-a"></div><div class="amb-b"></div></div>
+
+<div id="tb">
+  <div class="tl">
+    <svg viewBox="0 0 20 20" fill="none"><rect x="1" y="1" width="7" height="7" rx="1.5" fill="#c8a84b" opacity=".9"/><rect x="12" y="1" width="7" height="7" rx="1.5" fill="#c8a84b" opacity=".4"/><rect x="1" y="12" width="7" height="7" rx="1.5" fill="#c8a84b" opacity=".4"/><rect x="12" y="12" width="7" height="7" rx="1.5" fill="#c8a84b" opacity=".9"/></svg>
+    <div class="tbr">NuStack</div>
+    <div class="tdv"></div>
+    <div class="tco">
+      <span class="tcp tc-ccw">CCW</span><span style="color:var(--tx3);font-size:9px;margin:0 2px;">·</span>
+      <span class="tcp tc-tsi">TSI</span><span style="color:var(--tx3);font-size:9px;margin:0 2px;">·</span>
+      <span class="tcp tc-sbl">SBL</span><span style="color:var(--tx3);font-size:9px;margin:0 2px;">·</span>
+      <span class="tcp" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:var(--g2);">ZEPS</span>
+    </div>
+  </div>
+  <div class="trt">For Dale · Confidential · March 2026</div>
+</div>
+<div id="pb"><div id="pf" style="width:8.33%"></div></div>
+
+<div id="deck">
+
+<!-- ═══ SLIDE 0 — TITLE ═══ -->
+<div class="slide active" data-n="0" style="background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,168,75,.06) 0%,transparent 70%);">
+  <div style="text-align:center;max-width:860px;">
+    <div class="eyebrow a1">NuStack Digital Ventures × Carson Capital Corp</div>
+    <h1 class="dp a2" style="font-size:clamp(2rem,4vw,3.8rem);line-height:1.12;margin:1.2rem 0;font-style:italic;">
+      "Dale — I audited all four sites.<br>Here's exactly what I found."
+    </h1>
+    <div class="a3" style="font-size:.85rem;color:var(--tx3);margin-top:1.1rem;letter-spacing:.05em;">CCW · TSI · SBL · ZEPS · March 2026 · For Dale · Confidential</div>
+    <div class="a4" style="margin-top:1.6rem;">
+      <span style="display:inline-block;background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.28);border-radius:20px;padding:.35rem 1.2rem;font-size:.72rem;color:var(--gold);letter-spacing:.06em;font-weight:600;">Four CertusAudit reports attached — certusaudit.co</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 1 — AUDIT SCORES ═══ -->
+<div class="slide" data-n="1">
+  <div style="width:100%;max-width:1060px;">
+    <div class="eyebrow a1">CertusAudit — All Four Properties · March 2026</div>
+    <h2 class="sh a2">Every site scores below the threshold where search sends qualified traffic.</h2>
+    <div class="a2 sub" style="margin-bottom:1.3rem;">Industry benchmark: 78/100. These are the live scores.</div>
+    <div class="a3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:1.2rem;">
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:1.1rem;text-align:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:.6rem;"><div style="position:relative;width:88px;height:88px;"><svg width="88" height="88" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><defs><filter id="gCCW"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M44,8 A36,36,0,0,1,47,8.4" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round" filter="url(#gCCW)"/><text x="44" y="50" text-anchor="middle" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#ef4444">20</text></svg></div></div>
+        <div style="font-size:.67rem;font-weight:800;color:#ef4444;letter-spacing:.05em;margin-bottom:.25rem;">F — 20 / 70</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--gold2);margin-bottom:.65rem;">CCW</div>
+        <div style="font-size:.71rem;color:var(--tx2);text-align:left;line-height:1.65;"><div style="margin-bottom:.18rem;">✗ No schema markup</div><div style="margin-bottom:.18rem;">✗ Meta description missing</div><div>✗ $101.7M SFMTA not on site</div></div>
+        <div style="font-size:.6rem;color:var(--tx3);margin-top:.55rem;">completecoach.com</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:1.1rem;text-align:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:.6rem;"><div style="position:relative;width:88px;height:88px;"><svg width="88" height="88" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><defs><filter id="gTSI"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M44,8 A36,36,0,0,1,46.5,8.3" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round" filter="url(#gTSI)"/><text x="44" y="50" text-anchor="middle" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#ef4444">19</text></svg></div></div>
+        <div style="font-size:.67rem;font-weight:800;color:#ef4444;letter-spacing:.05em;margin-bottom:.25rem;">F — 19 / 70</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--tsi);margin-bottom:.65rem;">TSI</div>
+        <div style="font-size:.71rem;color:var(--tx2);text-align:left;line-height:1.65;"><div style="margin-bottom:.18rem;">✗ Title tag reads "home"</div><div style="margin-bottom:.18rem;">✗ 4.2s load time</div><div>✗ Inventory not indexed</div></div>
+        <div style="font-size:.6rem;color:var(--tx3);margin-top:.55rem;">transitsales.com</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:1.1rem;text-align:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:.6rem;"><div style="position:relative;width:88px;height:88px;"><svg width="88" height="88" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><defs><filter id="gSBL"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M44,8 A36,36,0,0,1,46,8.25" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round" filter="url(#gSBL)"/><text x="44" y="50" text-anchor="middle" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#ef4444">18</text></svg></div></div>
+        <div style="font-size:.67rem;font-weight:800;color:#ef4444;letter-spacing:.05em;margin-bottom:.25rem;">F — 18 / 70</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--sbl);margin-bottom:.65rem;">SBL</div>
+        <div style="font-size:.71rem;color:var(--tx2);text-align:left;line-height:1.65;"><div style="margin-bottom:.18rem;">✗ Two H1 tags</div><div style="margin-bottom:.18rem;">✗ No schema markup</div><div>✗ $37M federal history not mentioned</div></div>
+        <div style="font-size:.6rem;color:var(--tx3);margin-top:.55rem;">sblbus.com</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:1.1rem;text-align:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:.6rem;"><div style="position:relative;width:88px;height:88px;"><svg width="88" height="88" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><defs><filter id="gZEPS"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M44,8 A36,36,0,0,1,51,9.2" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" filter="url(#gZEPS)"/><text x="44" y="50" text-anchor="middle" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#f59e0b">23</text></svg></div></div>
+        <div style="font-size:.67rem;font-weight:800;color:#f59e0b;letter-spacing:.05em;margin-bottom:.25rem;">F — 23 / 70</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--g2);margin-bottom:.65rem;">ZEPS</div>
+        <div style="font-size:.71rem;color:var(--tx2);text-align:left;line-height:1.65;"><div style="margin-bottom:.18rem;">✗ Last updated October 2023</div><div style="margin-bottom:.18rem;">✗ No FTA grant language</div><div>✗ No Buy America disclosures</div></div>
+        <div style="font-size:.6rem;color:var(--tx3);margin-top:.55rem;">zepsdrive.com</div>
+      </div>
+    </div>
+    <div class="a4" style="border:1px solid rgba(200,168,75,.25);border-radius:12px;padding:.95rem 1.4rem;background:linear-gradient(135deg,rgba(200,168,75,.055),rgba(200,168,75,.01));font-size:.8rem;color:var(--tx2);line-height:1.65;font-style:italic;">
+      "These scores are not opinions. They are the output of a 28-point technical audit run against every page on all four sites. Every finding can be verified by any developer in under 10 minutes."
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2 — WHAT GOOGLE SEES ═══ -->
+<div class="slide" data-n="2">
+  <div style="width:100%;max-width:1020px;" class="sc">
+    <div class="eyebrow a1">The Specific Problems — CCW · TSI · SBL</div>
+    <h2 class="sh a2">Three facts that explain why search isn't sending leads.</h2>
+    <div class="a2 sub" style="margin-bottom:1.3rem;">Each one is provable. Each one is fixable in week one.</div>
+    <div class="a3" style="display:flex;flex-direction:column;gap:.85rem;margin-bottom:1rem;">
+      <div style="border-left:3px solid var(--r2);padding:1rem 1.3rem;background:linear-gradient(135deg,rgba(239,68,68,.06),transparent);border-radius:0 12px 12px 0;">
+        <div style="font-size:.9rem;font-weight:700;color:var(--r3);margin-bottom:.45rem;">The title tag for transitsales.com reads "home"</div>
+        <div style="font-size:.81rem;color:var(--tx2);line-height:1.68;">That is the live title tag — lowercase, one word — for the largest used transit bus dealer in the United States. Google has indexed "home" as the primary signal for TSI. Every agency searching "used transit buses for sale" finds someone else.</div>
+      </div>
+      <div style="border-left:3px solid var(--r2);padding:1rem 1.3rem;background:linear-gradient(135deg,rgba(239,68,68,.06),transparent);border-radius:0 12px 12px 0;">
+        <div style="font-size:.9rem;font-weight:700;color:var(--r3);margin-bottom:.45rem;">444 photos across four sites. Zero indexed by Google.</div>
+        <div style="font-size:.81rem;color:var(--tx2);line-height:1.68;">105 CCW · 154 TSI · 144 SBL · 41 ZEPS. Every file is unnamed (IMG_4471.jpg), untagged, never submitted to Google Search Console. Google Image Search returns nothing for any of these companies. 444 search opportunities, unused.</div>
+      </div>
+      <div style="border-left:3px solid var(--r2);padding:1rem 1.3rem;background:linear-gradient(135deg,rgba(239,68,68,.06),transparent);border-radius:0 12px 12px 0;">
+        <div style="font-size:.9rem;font-weight:700;color:var(--r3);margin-bottom:.45rem;">The $101.7M SFMTA contract doesn't appear anywhere on completecoach.com.</div>
+        <div style="font-size:.81rem;color:var(--tx2);line-height:1.68;">Contract CS-1227. March 22, 2022. CCW was the only bidder. $101.7 million. Public record in SFMTA board minutes. A procurement officer Googling CCW today cannot find it — the single strongest proof point in the transit rehab industry, invisible.</div>
+      </div>
+    </div>
+    <div class="a4 cl g">
+      <strong>None of these require new content.</strong>
+      <p>They require the existing content to be structured correctly. That's week one.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3 — THE GOLDMINE ═══ -->
+<div class="slide" data-n="3">
+  <div style="width:100%;max-width:1040px;">
+    <div class="eyebrow a1">What You Already Have — None of It Working</div>
+    <h2 class="sh a2">The content that wins contracts already exists. It just isn't findable.</h2>
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.1rem 0 1rem;">
+      <div class="card">
+        <h4>&#127916; Jay Leno's Garage — 445,000 views</h4>
+        <p>Live on YouTube. A-list endorsement of CCW's work. Not embedded on completecoach.com. Not linked from any page. Google has no connection between this video and CCW.</p>
+      </div>
+      <div class="card">
+        <h4>&#127963; 16 named government agency clients on public record</h4>
+        <p>SFMTA. IndyGo. Long Beach Transit. Rochester RTS. All in public procurement records. None cited as case studies on any of the four sites. Every agency name is a keyword a procurement team would search.</p>
+      </div>
+      <div class="card">
+        <h4>&#127909; 5 CCW facility and conversion videos</h4>
+        <p>Production-quality footage of the actual work. Not embedded. Not transcribed. Not submitted to Google. Video pages rank separately from text — this is unused search real estate.</p>
+      </div>
+      <div class="card">
+        <h4>&#128203; $152M+ in verified contracts — none on the sites</h4>
+        <p>$101.7M SFMTA (CS-1227) + $37M SBL federal leases (USAspending.gov) + $13M+ additional confirmed wins. All public record. Zero visible to an agency researching these companies online.</p>
+      </div>
+    </div>
+    <div class="a4 cl t">
+      <strong>We don't create new content.</strong>
+      <p>We structure what already exists so Google can read it, index it, and serve it to procurement teams who are actively searching.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4 — WHAT GETS BUILT ═══ -->
+<div class="slide" data-n="4">
+  <div style="width:100%;max-width:1040px;">
+    <div class="eyebrow a1">The Engagement — What Gets Done and When</div>
+    <h2 class="sh a2">Four sites rebuilt. Everything indexed. Dashboard live. One month.</h2>
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.1rem 0 1rem;">
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:13px;padding:1.15rem 1.25rem;display:flex;gap:.8rem;align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 10px rgba(200,168,75,.35);">W1</div>
+        <div><div style="font-size:.88rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;">Sites Live</div><div style="font-size:.79rem;color:var(--tx2);line-height:1.6;">Four new websites deployed. All 444 photos renamed, tagged, submitted to Google Search Console. Load times fixed. Mobile optimization complete. Schema markup on every page.</div></div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:13px;padding:1.15rem 1.25rem;display:flex;gap:.8rem;align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 10px rgba(200,168,75,.35);">W2</div>
+        <div><div style="font-size:.88rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;">GBPs + Case Studies</div><div style="font-size:.79rem;color:var(--tx2);line-height:1.6;">Google Business Profiles for every confirmed active CCW facility. SBL operating city pages. $101.7M SFMTA contract as CCW featured case study. TSI inventory structured and crawlable.</div></div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:13px;padding:1.15rem 1.25rem;display:flex;gap:.8rem;align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 10px rgba(200,168,75,.35);">W3</div>
+        <div><div style="font-size:.88rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;">Authority + Content</div><div style="font-size:.79rem;color:var(--tx2);line-height:1.6;">Jay Leno video embedded and transcribed. SFMTA board minutes cited. 16 agency clients structured as case studies. TSI backlink outreach to industry publications.</div></div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:13px;padding:1.15rem 1.25rem;display:flex;gap:.8rem;align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 10px rgba(200,168,75,.35);">W4</div>
+        <div><div style="font-size:.88rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;">Dashboard + Weekly Report</div><div style="font-size:.79rem;color:var(--tx2);line-height:1.6;">NuStack dashboard live: all four sites on one screen — traffic, SEO scores, lead activity, procurement alerts. Every Monday morning report. You see exactly what changed, in numbers.</div></div>
+      </div>
+    </div>
+    <div class="a4 cl">
+      <strong>What we need from you — four things</strong>
+      <p>WordPress credentials × 4 sites · Photo library in any format · One 30-minute call with your work order contact · Sage version (300, Intacct, or 50). That's everything.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5 — THE INVESTMENT ═══ -->
+<div class="slide" data-n="5">
+  <div style="width:100%;max-width:1080px;">
+    <div class="eyebrow a1">The Investment</div>
+    <h2 class="sh a2">One additional CCW rehab contract per year. That's the break-even.</h2>
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1.1fr;gap:1.2rem;margin:1.1rem 0 1rem;align-items:start;">
+      <div style="border:1px solid rgba(200,168,75,.38);border-radius:16px;padding:1.45rem 1.55rem;background:linear-gradient(135deg,rgba(200,168,75,.09),rgba(200,168,75,.02));">
+        <div style="font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:.55rem;">Monthly Fee</div>
+        <div style="font-family:var(--serif);font-size:clamp(2.2rem,3.8vw,3.2rem);color:var(--gold2);line-height:1.1;margin-bottom:.45rem;">$9,500<span style="font-size:.95rem;color:var(--tx3);font-family:var(--sans);font-weight:300;">/mo</span></div>
+        <div style="font-size:.79rem;color:var(--tx2);line-height:1.68;margin-bottom:.85rem;">Four sites · SEO + photo strategy · GBPs · Procurement monitoring · Dashboard · Weekly report. Everything. One number.</div>
+        <div style="border-top:1px solid var(--bor);padding-top:.7rem;display:flex;align-items:baseline;gap:.6rem;">
+          <div style="font-size:.67rem;color:var(--tx3);">Annual fee</div>
+          <div style="font-family:var(--serif);font-size:1.45rem;color:var(--gold3);">$114,000</div>
+        </div>
+      </div>
+      <div style="border:1px solid rgba(34,197,94,.2);border-radius:14px;padding:1.2rem 1.35rem;background:linear-gradient(135deg,rgba(34,197,94,.055),transparent);">
+        <div style="font-size:.8rem;font-weight:700;color:var(--g3);margin-bottom:.7rem;">The ratio — not a projection.</div>
+        <div style="font-size:.81rem;color:var(--tx2);line-height:1.8;">
+          <div style="margin-bottom:.4rem;"><span style="color:var(--tx);font-weight:500;">CCW's minimum rehab contract:</span>&nbsp;<span style="color:var(--g3);font-weight:700;">$380,000</span><div style="font-size:.69rem;color:var(--tx3);">Rochester RTS, 5 buses, Aug 2025 — public record</div></div>
+          <div style="margin-bottom:.4rem;"><span style="color:var(--tx);font-weight:500;">SBL's smallest CBP contract:</span>&nbsp;<span style="color:var(--g3);font-weight:700;">$27,400</span><div style="font-size:.69rem;color:var(--tx3);">HSFLAR07P00145 — USAspending.gov</div></div>
+          <div style="margin-bottom:.4rem;"><span style="color:var(--tx);font-weight:500;">Annual NuStack fee:</span>&nbsp;<span style="color:var(--gold2);font-weight:700;">$114,000</span></div>
+          <div style="margin-bottom:.35rem;">Break-even: one additional CCW rehab win per year that came through search.</div>
+          <div style="font-size:.73rem;color:var(--tx3);font-style:italic;">That is not a forecast. It is a ratio between two numbers that already exist.</div>
+        </div>
+      </div>
+    </div>
+    <div class="a4" style="border:1px solid rgba(200,168,75,.3);border-radius:14px;padding:1.05rem 1.45rem;background:linear-gradient(135deg,rgba(200,168,75,.065),rgba(200,168,75,.01));">
+      <div style="font-size:.67rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.55rem;">To get started — four things</div>
+      <div style="font-size:.81rem;color:var(--tx2);line-height:1.82;">
+        <div>1. WordPress admin credentials × 4 sites</div>
+        <div>2. Photo library — any format, Dropbox or Drive</div>
+        <div>3. Sage version — 300, Intacct, or 50 (5 minutes)</div>
+        <div>4. One 30-minute call with your work order contact</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6 — WHO IS NUSTACK ═══ -->
+<div class="slide" data-n="6">
+  <div style="width:100%;max-width:980px;">
+    <div class="eyebrow a1">Before We Go Further</div>
+    <h2 class="sh a2">Dale — let me tell you what NuStack actually is.</h2>
+    <div class="a2 sub" style="margin-bottom:1.4rem;">You deserve to know who you'd be working with before you make any decision.</div>
+    <div class="a3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.2rem;">
+      <div class="card" style="border-color:rgba(200,168,75,.2);">
+        <h4>&#127959; Built, not pitched</h4>
+        <p>NuStack spent two years building the platform before selling anything. Every tool in this engagement has been running on real businesses since 2025. You are not a test case.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,168,75,.2);">
+        <h4>&#128222; One person. Direct access.</h4>
+        <p>Brad Palubicki built this, manages every client, and picks up the phone. No account managers. No junior staff passing messages. The person who ran this audit is the person doing the work.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,168,75,.2);">
+        <h4>&#9881;&#65039; Your systems stay</h4>
+        <p>Sage, DELMIAWorks, DocuSign — nothing changes. NuStack connects to what already exists and fills what's missing. There is no rip-and-replace here.</p>
+      </div>
+    </div>
+    <div class="a4 cl">
+      <strong>Why I'm showing you this</strong>
+      <p>Dale — I set out to analyze these websites not expecting to find anything remarkable. The more I researched, the more I realized the gap between what these companies have built and what the world can find online. That's what this engagement is about.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7 — LIVE EXAMPLE ═══ -->
+<div class="slide" data-n="7">
+  <div style="width:100%;max-width:1040px;" class="sc">
+    <div class="eyebrow a1">A Real Client — What This Looks Like in Practice</div>
+    <h2 class="sh a2">Here's an example of another client. A strong company with capabilities not yet activated.</h2>
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;">
+      <div style="display:flex;flex-direction:column;gap:.8rem;">
+        <div style="background:rgba(200,168,75,.03);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:1rem 1.1rem;">
+          <div style="font-size:.8rem;font-weight:600;color:var(--gold2);margin-bottom:.3rem;">What They Had</div>
+          <div style="font-size:.77rem;color:var(--tx2);line-height:1.65;">46 locations. A strong operation, growing fast. Every location managed manually. No automated workflows connecting them. Growth required adding headcount at every step.</div>
+        </div>
+        <div style="background:rgba(34,197,94,.03);border-left:3px solid var(--g2);border-radius:0 10px 10px 0;padding:1rem 1.1rem;">
+          <div style="font-size:.8rem;font-weight:600;color:var(--g3);margin-bottom:.3rem;">What NuStack Built</div>
+          <div style="font-size:.77rem;color:var(--tx2);line-height:1.65;">Automated lead capture, intake, and follow-up across all 46 locations. One dashboard. Lead response time went from hours to under 2 minutes. The platform handled what used to require a full-time person per location.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.8rem;">
+        <div style="background:rgba(59,130,246,.03);border-left:3px solid var(--bl);border-radius:0 10px 10px 0;padding:1rem 1.1rem;">
+          <div style="font-size:.8rem;font-weight:600;color:#93c5fd;margin-bottom:.3rem;">The Principle</div>
+          <div style="font-size:.77rem;color:var(--tx2);line-height:1.65;">Your situation is different. But the model is identical — great operations that aren't yet connected to technology. The websites are the starting point. The automation layer is what compounds over time.</div>
+        </div>
+        <div style="background:rgba(20,184,166,.03);border-left:3px solid var(--tl);border-radius:0 10px 10px 0;padding:1rem 1.1rem;">
+          <div style="font-size:.8rem;font-weight:600;color:var(--tl);margin-bottom:.3rem;">What I've Seen Across Clients</div>
+          <div style="font-size:.77rem;color:var(--tx2);line-height:1.65;">Typically 3–6× return on what this costs. I'm not going to put a number on CCW yet — I need to understand your internal workflows first. The websites are where the immediate return is. Automation is the second chapter.</div>
+        </div>
+      </div>
+    </div>
+    <div class="a4 cl g">
+      <strong>This is not a website agency pitch.</strong>
+      <p>The websites are the entry point. What I'm building toward is a connected operation — where the right information is in the right place, and manual processes that don't need to be manual, aren't.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8 — CLIENT TIMELINE ═══ -->
+<div class="slide" data-n="8">
+  <div style="width:100%;max-width:1020px;">
+    <div class="eyebrow a1">NuStack — Two Years Building. Not Pitching.</div>
+    <h2 class="sh a2">The platform running these sites has been in production since 2025.</h2>
+    <div class="a2" style="font-size:.76rem;color:var(--tx3);text-align:center;margin-bottom:1.4rem;">You are not a beta test. Every client below is a real business running NuStack today.</div>
+
+    <div class="a3" style="position:relative;margin:0 auto 1.2rem;">
+      <div style="position:absolute;top:22px;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(200,168,75,.15),rgba(200,168,75,.5),rgba(34,197,94,.5));z-index:0;"></div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;position:relative;z-index:1;">
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:rgba(200,168,75,.35);border:2px solid rgba(200,168,75,.5);"></div>
+          <div style="font-size:.56rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">2 Yrs Ago</div>
+          <div class="tl-card"><div style="font-size:.7rem;font-weight:600;color:var(--tx);margin-bottom:.18rem;">Platform Build</div><div style="font-size:.62rem;color:var(--tx3);line-height:1.4;">Core engine. AI agents. Multi-location architecture.</div></div>
+        </div>
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:rgba(200,168,75,.6);border:2px solid var(--gold);"></div>
+          <div style="font-size:.56rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Oct 2025</div>
+          <div class="tl-card"><div style="font-size:.7rem;font-weight:600;color:var(--tx);margin-bottom:.18rem;">First Client Live</div><div style="font-size:.62rem;color:var(--tx3);line-height:1.4;">46-location national client. Platform proven in production.</div></div>
+        </div>
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:rgba(200,168,75,.8);border:2px solid var(--gold2);"></div>
+          <div style="font-size:.56rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Feb 2026</div>
+          <div class="tl-card"><div style="font-size:.7rem;font-weight:600;color:var(--tx);margin-bottom:.18rem;">Outside Clients</div><div style="font-size:.62rem;color:var(--tx3);line-height:1.4;">Platform stable. Onboarding outside businesses.</div></div>
+        </div>
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:var(--gold);border:2px solid var(--gold2);box-shadow:0 0 8px rgba(200,168,75,.6);"></div>
+          <div style="font-size:.56rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Mar 2026</div>
+          <div class="tl-card active-node"><div style="font-size:.7rem;font-weight:600;color:var(--gold2);margin-bottom:.18rem;">3 Active Builds</div><div style="font-size:.62rem;color:var(--tx2);line-height:1.4;">Legal firm · Insurance agency · Wellness clinic</div></div>
+        </div>
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:var(--g2);border:2px solid var(--g3);box-shadow:0 0 8px rgba(34,197,94,.6);"></div>
+          <div style="font-size:.56rem;color:var(--g2);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Now</div>
+          <div class="tl-card" style="border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04);"><div style="font-size:.7rem;font-weight:600;color:var(--g3);margin-bottom:.18rem;">Carson Capital</div><div style="font-size:.62rem;color:var(--tx2);line-height:1.4;">CCW · TSI · SBL · ZEPS</div></div>
+        </div>
+
+        <div class="tl-node">
+          <div class="tl-dot" style="background:rgba(34,197,94,.25);border:2px dashed rgba(34,197,94,.4);"></div>
+          <div style="font-size:.56rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Month 1</div>
+          <div class="tl-card"><div style="font-size:.7rem;font-weight:600;color:var(--tx);margin-bottom:.18rem;">All Sites Live</div><div style="font-size:.62rem;color:var(--tx3);line-height:1.4;">Dashboard running. Monday reports. Everything indexed.</div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="a4 cl a">
+      <strong>Three active builds happening right now — in parallel with CCW.</strong>
+      <p>A legal company (intake + document workflows), an insurance agency (lead + quote management), and a wellness clinic (booking + patient workflows). Same platform. Different industries. All managed directly by Brad.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 9 — THE DASHBOARD ═══ -->
+<div class="slide" data-n="9">
+  <div style="width:100%;max-width:1040px;">
+    <div class="eyebrow a1">What You See — Every Monday Morning</div>
+    <h2 class="sh a2">One screen. Four companies. Every metric that matters.</h2>
+    <div class="a2 sub" style="margin-bottom:1.3rem;">No black boxes. No waiting on reports. Numbers, every week.</div>
+
+    <div class="a3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem;">
+      <div class="db-tile" style="border-color:rgba(200,168,75,.25);">
+        <div class="db-label">CCW Score</div>
+        <div class="db-val" style="color:var(--g2);">87</div>
+        <div class="db-sub" style="color:var(--g2);">&#9650; +67 from baseline</div>
+      </div>
+      <div class="db-tile" style="border-color:rgba(20,184,166,.25);">
+        <div class="db-label">TSI Score</div>
+        <div class="db-val" style="color:var(--g2);">85</div>
+        <div class="db-sub" style="color:var(--g2);">&#9650; +66 from baseline</div>
+      </div>
+      <div class="db-tile" style="border-color:rgba(129,140,248,.25);">
+        <div class="db-label">SBL Score</div>
+        <div class="db-val" style="color:var(--g2);">86</div>
+        <div class="db-sub" style="color:var(--g2);">&#9650; +68 from baseline</div>
+      </div>
+      <div class="db-tile" style="border-color:rgba(34,197,94,.25);">
+        <div class="db-label">ZEPS Score</div>
+        <div class="db-val" style="color:var(--g2);">84</div>
+        <div class="db-sub" style="color:var(--g2);">&#9650; +61 from baseline</div>
+      </div>
+    </div>
+
+    <div class="a4" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;">
+      <div class="db-tile">
+        <div class="db-label">Site Traffic This Week</div>
+        <div style="display:flex;gap:1rem;align-items:baseline;margin-top:.3rem;">
+          <div><div style="font-family:var(--serif);font-size:1.3rem;color:var(--tl);">CCW 412</div><div style="font-size:.6rem;color:var(--tx3);">+18% vs last week</div></div>
+          <div><div style="font-family:var(--serif);font-size:1.3rem;color:var(--tsi);">TSI 338</div><div style="font-size:.6rem;color:var(--tx3);">+24% vs last week</div></div>
+          <div><div style="font-family:var(--serif);font-size:1.3rem;color:var(--sbl);">SBL 201</div><div style="font-size:.6rem;color:var(--tx3);">+11% vs last week</div></div>
+        </div>
+      </div>
+      <div class="db-tile">
+        <div class="db-label">Procurement Signals Flagged</div>
+        <div style="margin-top:.45rem;display:flex;flex-direction:column;gap:.3rem;">
+          <div style="font-size:.75rem;color:var(--tx2);">&#9679; <span style="color:var(--am2);">SAM.gov</span> — 2 new RFPs matching CCW scope</div>
+          <div style="font-size:.75rem;color:var(--tx2);">&#9679; <span style="color:var(--bl);">FTA Low-No</span> — grant window open, closes in 14 days</div>
+          <div style="font-size:.75rem;color:var(--tx2);">&#9679; <span style="color:var(--g2);">SAM.gov UEI</span> — CCW registration expires Aug 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="a5 cl g">
+      <strong>Transparent performance — week over week.</strong>
+      <p>If any site score drops below 75 at any point, you get an alert the same morning. No surprises. No finding out months later that something broke.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 10 — AUTOMATION LAYER ═══ -->
+<div class="slide" data-n="10">
+  <div style="width:100%;max-width:1040px;" class="sc">
+    <div class="eyebrow a1">Beyond the Websites — The Automation Opportunity</div>
+    <h2 class="sh a2" style="font-style:italic;">"Dale — I went into this research not expecting to find much. The more I dug, the more I realized I can genuinely help."</h2>
+
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.1rem 0 1rem;">
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.75rem;font-weight:700;color:var(--tx);margin-bottom:.55rem;">&#128204; Work Order Tracking</div>
+        <div style="font-size:.78rem;color:var(--tx2);line-height:1.6;">Today: technicians update by phone or paper. Status requires a call. "Where's the bus" is answered manually across all facilities.<br><br><span style="color:var(--g3);">With NuStack:</span> Live status per bus, per facility, on one screen. No calls. No chasing.</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.75rem;font-weight:700;color:var(--tx);margin-bottom:.55rem;">&#128202; Procurement Monitoring</div>
+        <div style="font-size:.78rem;color:var(--tx2);line-height:1.6;">Today: RFPs on SAM.gov and FTA Low-No grant windows are tracked manually — or missed.<br><br><span style="color:var(--g3);">With NuStack:</span> Daily scans. Every signal in your dashboard before the deadline. Nothing slips.</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.75rem;font-weight:700;color:var(--tx);margin-bottom:.55rem;">&#128203; TSI Inquiry Response</div>
+        <div style="font-size:.78rem;color:var(--tx2);line-height:1.6;">Today: leads from the TSI site — if they come in at all — wait for someone to respond.<br><br><span style="color:var(--g3);">With NuStack:</span> Automated lead capture. Response within 2 minutes. No leads falling through.</div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid var(--borw);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.75rem;font-weight:700;color:var(--tx);margin-bottom:.55rem;">&#127760; SBL Location Visibility</div>
+        <div style="font-size:.78rem;color:var(--tx2);line-height:1.6;">Today: SBL's operating cities and federal lease history have no web presence.<br><br><span style="color:var(--g3);">With NuStack:</span> Location pages for every operating city. $37M+ federal history structured and visible to agencies searching for bus leasing.</div>
+      </div>
+    </div>
+
+    <div class="a4" style="border:1px solid rgba(200,168,75,.2);border-radius:12px;padding:1rem 1.4rem;background:linear-gradient(135deg,rgba(200,168,75,.05),transparent);">
+      <div style="font-size:.82rem;color:var(--tx2);line-height:1.75;">
+        My clients typically see a <strong style="color:var(--gold2);">3–6× return</strong> on what this costs them. For you — I need to understand more about how your internal workflows operate before I can put a number on the automation side. What I can say: the websites are where the immediate, measurable return is. The automation layer is the second chapter — and based on what I've seen, there's <strong style="color:var(--gold2);">$250,000–$650,000</strong> in recoverable efficiency here, conservatively.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 11 — CLOSE ═══ -->
+<div class="slide" data-n="11" style="background:radial-gradient(ellipse 70% 55% at 50% 45%,rgba(200,168,75,.055) 0%,transparent 70%);">
+  <div style="width:100%;max-width:980px;text-align:center;">
+    <div class="eyebrow a1">The Ask</div>
+    <div class="a2" style="font-family:var(--serif);font-size:clamp(1rem,1.8vw,1.3rem);line-height:1.85;font-style:italic;color:var(--gold3);max-width:820px;margin:0 auto 1.8rem;">
+      "Dale — I really believe making these changes puts the #1 transit remanufacturer in America back on the map where buyers can find it. The websites are the first step. The platform is the long game. The fee is $9,500 a month. I think you get substantially more than that back in year one."
+    </div>
+
+    <div class="a3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem;margin-bottom:1.4rem;text-align:left;">
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(200,168,75,.2);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.5rem;">What's Included</div>
+        <div style="font-size:.74rem;color:var(--tx2);line-height:1.75;">
+          ✓ 4 new websites (CCW · TSI · SBL · ZEPS)<br>
+          ✓ 444 photos indexed — week one<br>
+          ✓ Schema markup on every page<br>
+          ✓ GBPs — every active CCW facility<br>
+          ✓ $101.7M SFMTA as case study<br>
+          ✓ Jay Leno video embedded<br>
+          ✓ 16 agency clients as case studies<br>
+          ✓ Procurement monitoring — daily<br>
+          ✓ Dashboard + Monday report<br>
+          ✓ Direct line to Brad
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(200,168,75,.09),rgba(200,168,75,.02));border:1px solid rgba(200,168,75,.35);border-radius:12px;padding:1.1rem 1.2rem;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.5rem;">Monthly Fee</div>
+        <div style="font-family:var(--serif);font-size:2.6rem;color:var(--gold2);line-height:1;margin-bottom:.25rem;">$9,500</div>
+        <div style="font-size:.7rem;color:var(--tx3);margin-bottom:.7rem;">per month</div>
+        <div style="border-top:1px solid var(--bor);padding-top:.6rem;">
+          <div style="font-size:.65rem;color:var(--tx3);">Annual</div>
+          <div style="font-family:var(--serif);font-size:1.3rem;color:var(--gold3);">$114,000</div>
+        </div>
+      </div>
+      <div style="background:rgba(5,14,28,.95);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:1.1rem 1.2rem;">
+        <div style="font-size:.62rem;color:var(--g2);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.5rem;">To Get Started</div>
+        <div style="font-size:.74rem;color:var(--tx2);line-height:1.9;">
+          <span style="color:var(--gold);">1.</span> WordPress credentials × 4 sites<br>
+          <span style="color:var(--gold);">2.</span> Photo library (Dropbox / Drive / USB)<br>
+          <span style="color:var(--gold);">3.</span> Sage version — 5 minutes<br>
+          <span style="color:var(--gold);">4.</span> 30-min call with work order contact
+        </div>
+        <div style="margin-top:.8rem;font-size:.69rem;color:var(--tx3);font-style:italic;">Everything else is on us.</div>
+      </div>
+    </div>
+
+    <div class="a4" style="font-size:.78rem;color:var(--tx3);font-style:italic;">
+      Break-even: one additional CCW rehab contract per year sourced through search. Rochester RTS = $380,000. Annual fee = $114,000. That ratio already exists — it's not a projection.
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<audio id="slide-audio" preload="auto"></audio>
+
+<div id="nav">
+  <button class="nb" onclick="prev()">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <span id="ctr">1 / 12</span>
+  <button class="nb" onclick="next()">&#8594;</button>
+  <div id="aud-divider"></div>
+  <button class="aud-btn" id="btn-replay" onclick="replayAudio()" title="Replay narration">&#8635;</button>
+  <button class="aud-btn" id="btn-mute" onclick="toggleMute()" title="Mute/unmute">&#128266;</button>
+  <button class="aud-btn" id="btn-auto" onclick="toggleAutoAdvance()" title="Auto-advance" style="font-size:.65rem;width:auto;padding:0 .6rem;border-radius:12px;letter-spacing:.04em;font-weight:600;">&#9654; AUTO</button>
+</div>
+
+<script>
+const TOTAL=12;
+let cur=0;
+
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.onclick=(function(n){return function(){goTo(n);};})(i);
+  dotsEl.appendChild(d);
+}
+
+function playSlideAudio(n){
+  const audio=document.getElementById('slide-audio');
+  const padded=String(n).padStart(2,'0');
+  audio.src='Dale_audio/slide_n'+padded+'.mp3';
+  audio.play().catch(function(){});
+}
+function replayAudio(){
+  const audio=document.getElementById('slide-audio');
+  audio.currentTime=0;
+  audio.play().catch(function(){});
+}
+function toggleMute(){
+  const audio=document.getElementById('slide-audio');
+  const btn=document.getElementById('btn-mute');
+  audio.muted=!audio.muted;
+  btn.innerHTML=audio.muted?'&#128263;':'&#128266;';
+  btn.classList.toggle('muted',audio.muted);
+}
+function goTo(n){
+  if(n<0||n>=TOTAL||n===cur)return;
+  document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('active','leaving','entering');});
+  cur=n;
+  const target=document.querySelector('.slide[data-n="'+cur+'"]');
+  if(target)target.classList.add('active');
+  updateUI();
+  try{playSlideAudio(cur);}catch(e){}
+}
+function next(){goTo(cur+1);}
+function prev(){goTo(cur-1);}
+
+let autoAdvance=false;
+function toggleAutoAdvance(){
+  autoAdvance=!autoAdvance;
+  const btn=document.getElementById('btn-auto');
+  if(autoAdvance){
+    btn.textContent='Stop';
+    btn.style.background='rgba(200,168,75,.2)';
+    btn.style.borderColor='rgba(200,168,75,.6)';
+    btn.style.color='var(--gold2)';
+  } else {
+    btn.innerHTML='&#9654; AUTO';
+    btn.style.background='';btn.style.borderColor='';btn.style.color='';
+  }
+}
+document.getElementById('slide-audio').addEventListener('ended',function(){
+  if(autoAdvance&&cur<TOTAL-1)next();
+  else if(autoAdvance&&cur===TOTAL-1){
+    autoAdvance=false;
+    const btn=document.getElementById('btn-auto');
+    btn.innerHTML='&#9654; AUTO';
+    btn.style.background='';btn.style.borderColor='';btn.style.color='';
+  }
+});
+function updateUI(){
+  document.getElementById('ctr').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('pf').style.width=((cur+1)/TOTAL*100)+'%';
+  document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('on',i===cur);});
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prev();}
+});
+var tx=0;
+document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){
+  var dx=tx-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>50){dx>0?next():prev();}
+});
+(function(){
+  const audio=document.getElementById('slide-audio');
+  audio.src='Dale_audio/slide_n00.mp3';
+  function onFirst(){audio.play().catch(function(){});}
+  document.addEventListener('click',onFirst,{once:true,capture:false});
+  document.addEventListener('keydown',onFirst,{once:true,capture:false});
+})();
+</script>
+
+<!-- AUDIO SCRIPTS — for ElevenLabs narration generation -->
+<div id="audio-scripts" style="display:none;">
+<pre id="script-0">
+SLIDE 0 — TITLE (~20 sec)
+Dale — before the game the other day I mentioned I had some things I wanted to go over with you. I ran a full audit on all four companies. What I found is straightforward, and I'm going to show you exactly what's broken, what we fix, and what it costs.
+</pre>
+<pre id="script-1">
+SLIDE 1 — AUDIT SCORES (~35 sec)
+These are the live scores from our audit tool, CertusAudit. CCW scores 20 out of 70. TSI 19. SBL 18. ZEPS 23. The industry benchmark for a site that ranks in search is 78. Every single one of these sites is below the floor. These aren't opinions — every finding is verifiable by any developer in under 10 minutes.
+</pre>
+<pre id="script-2">
+SLIDE 2 — WHAT GOOGLE SEES (~45 sec)
+Three facts. First — the live title tag on transitsales.com reads home. Lowercase. One word. That is what Google has indexed as the primary signal for the largest used transit bus dealer in the country. Second — there are 444 photos across all four sites. Every file is named something like IMG 4471. Zero indexed by Google. Third — the 101.7 million dollar SFMTA contract — CCW was the only bidder — does not appear anywhere on completecoach.com. All three are fixable in week one.
+</pre>
+<pre id="script-3">
+SLIDE 3 — THE GOLDMINE (~40 sec)
+You already have the content that wins contracts. The Jay Leno Garage video has 445,000 views — not connected to your site. Sixteen named government agency clients are in public procurement records — none are case studies. A hundred and fifty-two million dollars in verified public contracts — none of it visible online. We don't write new content. We structure what already exists so Google can find it.
+</pre>
+<pre id="script-4">
+SLIDE 4 — WHAT GETS BUILT (~40 sec)
+Week one — four sites live, 444 photos indexed, schema on every page, load times fixed. Week two — Google Business Profiles for every active location, SFMTA contract as a featured case study. Week three — Jay Leno video embedded and transcribed, sixteen agency clients as case studies. Week four — dashboard live, Monday report running. Nothing takes longer than 30 days. What we need from you: WordPress credentials, photo library, Sage version, and thirty minutes with your work order contact.
+</pre>
+<pre id="script-5">
+SLIDE 5 — THE INVESTMENT (~30 sec)
+The fee is ninety-five hundred a month. Annual — a hundred and fourteen thousand. Break-even: one additional CCW rehab contract per year that came through search instead of through a relationship you already had. Smallest verified CCW contract on public record: three hundred and eighty thousand dollars, Rochester, August 2025. That's the ratio. Not a projection — two numbers that already exist.
+</pre>
+<pre id="script-6">
+SLIDE 6 — WHO IS NUSTACK (~35 sec)
+Dale — before I show you the rest, let me tell you what NuStack actually is, because you deserve to know who you'd be working with. I built this over two years. It's not an agency. No rotating teams. I pick up the phone. The person who ran this audit, who sat across from you before the game, is the person doing the work. Your systems — Sage, DELMIAWorks, DocuSign — none of that changes. I connect to what already exists.
+</pre>
+<pre id="script-7">
+SLIDE 7 — LIVE EXAMPLE (~40 sec)
+Let me show you what this looks like on a real client. A national company — 46 locations. Strong operation, growing fast. Every location managed manually. No automated workflows. NuStack built automated intake and follow-up across all 46 locations. Lead response went from hours to under two minutes. The platform handled what used to take a full-time person per location. Your situation is different — but the model is identical. Great operations not yet connected to technology.
+</pre>
+<pre id="script-8">
+SLIDE 8 — CLIENT TIMELINE (~35 sec)
+Two years of building before I sold anything. First client live in October 2025. By March 2026 — three active builds running in parallel: a legal firm, an insurance agency, and a wellness clinic. All managed directly by me. You are not a beta test. The platform running CCW has been in production for months.
+</pre>
+<pre id="script-9">
+SLIDE 9 — THE DASHBOARD (~35 sec)
+This is what you see every Monday morning. One screen. All four companies. Current SEO scores and week-over-week change. Site traffic. Procurement signals flagged from SAM.gov and FTA. If any score drops below 75 at any point — you get an alert the same morning. No black boxes. Numbers, every week.
+</pre>
+<pre id="script-10">
+SLIDE 10 — AUTOMATION LAYER (~45 sec)
+Dale — I went into this research not expecting to find much. The more I dug, the more I realized I can genuinely help. Aside from the websites — work orders tracked live, no more status calls. Procurement alerts before deadlines. TSI leads responded to in under two minutes. SBL's federal history visible to every agency searching for bus leasing. My clients typically see a three to six times return on what this costs. For you, I need to understand your internal workflows before I put a number on the automation side. Conservatively — I think there's two hundred and fifty to six hundred and fifty thousand dollars in recoverable efficiency here.
+</pre>
+<pre id="script-11">
+SLIDE 11 — CLOSE (~30 sec)
+Dale — I really believe making these changes puts the number one transit remanufacturer in America back on the map where buyers can find it. The websites are the first step. The platform is the long game. Fee is ninety-five hundred a month. Everything is included. One additional CCW contract sourced through search covers the annual fee — and that's not a forecast, that's a ratio between two numbers that already exist. Four things to get started. Everything else is on us.
+</pre>
+</div>
+
+</body>
+</html>

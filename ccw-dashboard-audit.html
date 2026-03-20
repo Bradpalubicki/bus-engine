@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Infrastructure Intelligence — CCW Family Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F5F2EC;
+  --surface: #FDFCF9;
+  --border: #D8D3C8;
+  --border-strong: #B8B2A8;
+  --text: #1A1814;
+  --muted: #6B6560;
+  --subtle: #9B9590;
+  --accent: #1A1814;
+  --red: #C0392B;
+  --red-bg: #FDF2F1;
+  --red-border: #E8C5C2;
+  --amber: #92400E;
+  --amber-bg: #FFFBF0;
+  --amber-border: #E8D8B0;
+  --green: #14532D;
+  --green-bg: #F0FDF4;
+  --green-border: #BBF7D0;
+  --blue: #1E40AF;
+  --blue-bg: #EFF6FF;
+  --blue-border: #BFDBFE;
+  --font: 'Inter', -apple-system, sans-serif;
+}
+
+html { font-size: 14px; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.5; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+/* ── TOP TOOLBAR ─────────────────────────── */
+.toolbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+}
+.toolbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 14px;
+  border-bottom: 1px solid var(--border);
+}
+.toolbar-brand { }
+.brand-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
+.brand-sub { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--subtle); margin-top: 2px; }
+.toolbar-actions { display: flex; gap: 8px; }
+.btn {
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font);
+  transition: background 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+}
+.btn:hover { background: var(--bg); border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: #333; border-color: #333; }
+
+/* site selector row */
+.toolbar-sites {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sites-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-right: 4px; white-space: nowrap; }
+.site-pill {
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.site-pill:hover { border-color: var(--border-strong); color: var(--text); }
+.site-pill.active { background: var(--text); color: #fff; border-color: var(--text); font-weight: 600; }
+.site-pill.add { border-style: dashed; color: var(--subtle); }
+.site-pill.add:hover { color: var(--muted); }
+
+/* tab row */
+.toolbar-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0;
+}
+.tab {
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); font-weight: 600; border-bottom-color: var(--text); }
+.tab-scroll {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.tab-scroll span {
+  display: block;
+  width: 16px;
+  height: 5px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  background: transparent;
+}
+
+/* ── MAIN LAYOUT ─────────────────────────── */
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 32px 80px; }
+
+/* ── SECTION HEADER ─────────────────────── */
+.section-header { margin-bottom: 24px; }
+.section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
+.section-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* ── SCORE OVERVIEW ─────────────────────── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.score-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.score-card:hover { border-color: var(--border-strong); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.score-card.active-card { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(26,24,20,0.08); }
+.score-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.score-card-domain { font-size: 13px; font-weight: 600; }
+.score-card-url { font-size: 10px; color: var(--subtle); margin-top: 2px; }
+.verdict-pill {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.verdict-fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.verdict-warn { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.verdict-pass { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+
+.score-nums { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.score-big { font-size: 42px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+.score-big.bad { color: var(--red); }
+.score-big.warn { color: #B45309; }
+.score-big.ok { color: var(--green); }
+.score-divider { width: 1px; height: 32px; background: var(--border); }
+.gov-score-block { }
+.gov-score-num { font-size: 22px; font-weight: 700; letter-spacing: -0.8px; }
+.gov-score-num.bad { color: var(--red); }
+.gov-score-label { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); margin-top: 2px; }
+
+.score-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.score-bar-label { font-size: 10px; color: var(--muted); width: 72px; flex-shrink: 0; }
+.score-bar-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+.fill-bad { background: var(--red); }
+.fill-warn { background: #D97706; }
+.fill-ok { background: #16A34A; }
+.score-bar-val { font-size: 10px; font-weight: 600; width: 24px; text-align: right; flex-shrink: 0; }
+
+/* ── TWO-COL LAYOUT ─────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+
+/* ── CARD ───────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-title { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+.card-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.card-body { padding: 16px 18px; }
+
+/* ── GOV READINESS ─────────────────────── */
+.gov-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.gov-card-header {
+  background: var(--red-bg);
+  border-bottom: 1px solid var(--red-border);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gov-header-left { }
+.gov-header-title { font-size: 12px; font-weight: 700; color: var(--red); }
+.gov-header-sub { font-size: 10px; color: #92400E; margin-top: 2px; }
+.gov-header-right { display: flex; align-items: baseline; gap: 8px; }
+.gov-score-large { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--red); }
+.gov-not-ready-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.gov-sub-scores {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.gov-sub-item {
+  padding: 12px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.gov-sub-item:last-child { border-right: none; }
+.gov-sub-label { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); margin-bottom: 4px; }
+.gov-sub-val { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.gov-sub-val.bad { color: var(--red); }
+.gov-sub-val.warn { color: #B45309; }
+.gov-sub-val.ok { color: var(--green); }
+
+/* ── ISSUE ROWS ─────────────────────────── */
+.issue-list { }
+.issue-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+.issue-row:last-child { border-bottom: none; }
+.issue-row:hover { background: var(--bg); }
+.issue-sev {
+  flex-shrink: 0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.sev-critical { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.sev-high { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.sev-medium { background: #F8F8F6; color: var(--muted); border: 1px solid var(--border); }
+.issue-content { flex: 1; min-width: 0; }
+.issue-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.issue-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.issue-gov {
+  font-size: 10px;
+  color: #92400E;
+  background: var(--amber-bg);
+  border-left: 2px solid #D97706;
+  padding: 5px 8px;
+  border-radius: 0 4px 4px 0;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.issue-gov-label { font-weight: 700; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #92400E; margin-bottom: 2px; }
+.issue-cat {
+  flex-shrink: 0;
+  font-size: 9px;
+  color: var(--subtle);
+  font-weight: 500;
+  padding-top: 2px;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* ── GOV→COMMERCIAL MAP ─────────────────── */
+.map-row {
+  display: grid;
+  grid-template-columns: 2fr 1px 2fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.map-row:last-child { border-bottom: none; }
+.map-gov, .map-com {
+  padding: 12px 18px;
+  font-size: 11px;
+}
+.map-gov { background: var(--red-bg); }
+.map-divider { background: var(--border); }
+.map-com { background: var(--blue-bg); }
+.map-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+.map-gov .map-label { color: var(--red); }
+.map-com .map-label { color: var(--blue); }
+.map-text { color: var(--text); line-height: 1.5; }
+.map-header {
+  display: grid;
+  grid-template-columns: 2fr 1px 2fr;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.map-header-cell {
+  padding: 8px 18px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.map-header-cell.gov { color: var(--red); }
+.map-header-cell.com { color: var(--blue); }
+
+/* ── SERVICE TIERS ─────────────────────── */
+.tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tier-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.tier-header { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+.tier-name { font-size: 13px; font-weight: 700; }
+.tier-price { font-size: 22px; font-weight: 800; letter-spacing: -0.8px; margin-top: 6px; }
+.tier-price span { font-size: 12px; font-weight: 400; color: var(--muted); }
+.tier-body { padding: 16px 18px; }
+.tier-feature { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 11px; color: var(--muted); }
+.tier-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+.tier-cta { display: block; margin: 14px 0 0; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; border: 1px solid var(--border-strong); cursor: pointer; font-family: var(--font); text-decoration: none; background: var(--surface); color: var(--text); transition: all 0.15s; }
+.tier-cta:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.tier-card.featured { border-color: var(--accent); }
+.tier-card.featured .tier-header { background: var(--accent); color: #fff; }
+.tier-card.featured .tier-price { color: #fff; }
+.tier-card.featured .tier-cta { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── FINDINGS TABLE ─────────────────────── */
+.findings-filter {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.filter-pill:hover { border-color: var(--border-strong); color: var(--text); }
+.filter-pill.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+/* ── CALLOUT ───────────────────────────── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.callout-red { background: var(--red-bg); border: 1px solid var(--red-border); color: #7F1D1D; }
+.callout-amber { background: var(--amber-bg); border: 1px solid var(--amber-border); color: #78350F; }
+.callout-blue { background: var(--blue-bg); border: 1px solid var(--blue-border); color: #1E3A8A; }
+.callout strong { font-weight: 700; }
+.callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+
+/* ── STAT ROW ──────────────────────────── */
+.stat-row { display: flex; gap: 16px; margin-bottom: 24px; }
+.stat-item {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); margin-bottom: 6px; }
+.stat-value { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.stat-value.bad { color: var(--red); }
+.stat-value.warn { color: #B45309; }
+.stat-value.ok { color: var(--green); }
+.stat-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* ── TABS CONTENT ──────────────────────── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── DIVIDER ───────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+/* ── SCROLLBAR ─────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* ── RESPONSIVE ────────────────────────── */
+@media (max-width: 768px) {
+  .toolbar { padding: 0 16px; }
+  .main { padding: 20px 16px 60px; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr; }
+  .gov-sub-scores { grid-template-columns: repeat(3, 1fr); }
+  .tier-grid { grid-template-columns: 1fr; }
+  .toolbar-sites { flex-wrap: wrap; }
+  .toolbar-tabs { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-top">
+    <div class="toolbar-brand">
+      <div class="brand-title">Digital Infrastructure Intelligence Platform</div>
+      <div class="brand-sub">Dual-Compliance Audit · Gov + Commercial · V2.0</div>
+    </div>
+    <div class="toolbar-actions">
+      <a href="mailto:brad@nustack.digital?subject=CCW Family — Website Proposal Request" class="btn">Generate proposal ↗</a>
+      <a href="https://certusaudit.co" target="_blank" class="btn btn-primary">Run audit</a>
+    </div>
+  </div>
+  <div class="toolbar-sites">
+    <span class="sites-label">Select site to audit</span>
+    <button class="site-pill active" onclick="selectSite('ccw', this)">completecoach.com</button>
+    <button class="site-pill" onclick="selectSite('tsi', this)">transitsales.com</button>
+    <button class="site-pill" onclick="selectSite('sbl', this)">sblbus.com</button>
+    <button class="site-pill add" onclick="window.open('https://certusaudit.co','_blank')">+ Add URL</button>
+  </div>
+  <div class="toolbar-tabs">
+    <div class="tab active" onclick="switchTab('overview', this)">Overview</div>
+    <div class="tab" onclick="switchTab('audit', this)">Audit domains</div>
+    <div class="tab" onclick="switchTab('findings', this)">Findings</div>
+    <div class="tab" onclick="switchTab('govmap', this)">Gov→Commercial map</div>
+    <div class="tab" onclick="switchTab('tiers', this)">Service tiers</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MAIN -->
+<div class="main">
+
+  <!-- ═══════════ TAB: OVERVIEW -->
+  <div id="tab-overview" class="tab-content active">
+    <div class="section-header">
+      <div class="section-title" id="overview-title">completecoach.com — Dual Compliance Overview</div>
+      <div class="section-sub" id="overview-sub">Live audit · March 2026 · Powered by SiteGrade + CertusAudit</div>
+    </div>
+
+    <!-- score cards -->
+    <div class="overview-grid">
+      <div class="score-card active-card" id="card-ccw" onclick="selectSite('ccw', null); document.querySelectorAll('.score-card').forEach(c=>c.classList.remove('active-card')); this.classList.add('active-card')">
+        <div class="score-card-header">
+          <div>
+            <div class="score-card-domain">Complete Coach Works</div>
+            <div class="score-card-url">completecoach.com</div>
+          </div>
+          <span class="verdict-pill verdict-fail">FAIL</span>
+        </div>
+        <div class="score-nums">
+          <div>
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Commercial</div>
+            <div class="score-big warn">54</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="gov-score-block">
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Gov Readiness</div>
+            <div class="gov-score-num bad">33</div>
+          </div>
+        </div>
+        <div>
+          <div class="score-bar-row"><span class="score-bar-label">Visibility</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:35%"></div></div><span class="score-bar-val" style="color:var(--red)">35</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Trust</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:25%"></div></div><span class="score-bar-val" style="color:var(--red)">25</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Conversion</span><div class="score-bar-track"><div class="score-bar-fill fill-warn" style="width:50%"></div></div><span class="score-bar-val" style="color:#B45309">50</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Security</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:15%"></div></div><span class="score-bar-val" style="color:var(--red)">15</span></div>
+        </div>
+      </div>
+
+      <div class="score-card" id="card-tsi" onclick="selectSite('tsi', null); document.querySelectorAll('.score-card').forEach(c=>c.classList.remove('active-card')); this.classList.add('active-card')">
+        <div class="score-card-header">
+          <div>
+            <div class="score-card-domain">Transit Sales International</div>
+            <div class="score-card-url">transitsales.com</div>
+          </div>
+          <span class="verdict-pill verdict-fail">FAIL</span>
+        </div>
+        <div class="score-nums">
+          <div>
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Commercial</div>
+            <div class="score-big warn">63</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="gov-score-block">
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Gov Readiness</div>
+            <div class="gov-score-num bad">30</div>
+          </div>
+        </div>
+        <div>
+          <div class="score-bar-row"><span class="score-bar-label">Visibility</span><div class="score-bar-track"><div class="score-bar-fill fill-warn" style="width:70%"></div></div><span class="score-bar-val" style="color:#B45309">70</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Trust</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:0%"></div></div><span class="score-bar-val" style="color:var(--red)">0</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Conversion</span><div class="score-bar-track"><div class="score-bar-fill fill-ok" style="width:75%"></div></div><span class="score-bar-val" style="color:var(--green)">75</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Security</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:15%"></div></div><span class="score-bar-val" style="color:var(--red)">15</span></div>
+        </div>
+      </div>
+
+      <div class="score-card" id="card-sbl" onclick="selectSite('sbl', null); document.querySelectorAll('.score-card').forEach(c=>c.classList.remove('active-card')); this.classList.add('active-card')">
+        <div class="score-card-header">
+          <div>
+            <div class="score-card-domain">Shuttle Bus Leasing</div>
+            <div class="score-card-url">sblbus.com</div>
+          </div>
+          <span class="verdict-pill verdict-fail">FAIL</span>
+        </div>
+        <div class="score-nums">
+          <div>
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Commercial</div>
+            <div class="score-big warn">62</div>
+          </div>
+          <div class="score-divider"></div>
+          <div class="gov-score-block">
+            <div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--subtle);margin-bottom:4px;">Gov Readiness</div>
+            <div class="gov-score-num bad">30</div>
+          </div>
+        </div>
+        <div>
+          <div class="score-bar-row"><span class="score-bar-label">Visibility</span><div class="score-bar-track"><div class="score-bar-fill fill-warn" style="width:70%"></div></div><span class="score-bar-val" style="color:#B45309">70</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Trust</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:0%"></div></div><span class="score-bar-val" style="color:var(--red)">0</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Conversion</span><div class="score-bar-track"><div class="score-bar-fill fill-ok" style="width:75%"></div></div><span class="score-bar-val" style="color:var(--green)">75</span></div>
+          <div class="score-bar-row"><span class="score-bar-label">Security</span><div class="score-bar-track"><div class="score-bar-fill fill-bad" style="width:15%"></div></div><span class="score-bar-val" style="color:var(--red)">15</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stat row -->
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-label">Critical Findings</div>
+        <div class="stat-value bad" id="stat-critical">6</div>
+        <div class="stat-sub" id="stat-critical-sub">across completecoach.com</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Federal Compliance</div>
+        <div class="stat-value bad">FAIL</div>
+        <div class="stat-sub">All 3 sites — not contractor ready</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Gov Issues (Fed-tagged)</div>
+        <div class="stat-value bad" id="stat-gov">9</div>
+        <div class="stat-sub" id="stat-gov-sub">regulatory citations on this site</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Revenue Risk Band</div>
+        <div class="stat-value warn" id="stat-risk">Moderate-High</div>
+        <div class="stat-sub" id="stat-risk-sub">estimated $200K–$800K/yr opportunity cost</div>
+      </div>
+    </div>
+
+    <!-- callouts -->
+    <div class="two-col">
+      <div class="callout callout-red">
+        <div class="callout-label">⚖ Federal Contractor Risk</div>
+        All three sites would fail a federal procurement review today. 5 critical security + accessibility + contractor ID failures are common to every site. Any GSA, FTA, or DOT-adjacent contract opportunity is at risk.
+      </div>
+      <div class="callout callout-amber">
+        <div class="callout-label">💰 Commercial Opportunity</div>
+        Trust scores are 0 on TSI and SBL. CCW visibility is 35/100. These are not edge-case improvements — these are the top-of-funnel issues preventing inbound from transit agencies who already need your services.
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-label">⚡ The Batching Advantage</div>
+      All three sites run the same Divi version, managed by one developer. A shared design system built once applies to all three. Security headers fixed once on the server apply to all three. This is a <strong>one-engagement rebuild</strong>, not three separate projects. 6–8 weeks. Done right.
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: AUDIT DOMAINS -->
+  <div id="tab-audit" class="tab-content">
+    <div class="section-header">
+      <div class="section-title" id="audit-title">completecoach.com — Full Domain Audit</div>
+      <div class="section-sub">Commercial scores + Government contractor readiness · Live data</div>
+    </div>
+
+    <!-- Gov Readiness Card -->
+    <div class="gov-card" id="gov-card-ccw">
+      <div class="gov-card-header">
+        <div class="gov-header-left">
+          <div class="gov-header-title">⚖ Government Contractor Readiness</div>
+          <div class="gov-header-sub">FAR · Section 508 · CMMC · NIST SP 800-53 · CISA BOD 18-01</div>
+        </div>
+        <div class="gov-header-right">
+          <div class="gov-score-large" id="gov-overall-ccw">33</div>
+          <div>
+            <div class="gov-not-ready-badge" id="gov-verdict-ccw">NOT READY</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px;">contractorReady: false</div>
+          </div>
+        </div>
+      </div>
+      <div class="gov-sub-scores" id="gov-sub-ccw">
+        <div class="gov-sub-item"><div class="gov-sub-label">Security</div><div class="gov-sub-val bad">15</div></div>
+        <div class="gov-sub-item"><div class="gov-sub-label">Accessibility</div><div class="gov-sub-val bad">15</div></div>
+        <div class="gov-sub-item"><div class="gov-sub-label">Contractor ID</div><div class="gov-sub-val bad">20</div></div>
+        <div class="gov-sub-item"><div class="gov-sub-label">Supply Chain</div><div class="gov-sub-val warn">55</div></div>
+        <div class="gov-sub-item"><div class="gov-sub-label">Privacy</div><div class="gov-sub-val ok">75</div></div>
+      </div>
+      <div class="issue-list" id="gov-issues-ccw">
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No Content Security Policy header</div><div class="issue-desc">Your site has no CSP header. Every form and session is exposed to cross-site scripting injection.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>NIST SP 800-53 Rev 5 SC-18 (Mobile Code) + CMMC Level 1 AC.1.001 — Missing CSP allows XSS attacks; CMMC assessors flag absent security headers as IT hygiene failures during Level 2 pre-assessment interviews.</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">HTTPS enforced but HSTS header missing</div><div class="issue-desc">Browsers can still be downgraded to HTTP by attackers. SSL-strip attacks silently redirect users.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>CISA BOD 18-01 · NIST SP 800-52 Rev 2 — HTTPS not enforced via HSTS; man-in-the-middle attacks possible. CMMC Level 2 SC.3.177 requires encryption of CUI in transit.</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">Accessibility critically failing — Section 508 risk</div><div class="issue-desc">Multiple WCAG 2.1 AA failures. Federal agencies cannot procure non-compliant ICT products.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 §1194 + Rehabilitation Act 29 U.S.C. § 794d — ICT products must meet WCAG 2.1 AA. This finding causes automatic VPAT failure and bid disqualification.</div></div><span class="issue-cat">Accessibility</span></div>
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">WordPress with unaudited third-party scripts</div><div class="issue-desc">Unvetted external scripts run on every page, creating supply chain risk for government clients.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>EO 14028 + NIST SP 800-161 Supply Chain Risk Management — CMMC Level 2 SR.3.169 requires vendors to manage supply chain risk. Unvetted scripts signal inadequate security posture to CMMC assessors.</div></div><span class="issue-cat">Supply Chain</span></div>
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No federal contractor credentials visible</div><div class="issue-desc">No CAGE code, NAICS codes, SAM.gov status, or past performance visible to procurement officers.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>FAR 52.204-7 (SAM Registration) + FAR Subpart 9.1 (Responsibility Determinations) — 84% of government agencies research vendors online before shortlisting. Missing credentials = unverifiable contractor.</div></div><span class="issue-cat">Contractor ID</span></div>
+        <div class="issue-row"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">No past performance or portfolio section</div><div class="issue-desc">No structured portfolio with agency names, scope, and completion dates.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>FAR 15.305(a)(2) — Past performance is a mandatory evaluation factor in competitive acquisitions. Contracting officers who cannot verify past performance will score lower or eliminate the bid.</div></div><span class="issue-cat">Contractor ID</span></div>
+        <div class="issue-row"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Form inputs missing accessible labels</div><div class="issue-desc">Form fields without labels fail automated Section 508 testing tools used by procurement teams.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 §1194.22(n) + WCAG 2.1 SC 1.3.1 — Required for VPAT (Voluntary Product Accessibility Template) certification for federal sales.</div></div><span class="issue-cat">Accessibility</span></div>
+        <div class="issue-row"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">No clickjacking protection (X-Frame-Options missing)</div><div class="issue-desc">Federal IT procurement scanners flag this header as absent in automated pre-qualification checks.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>OWASP Top 10 A05:2021 (Security Misconfiguration) — Missing X-Frame-Options enables clickjacking attacks.</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">Missing ARIA landmark regions</div><div class="issue-desc">Screen readers cannot navigate page structure. Required for Section 508 conformance.</div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 + WCAG 2.1 SC 1.3.6 — Missing ARIA landmarks prevent screen readers from navigating. WCAG 2.1 AA compliance required for Section 508 conformance reports.</div></div><span class="issue-cat">Accessibility</span></div>
+      </div>
+    </div>
+
+    <!-- Commercial Issues -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Commercial Performance Issues</div>
+        <span class="card-badge" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">10 Issues</span>
+      </div>
+      <div class="issue-list">
+        <div class="issue-row"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No Call-to-Action Above the Fold</div><div class="issue-desc">Visitors see no clear next step in the first screen. Above-fold CTAs increase conversion 47–202%. Add a prominent "Request a Quote" button visible without scrolling.</div></div><span class="issue-cat">Conversion</span></div>
+        <div class="issue-row"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Missing Meta Description</div><div class="issue-desc">Google writes its own — usually poor quality. A compelling 155-character meta description improves click-through from search by 5–10%.</div></div><span class="issue-cat">Visibility</span></div>
+        <div class="issue-row"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Phone Number Hidden From Header</div><div class="issue-desc">Contact info buried below the fold. Put phone and email in the top navigation on every page. Mobile visitors won't hunt for it.</div></div><span class="issue-cat">Conversion</span></div>
+        <div class="issue-row"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">Title Tag Too Long (Gets Cut Off)</div><div class="issue-desc">Title exceeds 60 characters — Google truncates it in search results. Rewrite to 50–60 characters with primary keyword first.</div></div><span class="issue-cat">Visibility</span></div>
+        <div class="issue-row"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">More Than Half of Images Missing Alt Text</div><div class="issue-desc">Hurts both SEO and accessibility. Alt text on images is a 30-minute fix with compounding search benefit.</div></div><span class="issue-cat">UX</span></div>
+        <div class="issue-row"><span class="issue-sev sev-low" style="background:#F8F8F6;color:var(--muted);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;flex-shrink:0;margin-top:1px;">Low</span><div class="issue-content"><div class="issue-title">No Structured Data (Schema Markup)</div><div class="issue-desc">No Organization, LocalBusiness, or Service schema. Competitors with schema get rich results (address, phone, hours) in Google — CCW gets a plain blue link.</div></div><span class="issue-cat">Visibility</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: FINDINGS (all sites, filterable) -->
+  <div id="tab-findings" class="tab-content">
+    <div class="section-header">
+      <div class="section-title">All Findings — Complete Coach Works Family</div>
+      <div class="section-sub">26 total findings across 3 sites · Filter by type</div>
+    </div>
+    <div class="findings-filter">
+      <button class="filter-pill active" onclick="filterFindings('all', this)">All (26)</button>
+      <button class="filter-pill" onclick="filterFindings('gov', this)">Federal / Gov (8)</button>
+      <button class="filter-pill" onclick="filterFindings('critical', this)">Critical (18)</button>
+      <button class="filter-pill" onclick="filterFindings('security', this)">Security (6)</button>
+      <button class="filter-pill" onclick="filterFindings('accessibility', this)">Accessibility (6)</button>
+      <button class="filter-pill" onclick="filterFindings('conversion', this)">Conversion (4)</button>
+      <button class="filter-pill" onclick="filterFindings('visibility', this)">Visibility (6)</button>
+    </div>
+    <div class="card">
+      <div class="issue-list" id="findings-list">
+        <!-- All 3 sites combined -->
+        <div class="issue-row" data-cat="security" data-sev="critical" data-gov="true"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No Content Security Policy header <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>NIST SP 800-53 Rev 5 SC-18 + CMMC Level 1 AC.1.001</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row" data-cat="security" data-sev="critical" data-gov="true"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">HTTPS enforced but HSTS header missing <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>CISA BOD 18-01 · NIST SP 800-52 Rev 2 · CMMC Level 2 SC.3.177</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row" data-cat="accessibility" data-sev="critical" data-gov="true"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">Accessibility critically failing — Section 508 risk <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 §1194 + Rehabilitation Act 29 U.S.C. § 794d</div></div><span class="issue-cat">Accessibility</span></div>
+        <div class="issue-row" data-cat="security" data-sev="critical" data-gov="true"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">WordPress with unaudited third-party scripts <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>EO 14028 + NIST SP 800-161 · CMMC Level 2 SR.3.169</div></div><span class="issue-cat">Supply Chain</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="critical" data-gov="true"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No federal contractor credentials visible <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>FAR 52.204-7 + FAR Subpart 9.1 (Responsibility Determinations)</div></div><span class="issue-cat">Contractor ID</span></div>
+        <div class="issue-row" data-cat="conversion" data-sev="critical" data-gov="false"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No Call-to-Action Above the Fold <span style="font-size:10px;color:var(--subtle);font-weight:400;">— CCW</span></div><div class="issue-desc">Above-fold CTAs increase conversion 47–202%. Visitors have no clear next step.</div></div><span class="issue-cat">Conversion</span></div>
+        <div class="issue-row" data-cat="conversion" data-sev="critical" data-gov="false"><span class="issue-sev sev-critical">Critical</span><div class="issue-content"><div class="issue-title">No Social Proof on Website <span style="font-size:10px;color:var(--subtle);font-weight:400;">— TSI, SBL</span></div><div class="issue-desc">No testimonials, reviews, or named client results anywhere on either site. Trust score = 0/100.</div></div><span class="issue-cat">Trust</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="high" data-gov="false"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Missing Meta Description <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-desc">Google writes its own descriptions — usually poor quality and off-message.</div></div><span class="issue-cat">Visibility</span></div>
+        <div class="issue-row" data-cat="conversion" data-sev="high" data-gov="false"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Phone Number Hidden From Header <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-desc">Contact info buried below fold. Mobile visitors won't hunt for it.</div></div><span class="issue-cat">Conversion</span></div>
+        <div class="issue-row" data-cat="accessibility" data-sev="high" data-gov="true"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">Form inputs missing accessible labels <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 §1194.22(n) + WCAG 2.1 SC 1.3.1 — Required for VPAT certification</div></div><span class="issue-cat">Accessibility</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="high" data-gov="true"><span class="issue-sev sev-high">High</span><div class="issue-content"><div class="issue-title">No past performance or portfolio section <span style="font-size:10px;color:var(--subtle);font-weight:400;">— CCW, TSI</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>FAR 15.305(a)(2) — Mandatory evaluation factor in competitive acquisitions</div></div><span class="issue-cat">Contractor ID</span></div>
+        <div class="issue-row" data-cat="security" data-sev="medium" data-gov="true"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">No clickjacking protection header <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>OWASP Top 10 A05:2021 — Federal IT procurement scanners flag this automatically</div></div><span class="issue-cat">Security</span></div>
+        <div class="issue-row" data-cat="accessibility" data-sev="medium" data-gov="true"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">Missing ARIA landmark regions <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-gov"><div class="issue-gov-label">⚖ Federal Citation</div>Section 508 + WCAG 2.1 SC 1.3.6 — Required for Section 508 conformance reports</div></div><span class="issue-cat">Accessibility</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="medium" data-gov="false"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">Title Tag Too Long (Gets Cut Off) <span style="font-size:10px;color:var(--subtle);font-weight:400;">— CCW</span></div><div class="issue-desc">Title exceeds 60 characters. Rewrite to 50–60 chars with primary keyword first.</div></div><span class="issue-cat">Visibility</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="medium" data-gov="false"><span class="issue-sev sev-medium">Medium</span><div class="issue-content"><div class="issue-title">Images missing alt text (50%+) <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-desc">Hurts SEO ranking and Section 508 compliance simultaneously. 30-minute fix.</div></div><span class="issue-cat">UX</span></div>
+        <div class="issue-row" data-cat="visibility" data-sev="low" data-gov="false"><span class="issue-sev sev-medium">Low</span><div class="issue-content"><div class="issue-title">No Structured Data / Schema Markup <span style="font-size:10px;color:var(--subtle);font-weight:400;">— All 3 sites</span></div><div class="issue-desc">No Organization or LocalBusiness schema. Competitors get rich results in Google — these sites get plain blue links.</div></div><span class="issue-cat">Visibility</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: GOV→COMMERCIAL MAP -->
+  <div id="tab-govmap" class="tab-content">
+    <div class="section-header">
+      <div class="section-title">Gov→Commercial Compliance Map</div>
+      <div class="section-sub">How each federal failure also damages commercial performance — the dual-impact argument</div>
+    </div>
+
+    <div class="callout callout-blue" style="margin-bottom:24px;">
+      <strong>Why this matters for the pitch:</strong> Every federal compliance failure also has a direct commercial cost. Fixing them isn't just about winning government contracts — it's about not losing the leads you're already getting. The map below shows the dual impact of each issue.
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <div class="map-header">
+        <div class="map-header-cell gov">⚖ Federal / Gov Impact</div>
+        <div></div>
+        <div class="map-header-cell com">💼 Commercial Impact</div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">Security Headers Missing</div><div class="map-text">CMMC assessors flag absent CSP + HSTS during Level 2 pre-assessments. Automatic disqualification from CMMC-required contracts (DOD, DOT, FTA-funded programs).</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">Browser security warnings on Chrome/Firefox scare away commercial buyers doing preliminary research. Insurance and enterprise procurement teams run security scans before signing contracts.</div></div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">Section 508 Accessibility</div><div class="map-text">Federal agencies cannot award ICT contracts without an Accessibility Conformance Report (VPAT). Failure here is automatic bid disqualification from any agency procurement.</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">ADA Title III lawsuits cost $25K–$100K in settlements. Screen reader users — including many fleet managers with disabilities — can't use the site at all. Google penalizes accessibility failures in rankings.</div></div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">No Contractor Credentials Visible</div><div class="map-text">FAR 9.104 Responsibility Determination — 84% of government agencies research vendors online before shortlisting. No CAGE code or SAM.gov status = unverifiable = not shortlisted.</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">Large transit agencies and fleet operators (commercial) use the same research process as government buyers. No credentials page means no proof of scale or capability — they call a competitor who has it.</div></div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">Supply Chain / Third-Party Scripts</div><div class="map-text">EO 14028 + NIST SP 800-161 — Unvetted third-party scripts signal inadequate supply chain security posture. CMMC Level 2 SR.3.169 makes this a formal audit finding.</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">Unaudited scripts slow page load (every plugin adds 80–300ms). Page speed is a direct Google ranking factor. Commercial buyers on slow mobile connections bounce before they call.</div></div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">No Past Performance Section</div><div class="map-text">FAR 15.305(a)(2) — Past performance is a mandatory evaluation factor. Contracting officers who can't verify it score lower or eliminate the bid entirely.</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">Transit agency procurement managers doing preliminary vendor research for large fleet purchases ($500K+) require evidence of comparable scope. No portfolio = no call back. Same psychology, different regulatory name.</div></div>
+      </div>
+      <div class="map-row">
+        <div class="map-gov"><div class="map-label">Missing ARIA + Form Labels</div><div class="map-text">Section 508 §1194.22(n) — Automated 508 testing tools used by procurement teams flag unlabeled forms as accessibility failures. Required for VPAT certification.</div></div>
+        <div class="map-divider"></div>
+        <div class="map-com"><div class="map-label">Commercial</div><div class="map-text">Unlabeled form fields confuse all users, not just screen reader users. Higher form abandonment rate on RFQ/contact forms = fewer leads captured from the traffic you're already getting.</div></div>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <div class="callout-label">The Single Most Dangerous Combination</div>
+      Security headers missing + no contractor credentials visible + no past performance = a site that fails every federal pre-qualification scan before a human ever reads the proposal. These three fixes alone — server config + one page + one section — unlock every government contract opportunity CCW and TSI are currently invisible to.
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: SERVICE TIERS -->
+  <div id="tab-tiers" class="tab-content">
+    <div class="section-header">
+      <div class="section-title">NuStack Service Tiers — CCW Family Engagement</div>
+      <div class="section-sub">One engagement. Three sites. Choose your scope.</div>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-header">
+          <div class="tier-name">Compliance Sprint</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;">Fix the blockers. Stop the bleeding.</div>
+          <div class="tier-price">$4,800 <span>one-time</span></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span>All 4 security headers fixed on server (CSP, HSTS, X-Frame-Options, Permissions-Policy)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Section 508 accessibility quick-pass (alt text, labels, ARIA landmarks)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Meta descriptions + title tags fixed on all 3 sites</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Phone + CTA added to every page header</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Government Contractor credentials page (CAGE, NAICS, SAM, past performance)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Compliance documentation + VPAT-ready checklist</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">Timeline: 2 weeks · Resolves all 6 federal critical findings</div>
+          <a href="mailto:brad@nustack.digital?subject=CCW — Compliance Sprint" class="tier-cta">Start Compliance Sprint →</a>
+        </div>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-header">
+          <div class="tier-name">Full Rebuild</div>
+          <div style="font-size:10px;opacity:0.7;margin-top:3px;">Recommended · Built to win government + commercial</div>
+          <div class="tier-price">$18,500 <span>one-time</span></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span>Everything in Compliance Sprint</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Shared design system — built once, applied to all 3 sites</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>New CCW.com — services architecture, portfolio section, RFQ flow</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>New TSI.com — inventory with real pricing, Available/Sold status, saved search alerts</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>New SBL.com — lease calculator, quote intake, cross-company routing</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Cross-company lead routing (CCW ↔ TSI ↔ SBL)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Organization schema + Google Search Console setup</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Monthly automated performance reports</div>
+          <div style="font-size:10px;opacity:0.6;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);">Timeline: 6–8 weeks · Complete commercial + gov readiness</div>
+          <a href="mailto:brad@nustack.digital?subject=CCW — Full Rebuild" class="tier-cta">Start Full Rebuild →</a>
+        </div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-header">
+          <div class="tier-name">Managed Growth</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;">Monthly. Compound results over time.</div>
+          <div class="tier-price">$2,200 <span>/ mo</span></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span>Full Rebuild included (month 1–2)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>2 SEO blog posts/month per site (6 total)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Monthly Google Search Console + GA4 report</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Automated lead follow-up sequences</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Quarterly compliance re-scan (Section 508 + security headers)</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Priority support — 24-hour response</div>
+          <div class="tier-feature"><span class="tier-check">✓</span>Annual VPAT-ready compliance documentation refresh</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">12-month minimum · Cancel with 30 days notice</div>
+          <a href="mailto:brad@nustack.digital?subject=CCW — Managed Growth" class="tier-cta">Start Managed Growth →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="callout callout-blue">
+      <div class="callout-label">Why one engagement, not three</div>
+      The design system is the key leverage point. Build it once (logo usage, typography, color palette, button styles, grid system) and apply it three times. The developer who built all three sites in Divi knows this — the rebuild batches at the same efficiency. NuStack's advantage: we wire in the cross-company routing, lead automation, and compliance monitoring that a Divi developer can't deliver.
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ── SITE DATA ──────────────────────────────────────────────
+const siteData = {
+  ccw: {
+    name: 'completecoach.com',
+    label: 'Complete Coach Works',
+    commercial: 54,
+    govScore: 33,
+    critical: 6,
+    govIssues: 9,
+    riskBand: 'Moderate-High',
+    riskDesc: 'estimated $200K–$800K/yr opportunity cost',
+    criticalDesc: 'across completecoach.com',
+  },
+  tsi: {
+    name: 'transitsales.com',
+    label: 'Transit Sales International',
+    commercial: 63,
+    govScore: 30,
+    critical: 6,
+    govIssues: 8,
+    riskBand: 'Moderate',
+    riskDesc: 'estimated $245K+/yr from inventory + conversion fixes',
+    criticalDesc: 'across transitsales.com',
+  },
+  sbl: {
+    name: 'sblbus.com',
+    label: 'Shuttle Bus Leasing',
+    commercial: 62,
+    govScore: 30,
+    critical: 6,
+    govIssues: 8,
+    riskBand: 'Moderate',
+    riskDesc: 'one transit agency lease worth $50K–$500K',
+    criticalDesc: 'across sblbus.com',
+  },
+};
+
+let currentSite = 'ccw';
+
+function selectSite(site, pillEl) {
+  currentSite = site;
+  const d = siteData[site];
+
+  // update site pills
+  if (pillEl) {
+    document.querySelectorAll('.site-pill').forEach(p => p.classList.remove('active'));
+    pillEl.classList.add('active');
+  } else {
+    document.querySelectorAll('.site-pill').forEach(p => {
+      p.classList.remove('active');
+      if (p.textContent.trim() === d.name) p.classList.add('active');
+    });
+  }
+
+  // update overview
+  document.getElementById('overview-title').textContent = d.name + ' — Dual Compliance Overview';
+  document.getElementById('stat-critical').textContent = d.critical;
+  document.getElementById('stat-critical-sub').textContent = d.criticalDesc;
+  document.getElementById('stat-gov').textContent = d.govIssues;
+  document.getElementById('stat-gov-sub').textContent = 'regulatory citations on this site';
+  document.getElementById('stat-risk').textContent = d.riskBand;
+  document.getElementById('stat-risk-sub').textContent = d.riskDesc;
+  document.getElementById('audit-title').textContent = d.name + ' — Full Domain Audit';
+}
+
+// ── TAB SWITCHING ──────────────────────────────────────────
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// ── FINDINGS FILTER ────────────────────────────────────────
+function filterFindings(type, el) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+
+  const rows = document.querySelectorAll('#findings-list .issue-row');
+  rows.forEach(row => {
+    if (type === 'all') { row.style.display = 'flex'; return; }
+    if (type === 'gov') { row.style.display = row.dataset.gov === 'true' ? 'flex' : 'none'; return; }
+    if (type === 'critical') { row.style.display = row.dataset.sev === 'critical' ? 'flex' : 'none'; return; }
+    row.style.display = row.dataset.cat === type ? 'flex' : 'none';
+  });
+}
+</script>
+</body>
+</html>

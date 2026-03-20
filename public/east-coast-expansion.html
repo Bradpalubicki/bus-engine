@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carson Capital — East Coast Expansion Analysis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0e0f11;
+    --surface: #161719;
+    --surface2: #1e2023;
+    --surface3: #252729;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --dim: #4a4845;
+    --ccw: #4ade80;
+    --tsi: #60a5fa;
+    --sbl: #f59e0b;
+    --zeps: #a78bfa;
+    --won: #4ade80;
+    --open: #fb923c;
+    --monitor: #facc15;
+    --locked: #f87171;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; overflow-x: hidden; }
+
+  /* HEADER */
+  .header {
+    padding: 20px 32px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .title { font-size: 15px; font-weight: 500; }
+  .subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .badge {
+    font-family: var(--mono); font-size: 9px; padding: 3px 8px;
+    border-radius: 3px; border: 1px solid; letter-spacing: .05em;
+  }
+  .badge-live { color: var(--won); border-color: var(--won); background: rgba(74,222,128,.08); }
+  .badge-date { color: var(--muted); border-color: var(--dim); }
+
+  /* LAYOUT */
+  .page { max-width: 1400px; margin: 0 auto; padding: 28px 32px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* SUMMARY CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .kpi-label { font-size: 10px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .kpi-value { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--text); }
+  .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .kpi-card.accent-won { border-color: rgba(74,222,128,.25); }
+  .kpi-card.accent-open { border-color: rgba(251,146,60,.25); }
+  .kpi-card.accent-monitor { border-color: rgba(250,204,21,.25); }
+  .kpi-card.accent-tsi { border-color: rgba(96,165,250,.25); }
+  .kpi-card.accent-zeps { border-color: rgba(167,139,250,.25); }
+
+  /* SECTION */
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .section-header {
+    padding: 14px 20px 12px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .section-desc { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .section-badge { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { border-bottom: 1px solid var(--border); }
+  th { padding: 8px 14px; text-align: left; font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  td { padding: 9px 14px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+
+  /* STATUS PILLS */
+  .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: var(--mono); font-size: 9px; font-weight: 500;
+    padding: 2px 7px; border-radius: 3px; border: 1px solid; white-space: nowrap;
+  }
+  .pill-won { color: var(--won); border-color: var(--won); background: rgba(74,222,128,.08); }
+  .pill-open { color: var(--open); border-color: var(--open); background: rgba(251,146,60,.08); }
+  .pill-monitor { color: var(--monitor); border-color: var(--monitor); background: rgba(250,204,21,.08); }
+  .pill-locked { color: var(--locked); border-color: var(--locked); background: rgba(248,113,113,.08); }
+  .pill-tsi { color: var(--tsi); border-color: var(--tsi); background: rgba(96,165,250,.08); }
+  .pill-zeps { color: var(--zeps); border-color: var(--zeps); background: rgba(167,139,250,.08); }
+  .pill-sbl { color: var(--sbl); border-color: var(--sbl); background: rgba(245,158,11,.08); }
+  .pill-ccw { color: var(--ccw); border-color: var(--ccw); background: rgba(74,222,128,.08); }
+
+  /* FEASIBILITY METER */
+  .feasibility { display: flex; align-items: center; gap: 8px; }
+  .fbar { height: 4px; border-radius: 2px; background: var(--surface3); flex: 1; max-width: 60px; overflow: hidden; }
+  .fbar-fill { height: 100%; border-radius: 2px; }
+  .f-high { background: var(--won); }
+  .f-med { background: var(--monitor); }
+  .f-low { background: var(--locked); }
+
+  /* UNLOCK TABLE */
+  .unlock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .unlock-col { padding: 20px; }
+  .unlock-col:first-child { border-right: 1px solid var(--border); }
+  .unlock-label { font-size: 10px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .unlock-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .unlock-item:last-child { border-bottom: none; }
+  .unlock-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .unlock-state { font-size: 12px; font-weight: 500; }
+  .unlock-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .unlock-value { font-family: var(--mono); font-size: 11px; color: var(--open); white-space: nowrap; margin-left: auto; padding-left: 12px; flex-shrink: 0; }
+
+  /* INSIGHT BANNER */
+  .insight {
+    background: var(--surface2); border: 1px solid var(--border2);
+    border-left: 3px solid; border-radius: 6px;
+    padding: 12px 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .insight-icon { font-size: 14px; flex-shrink: 0; }
+  .insight-body { flex: 1; }
+  .insight-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .insight-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .insight.won { border-left-color: var(--won); }
+  .insight.open { border-left-color: var(--open); }
+  .insight.zeps { border-left-color: var(--zeps); }
+  .insight.tsi { border-left-color: var(--tsi); }
+
+  /* TRANSPORT COST CALC */
+  .cost-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 20px; }
+  .cost-card {
+    background: var(--surface3); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px;
+  }
+  .cost-title { font-size: 11px; font-weight: 600; margin-bottom: 8px; }
+  .cost-row { display: flex; justify-content: space-between; font-size: 11px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+  .cost-row:last-child { border-bottom: none; font-weight: 500; color: var(--text); }
+  .cost-key { color: var(--muted); }
+  .cost-val { font-family: var(--mono); }
+  .cost-row.total .cost-val { color: var(--open); }
+  .cost-row.pct .cost-val { color: var(--monitor); }
+  .cost-row.verdict .cost-val { color: var(--won); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 2px; padding: 12px 20px 0; border-bottom: 1px solid var(--border); }
+  .tab {
+    padding: 6px 14px 10px; font-size: 11px; font-weight: 500;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    color: var(--muted); transition: all .15s; margin-bottom: -1px;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--ccw); }
+  .tab:hover { color: var(--text); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* FUNNEL */
+  .funnel-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 20px; border-bottom: 1px solid var(--border);
+  }
+  .funnel-row:last-child { border-bottom: none; }
+  .funnel-num { font-family: var(--mono); font-size: 20px; font-weight: 500; width: 48px; flex-shrink: 0; }
+  .funnel-label { font-size: 12px; font-weight: 500; }
+  .funnel-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .funnel-bar-wrap { flex: 1; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+  .funnel-bar { height: 100%; border-radius: 3px; }
+  .funnel-value { font-family: var(--mono); font-size: 12px; color: var(--open); width: 80px; text-align: right; flex-shrink: 0; }
+
+  /* FOOTER */
+  .footer { padding: 16px 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-size: 10px; color: var(--dim); }
+  .footer-right { display: flex; gap: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  .mono { font-family: var(--mono); }
+  .text-won { color: var(--won); }
+  .text-open { color: var(--open); }
+  .text-monitor { color: var(--monitor); }
+  .text-locked { color: var(--locked); }
+  .text-muted { color: var(--muted); }
+  .text-tsi { color: var(--tsi); }
+  .text-zeps { color: var(--zeps); }
+  .text-sbl { color: var(--sbl); }
+  .bold { font-weight: 600; }
+  .small { font-size: 11px; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  .p20 { padding: 20px; }
+  .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="logo">Carson Capital Corp</div>
+      <div class="title">East Coast Expansion Analysis</div>
+      <div class="subtitle">Where CCW/TSI/SBL/ZEPS can win east of the Mississippi — and what it takes to get there</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <span class="badge badge-live">● LIVE DATA</span>
+    <span class="badge badge-date">March 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- KPI SUMMARY -->
+  <div class="kpi-row">
+    <div class="kpi-card accent-won">
+      <div class="kpi-label">Won East of Mississippi</div>
+      <div class="kpi-value text-won">8</div>
+      <div class="kpi-sub">Confirmed contracts / deployments</div>
+    </div>
+    <div class="kpi-card accent-open">
+      <div class="kpi-label">Open Pipeline (East)</div>
+      <div class="kpi-value text-open">$199M+</div>
+      <div class="kpi-sub">FTA grants announced, RFPs pending</div>
+    </div>
+    <div class="kpi-card accent-monitor">
+      <div class="kpi-label">Active RFP Now</div>
+      <div class="kpi-value text-monitor">1</div>
+      <div class="kpi-sub">SRTA New Bedford MA — closes May 8</div>
+    </div>
+    <div class="kpi-card accent-tsi">
+      <div class="kpi-label">TSI East Opportunities</div>
+      <div class="kpi-value text-tsi">6</div>
+      <div class="kpi-sub">Replacement bus grants in East states</div>
+    </div>
+    <div class="kpi-card accent-zeps">
+      <div class="kpi-label">Key Blocker</div>
+      <div class="kpi-value text-zeps" style="font-size:15px;margin-top:4px;">Memphis TN</div>
+      <div class="kpi-sub">Satellite status unknown — unlocks 6 states</div>
+    </div>
+  </div>
+
+  <!-- INSIGHT BANNERS -->
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="insight won">
+      <div class="insight-icon">✅</div>
+      <div class="insight-body">
+        <div class="insight-title">CCW Already Reached Rochester NY (2,700 miles)</div>
+        <div class="insight-text">In August 2025, CCW won a 5-bus rehab contract with Rochester RTS (RGRTA) in New York — 2,700 miles from Riverside CA. The vehicle: <strong>WA State DES Cooperative contract</strong>. Rochester could purchase without issuing its own RFP. This is the proof case that East Coast deals are <em>possible without a local facility</em> — they just require cooperative contract access and transport cost absorption.</div>
+      </div>
+    </div>
+    <div class="insight open">
+      <div class="insight-icon">⚡</div>
+      <div class="insight-body">
+        <div class="insight-title">$14.3M DART Delaware Grant Is Live Right Now — RFP Not Yet Issued</div>
+        <div class="insight-text">Delaware DOT (DART First State) received a $14.26M FTA Bus Competitive grant on March 17, 2026 — <strong>2 days ago</strong>. Scope: midlife rehab of 51 buses. The RFP has NOT been issued. This is the optimal window: call Albert Loyola at DART before the RFP drops. CCW beat NEBR on SFMTA solely on price and track record. The same pitch works in Delaware — $150K repair vs. $500K–$1M new bus.</div>
+      </div>
+    </div>
+    <div class="insight zeps">
+      <div class="insight-icon">⚡</div>
+      <div class="insight-body">
+        <div class="insight-title">TransIT Frederick MD Is Already a ZEPS Customer with New Grant Money</div>
+        <div class="insight-text">TransIT Frederick (Maryland) is an existing ZEPS customer (5 buses deployed) AND received a $336K FTA replacement vehicle grant in FY2026. This is a repeat customer upsell — no new relationship required. ZEPS is already proven in their fleet. This is the lowest-risk East Coast expansion move available.</div>
+      </div>
+    </div>
+    <div class="insight tsi">
+      <div class="insight-icon">🚌</div>
+      <div class="insight-body">
+        <div class="insight-title">TSI Has the Clearest East Coast Path — Used Bus Sales Have No Geographic Constraint</div>
+        <div class="insight-text">TSI's ~1,000 bus inventory can ship to any agency nationally. The 6 East Coast FTA replacement bus grants (FL, NC x3, VA x2) represent potential buyers for TSI used buses. Unlike CCW rehab work, TSI does not need a local facility. Every new website + SEO = inbound calls from East Coast transit agencies who previously didn't know TSI existed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WINS TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Confirmed East Coast Wins — What Carson Capital Has Already Proven</div>
+        <div class="section-desc">All confirmed contracts, deployments, and relationships east of the Mississippi River</div>
+      </div>
+      <span class="section-badge">8 confirmed</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Agency</th>
+          <th>State</th>
+          <th>Company</th>
+          <th>Year</th>
+          <th>Scope</th>
+          <th>Contract Value</th>
+          <th>How They Got There</th>
+          <th>Replicable?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">IndyGo</td>
+          <td>Indianapolis, IN</td>
+          <td><span class="pill pill-zeps">ZEPS</span></td>
+          <td class="mono">2015</td>
+          <td>21 electric bus conversions — largest single ZEPS deployment</td>
+          <td class="mono text-won">$3M–5M est.</td>
+          <td>Direct sales — ZEPS pioneering, no competitor at the time</td>
+          <td><span class="pill pill-zeps">ZEPS follow-on</span></td>
+        </tr>
+        <tr>
+          <td class="bold">TransIT Frederick</td>
+          <td>Frederick, MD</td>
+          <td><span class="pill pill-zeps">ZEPS</span></td>
+          <td class="mono">2020</td>
+          <td>5 ZEPS conversions — existing customer, ongoing relationship</td>
+          <td class="mono text-won">$750K est.</td>
+          <td>Direct sales</td>
+          <td><span class="pill pill-open">NEW GRANT $336K</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Rochester RTS (RGRTA)</td>
+          <td>Rochester, NY</td>
+          <td><span class="pill pill-ccw">CCW</span></td>
+          <td class="mono">Aug 2025</td>
+          <td>5-bus midlife rehabilitation</td>
+          <td class="mono text-won">$500K est.</td>
+          <td>WA State DES Cooperative — Rochester purchased off CCW's existing coop contract</td>
+          <td><span class="pill pill-ccw">WA COOP</span></td>
+        </tr>
+        <tr>
+          <td class="bold">SBL / Fort McCoy</td>
+          <td>Monroe County, WI</td>
+          <td><span class="pill pill-sbl">SBL</span></td>
+          <td class="mono">2005–2008</td>
+          <td>Bus lease to US Army — 14 delivery orders, $1.13M+</td>
+          <td class="mono text-won">$1,134,279</td>
+          <td>Federal direct award to SBL — Army contract W911SA04A0020</td>
+          <td><span class="pill pill-monitor">FACILITY NEEDED</span></td>
+        </tr>
+        <tr>
+          <td class="bold">SBL / CBP T42 (Texas operations)</td>
+          <td>Del Rio, TX</td>
+          <td><span class="pill pill-sbl">SBL</span></td>
+          <td class="mono">2021–2025</td>
+          <td>Bus lease for CBP border operations — $24.6M contract + prior awards</td>
+          <td class="mono text-won">$28M+ total</td>
+          <td>Federal direct award — CBP sole-source or small competition; SBL border facility in place</td>
+          <td><span class="pill pill-locked">T42 EXPIRED — NO REAWRD</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Des Moines Area RTA</td>
+          <td>Des Moines, IA</td>
+          <td><span class="pill pill-ccw">CCW</span></td>
+          <td class="mono">2015</td>
+          <td>6 low-floor bus rebuilds — historical win</td>
+          <td class="mono text-won">$900K est.</td>
+          <td>Direct sales — Midwest outreach</td>
+          <td><span class="pill pill-ccw">REPEAT POTENTIAL</span></td>
+        </tr>
+        <tr>
+          <td class="bold">City Utilities Springfield</td>
+          <td>Springfield, MO</td>
+          <td><span class="pill pill-ccw">CCW</span></td>
+          <td class="mono">Historical</td>
+          <td>7 × 35ft buses — remanufacture</td>
+          <td class="mono text-won">$1.4M est.</td>
+          <td>Direct sales</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">McAllen Metro</td>
+          <td>McAllen, TX</td>
+          <td><span class="pill pill-zeps">ZEPS</span></td>
+          <td class="mono">Historical</td>
+          <td>2 ZEPS buses + WAVE charging infrastructure</td>
+          <td class="mono text-won">$400K est.</td>
+          <td>Direct sales — South Texas market</td>
+          <td><span class="pill pill-zeps">ZEPS EXPANSION</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- OPEN PIPELINE TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">East Coast Open Pipeline — FTA Grants Announced, RFPs Not Yet Issued</div>
+        <div class="section-desc">All FY2026 FTA Bus Competitive grants to East Coast + Midwest states where Carson Capital can act now</div>
+      </div>
+      <span class="section-badge">$199M+ pipeline</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Agency</th>
+          <th>State</th>
+          <th>Grant ID</th>
+          <th>FTA Amount</th>
+          <th>Scope</th>
+          <th>Best Angle</th>
+          <th>Transport Cost to Site</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: rgba(74,222,128,.04);">
+          <td class="bold">DART First State</td>
+          <td>Wilmington, DE</td>
+          <td class="mono small">D2026-BUSC-108</td>
+          <td class="mono text-won bold">$14,260,000</td>
+          <td>Rehab 51 buses (midlife — 40ft → 18yr life)</td>
+          <td><span class="pill pill-ccw">CCW Rehab</span></td>
+          <td class="small text-muted">Riverside→DE: 2,600mi<br>$510K transport (51 buses) = 6.7% of $7.65M rehab budget</td>
+          <td><span class="pill pill-open">🔥 ACT NOW</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Petersburg Area Transit</td>
+          <td>Petersburg, VA</td>
+          <td class="mono small">D2026-BUSC-131</td>
+          <td class="mono text-open">$23,820,750</td>
+          <td>Replacement buses + O&M facility</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally — no geographic constraint</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Hampton Roads Transit</td>
+          <td>Hampton, VA</td>
+          <td class="mono small">D2026-BUSC-132</td>
+          <td class="mono text-open">$10,620,000</td>
+          <td>Purchase replacement buses</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally — no geographic constraint</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">New Orleans RTA (NORTA)</td>
+          <td>New Orleans, LA</td>
+          <td class="mono small">D2026-BUSC-114</td>
+          <td class="mono text-open">$27,200,000</td>
+          <td>Replacement buses + rehab 2 O&M facilities</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span> <span class="pill pill-sbl">SBL Gap Lease</span></td>
+          <td class="small text-muted">Riverside→NO: 1,800mi. SBL gap lease while new buses on order (12–18mo lead time)</td>
+          <td><span class="pill pill-open">HIGH PRIORITY</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Kansas City Area TA</td>
+          <td>Kansas City, MO</td>
+          <td class="mono small">D2026-BUSC-117</td>
+          <td class="mono text-open">$13,333,000</td>
+          <td>Replacement buses + facility rehab</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">City of Durham</td>
+          <td>Durham, NC</td>
+          <td class="mono small">D2026-BUSC-118</td>
+          <td class="mono text-open">$6,142,400</td>
+          <td>Purchase replacement buses</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Town of Chapel Hill</td>
+          <td>Chapel Hill, NC</td>
+          <td class="mono small">D2026-BUSC-120</td>
+          <td class="mono text-open">$8,802,268</td>
+          <td>Replacement vehicles + safety equipment</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Maryland DOT / TransIT Frederick</td>
+          <td>Frederick, MD</td>
+          <td class="mono small">D2026-BUSC-115</td>
+          <td class="mono text-zeps">$336,000</td>
+          <td>Replacement vehicles</td>
+          <td><span class="pill pill-zeps">ZEPS Follow-on</span></td>
+          <td class="small text-muted">Existing ZEPS customer — no new relationship needed</td>
+          <td><span class="pill pill-open">🔥 CALL NOW</span></td>
+        </tr>
+        <tr>
+          <td class="bold">City of Gainesville (RTS)</td>
+          <td>Gainesville, FL</td>
+          <td class="mono small">D2026-BUSC-109</td>
+          <td class="mono text-open">$10,263,750</td>
+          <td>Replacement buses + bus transfer station</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Florida DOT / LYNX</td>
+          <td>Orlando, FL</td>
+          <td class="mono small">D2026-BUSC-110</td>
+          <td class="mono text-open">$9,270,640</td>
+          <td>Purchase replacement buses</td>
+          <td><span class="pill pill-tsi">TSI Used Buses</span></td>
+          <td class="small text-muted">TSI can ship nationally</td>
+          <td><span class="pill pill-monitor">MONITOR</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Des Moines Area RTA</td>
+          <td>Des Moines, IA</td>
+          <td class="mono small">D2026-BUSC-112</td>
+          <td class="mono text-open">$20,000,000</td>
+          <td>Expand bus facility (construction)</td>
+          <td class="small text-muted">Construction — not CCW/TSI scope</td>
+          <td class="small text-muted">N/A</td>
+          <td><span class="pill" style="color:var(--dim);border-color:var(--dim);">CONSTRUCTION</span></td>
+        </tr>
+        <tr>
+          <td class="bold">SRTA — New Bedford</td>
+          <td>New Bedford, MA</td>
+          <td class="mono small">RFP 26-01</td>
+          <td class="mono text-open">TBD</td>
+          <td>Heavy-duty transit buses — joint MBTA/CalACT cooperative procurement</td>
+          <td><span class="pill pill-tsi">TSI if Used Qualifies</span></td>
+          <td class="small text-muted text-locked">⚠ CLOSES MAY 8, 2026 — Read spec now</td>
+          <td><span class="pill pill-locked">RFP OPEN NOW</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TRANSPORT COST CALCULATOR -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Transport Cost Analysis — What It Costs CCW to Serve Each East Coast Market</div>
+        <div class="section-desc">~$10K round-trip transport per bus from Riverside CA. Costs drop to ~$4K if Memphis TN satellite is active.</div>
+      </div>
+    </div>
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--won);">✅ DART Delaware — 51 buses</div>
+        <div class="cost-row"><span class="cost-key">Distance (Riverside → DE)</span><span class="cost-val">2,600 mi</span></div>
+        <div class="cost-row"><span class="cost-key">Transport cost/bus (R/T)</span><span class="cost-val">$10,000</span></div>
+        <div class="cost-row"><span class="cost-key">Total transport (51 buses)</span><span class="cost-val">$510,000</span></div>
+        <div class="cost-row"><span class="cost-key">Est. rehab budget</span><span class="cost-val">$7,650,000</span></div>
+        <div class="cost-row pct"><span class="cost-key">Transport as % of budget</span><span class="cost-val">6.7%</span></div>
+        <div class="cost-row verdict"><span class="cost-key">With Memphis TN active</span><span class="cost-val">~$204K (2.7%)</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict (from CA)</span><span class="cost-val">Marginal — win on price</span></div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--won);">✅ Rochester NY (Aug 2025 win) — 5 buses</div>
+        <div class="cost-row"><span class="cost-key">Distance (Riverside → Rochester)</span><span class="cost-val">2,700 mi</span></div>
+        <div class="cost-row"><span class="cost-key">Transport cost/bus (R/T)</span><span class="cost-val">$10,000</span></div>
+        <div class="cost-row"><span class="cost-key">Total transport (5 buses)</span><span class="cost-val">$50,000</span></div>
+        <div class="cost-row"><span class="cost-key">Est. rehab contract value</span><span class="cost-val">$500,000</span></div>
+        <div class="cost-row pct"><span class="cost-key">Transport as % of contract</span><span class="cost-val">10.0%</span></div>
+        <div class="cost-row verdict"><span class="cost-key">How it was won</span><span class="cost-val">WA State DES Coop</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict</span><span class="cost-val">DONE — proof case ✅</span></div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--open);">⚡ Virginia (Hampton Roads) — 20 buses est.</div>
+        <div class="cost-row"><span class="cost-key">Distance (Riverside → Hampton VA)</span><span class="cost-val">2,800 mi</span></div>
+        <div class="cost-row"><span class="cost-key">Transport cost/bus (R/T)</span><span class="cost-val">$10,000</span></div>
+        <div class="cost-row"><span class="cost-key">Total transport (20 buses est.)</span><span class="cost-val">$200,000</span></div>
+        <div class="cost-row"><span class="cost-key">Est. rehab budget (from $10.6M grant)</span><span class="cost-val">$6,000,000</span></div>
+        <div class="cost-row pct"><span class="cost-key">Transport as % of budget</span><span class="cost-val">3.3%</span></div>
+        <div class="cost-row verdict"><span class="cost-key">Path</span><span class="cost-val">Need 791 Coop or WA DES</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict</span><span class="cost-val">Viable — get on coop first</span></div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--monitor);">🟡 New Orleans (NORTA) — SBL Gap Lease</div>
+        <div class="cost-row"><span class="cost-key">Distance (Riverside → New Orleans)</span><span class="cost-val">1,800 mi</span></div>
+        <div class="cost-row"><span class="cost-key">SBL lease rate/bus/month</span><span class="cost-val">$2,000 est.</span></div>
+        <div class="cost-row"><span class="cost-key">Agency gap need</span><span class="cost-val">12–18 months</span></div>
+        <div class="cost-row"><span class="cost-key">Buses needed (est.)</span><span class="cost-val">30–40</span></div>
+        <div class="cost-row pct"><span class="cost-key">Potential SBL revenue</span><span class="cost-val">$720K–$1.44M</span></div>
+        <div class="cost-row verdict"><span class="cost-key">Path</span><span class="cost-val">SBL proactive outreach</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict</span><span class="cost-val">Strong — SBL knows this playbook</span></div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--zeps);">⚡ Indianapolis IndyGo — ZEPS Fleet Aging</div>
+        <div class="cost-row"><span class="cost-key">Current ZEPS fleet at IndyGo</span><span class="cost-val">21 buses</span></div>
+        <div class="cost-row"><span class="cost-key">Year deployed</span><span class="cost-val">2015</span></div>
+        <div class="cost-row"><span class="cost-key">Fleet age in 2026</span><span class="cost-val">11 years</span></div>
+        <div class="cost-row"><span class="cost-key">ZEPS battery refresh cycle</span><span class="cost-val">8–10 years</span></div>
+        <div class="cost-row pct"><span class="cost-key">Status</span><span class="cost-val">DUE FOR REFRESH</span></div>
+        <div class="cost-row verdict"><span class="cost-key">Revenue opportunity</span><span class="cost-val">$2.1M–4.2M est.</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict</span><span class="cost-val">🔥 Call IndyGo now</span></div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-title" style="color:var(--tsi);">🚌 TSI — Used Bus Sales (No Transport Constraint)</div>
+        <div class="cost-row"><span class="cost-key">TSI inventory</span><span class="cost-val">~1,000 buses</span></div>
+        <div class="cost-row"><span class="cost-key">East Coast FTA replacement grants</span><span class="cost-val">$80M+</span></div>
+        <div class="cost-row"><span class="cost-key">Average used bus price</span><span class="cost-val">$80K–$150K</span></div>
+        <div class="cost-row"><span class="cost-key">Buses needed from 6 East grants</span><span class="cost-val">100–200 est.</span></div>
+        <div class="cost-row pct"><span class="cost-key">Potential TSI revenue</span><span class="cost-val">$8M–$30M</span></div>
+        <div class="cost-row verdict"><span class="cost-key">Geographic constraint</span><span class="cost-val">NONE — ship anywhere</span></div>
+        <div class="cost-row total"><span class="cost-key">Verdict</span><span class="cost-val">Highest ROI East Coast play</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACILITY UNLOCK ANALYSIS -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Memphis TN Satellite — The Single Decision That Unlocks the East</div>
+        <div class="section-desc">CCW confirmed a Memphis TN satellite facility in 2018. Current status unknown. If active or reopenable, it changes the entire East Coast math.</div>
+      </div>
+    </div>
+    <div class="unlock-grid">
+      <div class="unlock-col">
+        <div class="unlock-label">If Memphis TN is Active — Markets Unlocked</div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--won);"></div>
+          <div>
+            <div class="unlock-state">Delaware (DART First State)</div>
+            <div class="unlock-detail">Memphis → Wilmington: 1,050mi. Transport drops from $510K → $210K (2.7% of rehab budget). Highly competitive.</div>
+          </div>
+          <div class="unlock-value">$14.3M grant</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--won);"></div>
+          <div>
+            <div class="unlock-state">Virginia (Hampton Roads + Petersburg)</div>
+            <div class="unlock-detail">Memphis → Hampton VA: 1,000mi. Transport ~$80K for 20 buses. Fully competitive against NEBR.</div>
+          </div>
+          <div class="unlock-value">$34.4M combined</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--won);"></div>
+          <div>
+            <div class="unlock-state">North Carolina (Durham, GoTriangle, Chapel Hill)</div>
+            <div class="unlock-detail">Memphis → Raleigh-Durham: 820mi. One-day transport. Direct cost advantage over Northeast competitors.</div>
+          </div>
+          <div class="unlock-value">$32.7M combined</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--monitor);"></div>
+          <div>
+            <div class="unlock-state">MBTA (Boston) — NEBR's Stronghold</div>
+            <div class="unlock-detail">Memphis → Boston: 1,550mi. Midwest Bus Corp currently has 60-bus $40M+ MBTA contract. Memphis facility makes CCW price-competitive for contract #8.</div>
+          </div>
+          <div class="unlock-value">$40M+ MBTA market</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--monitor);"></div>
+          <div>
+            <div class="unlock-state">Georgia / Atlanta</div>
+            <div class="unlock-detail">Memphis → Atlanta: 430mi. MARTA fleet aging — no confirmed CCW relationship yet. Memphis makes this viable.</div>
+          </div>
+          <div class="unlock-value">Market entry</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--open);"></div>
+          <div>
+            <div class="unlock-state">New Orleans (NORTA)</div>
+            <div class="unlock-detail">Memphis → New Orleans: 395mi. If NORTA grant includes rehab scope, Memphis makes CCW the lowest-cost option. SBL gap lease closes the deal.</div>
+          </div>
+          <div class="unlock-value">$27.2M grant</div>
+        </div>
+      </div>
+      <div class="unlock-col">
+        <div class="unlock-label">Without Memphis — Markets Still Reachable (but harder)</div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--tsi);" ></div>
+          <div>
+            <div class="unlock-state">TSI — All East Coast Markets</div>
+            <div class="unlock-detail">Used bus sales ship from wherever the bus is. No facility needed. 6 replacement grants = direct inbound pipeline once transitsales.com ranks on Google.</div>
+          </div>
+          <div class="unlock-value">$80M+ pipeline</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--zeps);"></div>
+          <div>
+            <div class="unlock-state">ZEPS — Frederick MD (existing customer)</div>
+            <div class="unlock-detail">Battery refresh and replacement vehicle grant. Existing ZEPS relationship. No new facility needed — buses shipped to Riverside or serviced on-site.</div>
+          </div>
+          <div class="unlock-value">$336K + follow-on</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--zeps);"></div>
+          <div>
+            <div class="unlock-state">ZEPS — IndyGo Indianapolis (fleet aging)</div>
+            <div class="unlock-detail">21-bus fleet from 2015 is past battery refresh cycle. ZEPS can service via return-to-Riverside or mobile crew. No facility needed.</div>
+          </div>
+          <div class="unlock-value">$2M–4M est.</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--open);"></div>
+          <div>
+            <div class="unlock-state">Rochester NY (proven via WA DES Cooperative)</div>
+            <div class="unlock-detail">Rochester RTS already purchased from CCW. Template is proven. Any RGRTA follow-on order goes through the same cooperative — no facility, no RFP.</div>
+          </div>
+          <div class="unlock-value">Repeat customer</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--monitor);"></div>
+          <div>
+            <div class="unlock-state">Delaware (DART) — Marginal without Memphis</div>
+            <div class="unlock-detail">6.7% transport overhead. Winnable if CCW bids aggressively enough. NEBR (Linx PE-backed) will compete here. Need pre-RFP relationship built NOW before spec is written.</div>
+          </div>
+          <div class="unlock-value">$7.65M rehab scope</div>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background:var(--locked);"></div>
+          <div>
+            <div class="unlock-state">Boston / MBTA — Not Viable Without Northeast Facility</div>
+            <div class="unlock-detail">Midwest Bus Corp dominates with 7 MBTA contracts. NEBR has 4 MTA contracts. Without a local facility, transport costs make CCW non-competitive on large MBTA projects.</div>
+          </div>
+          <div class="unlock-value">Out of reach (now)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITIVE THREAT: WHO BLOCKS CCW EAST? -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Competitive Threat Map — Who Blocks CCW in the East</div>
+        <div class="section-desc">Two PE-backed competitors dominate the Northeast. CCW's advantage: 40 years of experience, ESOP quality control, and 219-bus SFMTA contract as proof of scale.</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Competitor</th>
+          <th>Geography</th>
+          <th>Backing</th>
+          <th>Key Wins</th>
+          <th>SEO Score</th>
+          <th>CCW Advantage</th>
+          <th>Threat Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">Midwest Bus Corporation</td>
+          <td>Chicago, Midwest, Northeast</td>
+          <td>Independent</td>
+          <td>MBTA 60-bus $40M (7th MBTA contract); PACE Chicago; U Michigan remanufacture</td>
+          <td><span class="mono text-locked">32/70 (D+)</span></td>
+          <td>CCW has SFMTA sole-bidder 219-bus proof. CCW website will beat Midwest Bus site from Day 1.</td>
+          <td><span class="pill pill-locked">HIGH — Midwest</span></td>
+        </tr>
+        <tr>
+          <td class="bold">NEBR (National Express Bus Rehab)</td>
+          <td>Northeast only (NY/NJ/MA/PA/DC)</td>
+          <td>Linx Partners PE (late 2024) — national expansion planned</td>
+          <td>4 active MTA contracts; PE funding for new facility expansion</td>
+          <td><span class="mono text-locked">26/70 (D)</span></td>
+          <td>CCW has 40yr track record vs NEBR's short history. NEBR will expand West — CCW should expand East simultaneously to contain them.</td>
+          <td><span class="pill pill-locked">HIGH — Watch closely</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Lightning eMotors</td>
+          <td>National (electric)</td>
+          <td>Bankrupt 2024</td>
+          <td>Former EV competitor — out of market</td>
+          <td class="text-muted">N/A</td>
+          <td>ZEPS now faces zero viable 40ft heavy-duty electric conversion competitor</td>
+          <td><span class="pill" style="color:var(--won);border-color:var(--won);background:rgba(74,222,128,.08);">ELIMINATED</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Proterra</td>
+          <td>National (electric buses)</td>
+          <td>Bankrupt 2023</td>
+          <td>Former OEM competitor — out of market</td>
+          <td class="text-muted">N/A</td>
+          <td>ZEPS is positioned as the alternative to new electric bus purchase (which Proterra was). Market is open.</td>
+          <td><span class="pill" style="color:var(--won);border-color:var(--won);background:rgba(74,222,128,.08);">ELIMINATED</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EAST COAST PRIORITY ACTION LIST -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Priority Action List — Ordered by Speed to Revenue</div>
+        <div class="section-desc">What Carson Capital should do THIS WEEK vs THIS QUARTER for East Coast expansion</div>
+      </div>
+    </div>
+    <div style="padding:0;">
+      <div class="funnel-row">
+        <div class="funnel-num text-open">#1</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Call Albert Loyola at DART First State — Delaware — TODAY</div>
+          <div class="funnel-detail">$14.3M grant just landed (March 17). RFP not yet issued. CCW should be in front of the procurement team before the spec is written. Pre-RFP relationships win these contracts. Ask: "Can we do a facility tour and preliminary scope review?" — sets CCW up as the incumbent.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:95%;background:var(--open);"></div></div>
+        <div class="funnel-value">$7.65M</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-zeps">#2</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Call IndyGo Indianapolis — ZEPS Battery Refresh</div>
+          <div class="funnel-detail">21-bus fleet from 2015 is now 11 years old — battery refresh cycle is 8–10 years. IndyGo is a proven ZEPS customer. Battery refresh + any new ZEPS conversions = $2M–$4M+ revenue. No competitor can offer this for 40ft heavy-duty transit.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:90%;background:var(--zeps);"></div></div>
+        <div class="funnel-value">$2M–4M</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-zeps">#3</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Call TransIT Frederick MD — $336K Replacement Vehicle Grant</div>
+          <div class="funnel-detail">Existing ZEPS customer. New FTA grant just announced. This is a phone call, not a proposal. "We saw the FTA grant — we're your existing ZEPS vendor — let's talk about what those replacement vehicles should look like."</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:85%;background:var(--zeps);"></div></div>
+        <div class="funnel-value">$336K+</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-tsi">#4</div>
+        <div style="flex:1;">
+          <div class="funnel-label">TSI Outreach to 6 East Coast Replacement Bus Grant Recipients</div>
+          <div class="funnel-detail">VA (Hampton Roads $10.6M, Petersburg $23.8M), NC (Durham $6.1M, Chapel Hill $8.8M), FL (Gainesville $10.3M, LYNX $9.3M). Total: $68.9M in replacement bus grants. TSI's ~1,000 bus inventory ships nationally. Once transitsales.com is redesigned and ranking, these agencies find TSI inbound. Until then, outreach directly.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:75%;background:var(--tsi);"></div></div>
+        <div class="funnel-value">$68.9M pipeline</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-sbl">#5</div>
+        <div style="flex:1;">
+          <div class="funnel-label">SBL Proactive Outreach to NORTA New Orleans — Gap Lease Play</div>
+          <div class="funnel-detail">NORTA has $27.2M grant including replacement buses. New buses take 12–18 months to deliver. SBL can fill the gap — lease buses while new ones are on order. This is how SBL built its CBP business: being there when the agency needed buses immediately. NORTA governance just reset (4 new board members) — perfect window.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:65%;background:var(--sbl);"></div></div>
+        <div class="funnel-value">$720K–$1.44M</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-monitor">#6</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Confirm Memphis TN Satellite Facility Status with Dale</div>
+          <div class="funnel-detail">This single conversation changes the entire East Coast expansion math. If Memphis is active: DART Delaware, Hampton Roads VA, Durham NC all become high-confidence wins. If Memphis is dormant but reopenable: calculate cost to activate vs. $100M+ pipeline it unlocks. This is the most important strategic question in this analysis.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:55%;background:var(--monitor);"></div></div>
+        <div class="funnel-value">$100M+ unlocked</div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-num text-monitor">#7</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Get on 791 Purchasing Cooperative for More States + Expand WA State DES Coverage</div>
+          <div class="funnel-detail">Rochester NY proved the WA State DES Cooperative model. If CCW can confirm this cooperative covers all 50 states (Rochester purchase suggests yes), every transit agency in America can buy off it without an RFP. 791 Cooperative provides same no-RFP access. Both cooperatives together = national reach without facility investment.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:45%;background:var(--monitor);"></div></div>
+        <div class="funnel-value">National reach</div>
+      </div>
+      <div class="funnel-row" style="border-bottom:none;">
+        <div class="funnel-num text-locked">#8</div>
+        <div style="flex:1;">
+          <div class="funnel-label">Review SRTA New Bedford RFP 26-01 — Closes May 8, 2026</div>
+          <div class="funnel-detail">Joint MBTA/CalACT procurement for heavy-duty transit buses. TSI angle: if used buses qualify under the spec, TSI can participate. This is a cooperative procurement — if awarded, other agencies can piggyback. Pull the RFP spec immediately and assess whether TSI inventory matches the spec requirements.</div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:30%;background:var(--locked);"></div></div>
+        <div class="funnel-value">TBD</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEOGRAPHIC SUMMARY -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">East vs. West Revenue Split (Current)</div>
+      </div>
+      <div style="padding:20px;">
+        <table>
+          <thead><tr><th>Region</th><th>% of Revenue (est.)</th><th>Companies</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>California</td><td class="mono text-won">~65%</td><td>CCW, TSI, ZEPS</td><td class="text-locked small">Concentration risk</td></tr>
+            <tr><td>Pacific Northwest (OR/WA)</td><td class="mono">~20%</td><td>CCW, ZEPS</td><td class="text-monitor small">WA coop dependent</td></tr>
+            <tr><td>Southwest (TX/NM/AZ)</td><td class="mono">~8%</td><td>SBL federal</td><td class="text-locked small">T42 expired — gap</td></tr>
+            <tr><td>Midwest</td><td class="mono">~5%</td><td>ZEPS, CCW historical</td><td class="text-monitor small">IndyGo aging fleet</td></tr>
+            <tr><td>East of Mississippi</td><td class="mono text-locked">~2%</td><td>ZEPS (Frederick, MD)</td><td class="text-won small">Upside opportunity</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;padding:12px;background:var(--surface3);border-radius:6px;font-size:11px;color:var(--muted);line-height:1.7;">
+          <span style="color:var(--text);font-weight:600;">The Core Thesis:</span> Carson Capital earns ~2% of revenue east of the Mississippi despite 40% of the nation's transit buses operating there. The East Coast market is structurally underserved by CCW/TSI/ZEPS — not because they can't compete, but because they haven't invested in the entry mechanisms (cooperatives, facilities, SEO) that make inbound deal flow work.
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">The "Market Is Not Closed" Proof Points</div>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <div class="insight won" style="padding:10px 14px;">
+          <div class="insight-icon">✅</div>
+          <div class="insight-body">
+            <div class="insight-title" style="font-size:11px;">Rochester NY (2025) — 2,700 miles, zero East facility</div>
+            <div class="insight-text">WA State DES Cooperative = no RFP, no local requirement. CCW shipped from Riverside and won.</div>
+          </div>
+        </div>
+        <div class="insight won" style="padding:10px 14px;">
+          <div class="insight-icon">✅</div>
+          <div class="insight-body">
+            <div class="insight-title" style="font-size:11px;">TransIT Frederick MD — existing customer, active relationship</div>
+            <div class="insight-text">ZEPS is already deployed in Maryland. East Coast is not locked — it's just underfunded in business development.</div>
+          </div>
+        </div>
+        <div class="insight won" style="padding:10px 14px;">
+          <div class="insight-icon">✅</div>
+          <div class="insight-body">
+            <div class="insight-title" style="font-size:11px;">IndyGo 2015 — 21 buses, pre-NEBR, zero Midwest facility</div>
+            <div class="insight-text">CCW won Indianapolis in 2015 without a Midwest facility. The deals are there. The BD investment is what's missing.</div>
+          </div>
+        </div>
+        <div class="insight open" style="padding:10px 14px;">
+          <div class="insight-icon">⚡</div>
+          <div class="insight-body">
+            <div class="insight-title" style="font-size:11px;">SFMTA CS-1227 — CCW was the ONLY bidder on $101.7M</div>
+            <div class="insight-text">When East Coast agencies see a sole-bidder $101.7M contract, CCW's credibility speaks for itself. This goes on every East Coast proposal.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    Carson Capital Corp — East Coast Expansion Analysis · NuStack Digital Ventures · March 2026 · For internal use only
+  </div>
+  <div class="footer-right">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--won);"></div>Confirmed Win</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--open);"></div>Act Now</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--monitor);"></div>Monitor</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--locked);"></div>Locked / Expired</div>
+  </div>
+</div>
+
+</body>
+</html>

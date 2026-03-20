@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carson Capital — Website Impact Audit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0e0f11;
+    --surface: #161719;
+    --surface2: #1e2023;
+    --surface3: #252729;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --dim: #4a4845;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --amber: #f59e0b;
+    --purple: #a78bfa;
+    --red: #f87171;
+    --orange: #fb923c;
+    --yellow: #facc15;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; }
+
+  .header {
+    padding: 20px 32px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100; background: var(--bg);
+  }
+  .logo { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .title { font-size: 15px; font-weight: 500; }
+  .subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .badge { font-family: var(--mono); font-size: 9px; padding: 3px 8px; border-radius: 3px; border: 1px solid; }
+  .badge-warn { color: var(--orange); border-color: var(--orange); background: rgba(251,146,60,.08); }
+
+  .page { max-width: 1400px; margin: 0 auto; padding: 28px 32px; display: flex; flex-direction: column; gap: 28px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .kpi-label { font-size: 10px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .kpi-value { font-family: var(--mono); font-size: 22px; font-weight: 500; }
+  .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .section-header { padding: 14px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .section-desc { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { border-bottom: 1px solid var(--border); }
+  th { padding: 8px 14px; text-align: left; font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  td { padding: 9px 14px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+
+  .pill { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 3px; border: 1px solid; white-space: nowrap; }
+  .pill-f { color: var(--red); border-color: var(--red); background: rgba(248,113,113,.08); }
+  .pill-d { color: var(--orange); border-color: var(--orange); background: rgba(251,146,60,.08); }
+  .pill-c { color: var(--yellow); border-color: var(--yellow); background: rgba(250,204,21,.08); }
+  .pill-b { color: var(--blue); border-color: var(--blue); background: rgba(96,165,250,.08); }
+  .pill-a { color: var(--green); border-color: var(--green); background: rgba(74,222,128,.08); }
+  .pill-win { color: var(--green); border-color: var(--green); background: rgba(74,222,128,.08); }
+  .pill-lost { color: var(--red); border-color: var(--red); background: rgba(248,113,113,.08); }
+  .pill-idk { color: var(--muted); border-color: var(--dim); background: transparent; }
+
+  .mono { font-family: var(--mono); }
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+  .text-orange { color: var(--orange); }
+  .text-yellow { color: var(--yellow); }
+  .text-blue { color: var(--blue); }
+  .text-muted { color: var(--muted); }
+  .text-purple { color: var(--purple); }
+  .bold { font-weight: 600; }
+  .small { font-size: 11px; }
+
+  .insight { background: var(--surface2); border: 1px solid var(--border2); border-left: 3px solid; border-radius: 6px; padding: 14px 16px; display: flex; gap: 12px; }
+  .insight-icon { font-size: 14px; flex-shrink: 0; }
+  .insight-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .insight-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .insight.green { border-left-color: var(--green); }
+  .insight.red { border-left-color: var(--red); }
+  .insight.orange { border-left-color: var(--orange); }
+  .insight.blue { border-left-color: var(--blue); }
+
+  .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .verdict-col { padding: 20px; }
+  .verdict-col:first-child { border-right: 1px solid var(--border); }
+  .verdict-label { font-size: 10px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .verdict-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .verdict-item:last-child { border-bottom: none; }
+  .verdict-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .verdict-text { font-size: 12px; line-height: 1.6; }
+  .verdict-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .score-bar-wrap { height: 6px; border-radius: 3px; background: var(--surface3); overflow: hidden; margin-top: 4px; }
+  .score-bar { height: 100%; border-radius: 3px; }
+
+  .site-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .site-col { padding: 20px; border-right: 1px solid var(--border); }
+  .site-col:last-child { border-right: none; }
+  .site-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .site-url { font-size: 10px; color: var(--muted); font-family: var(--mono); margin-bottom: 14px; }
+  .site-row { display: flex; justify-content: space-between; font-size: 11px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .site-row:last-child { border-bottom: none; }
+  .site-key { color: var(--muted); }
+  .site-val { font-family: var(--mono); font-weight: 500; }
+  .site-score { font-family: var(--mono); font-size: 28px; font-weight: 500; margin: 12px 0 4px; }
+  .site-grade { font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+
+  .footer { padding: 16px 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .footer-left { font-size: 10px; color: var(--dim); }
+
+  .tabs { display: flex; gap: 2px; padding: 12px 20px 0; border-bottom: 1px solid var(--border); }
+  .tab { padding: 6px 14px 10px; font-size: 11px; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; color: var(--muted); transition: all .15s; margin-bottom: -1px; }
+  .tab.active { color: var(--text); border-bottom-color: var(--green); }
+  .tab:hover { color: var(--text); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .p20 { padding: 20px; }
+  .gap12 { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">Carson Capital Corp</div>
+    <div class="title">Website Impact Audit — Are We Overstating or Understating?</div>
+    <div class="subtitle">Competitor analysis · Current site scores · Realistic revenue projection · Honest assessment</div>
+  </div>
+  <span class="badge badge-warn">⚠ HONEST ASSESSMENT — READ ALL OF IT</span>
+</div>
+
+<div class="page">
+
+  <!-- HONEST HEADLINE -->
+  <div style="background:var(--surface2);border:1px solid var(--border2);border-left:4px solid var(--orange);border-radius:8px;padding:20px 24px;">
+    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">The Honest Answer: The Revenue Case Has Two Distinct Parts — and We Were Mixing Them</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Part 1 — Website ROI (what better sites directly cause):</strong> TSI inbound used bus sales via SEO. CCW credibility gate — preventing the "looked at their site and passed" disqualification. ZEPS capturing search traffic from Proterra/Lightning-bankrupt agencies. ESOP content unlocking preference-weighted RFPs. Conservative: $3.8M. Best estimate: $6–8M. This is the honest website number.<br><br>
+      <strong style="color:var(--text);">Part 2 — Fleet Intelligence ROI (what the research layer uncovered, separate from site work):</strong> DART Delaware ($14.3M FTA grant, RFP not yet issued). NORTA New Orleans gap lease play. IndyGo ZEPS battery refresh. These deals happen because Patrick Scully picks up the phone — not because a contracting officer found the website. The fleet intelligence tool surfaces them. The sites make CCW credible when the officer does check. Two different causal chains.<br><br>
+      <strong style="color:var(--text);">Why the separation matters:</strong> If we present DART Delaware as "website ROI," Dale will correctly push back — and he'd be right. The stronger pitch is: the sites fix the credibility problem, and the fleet intelligence layer found you $22M+ in open pipeline that nobody was tracking. One engagement, two distinct wins.
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi-card" style="border-color:rgba(248,113,113,.25);">
+      <div class="kpi-label">Current Portfolio Avg Score</div>
+      <div class="kpi-value text-red">19/70</div>
+      <div class="kpi-sub">F grade across all 4 sites</div>
+    </div>
+    <div class="kpi-card" style="border-color:rgba(96,165,250,.25);">
+      <div class="kpi-label">Best Competitor Score</div>
+      <div class="kpi-value text-blue">40/70</div>
+      <div class="kpi-sub">ABC Companies — still a C grade</div>
+    </div>
+    <div class="kpi-card" style="border-color:rgba(74,222,128,.25);">
+      <div class="kpi-label">Post-Redesign Projected Avg</div>
+      <div class="kpi-value text-green">58/70</div>
+      <div class="kpi-sub">B+ — beats every competitor immediately</div>
+    </div>
+    <div class="kpi-card" style="border-color:rgba(250,204,21,.25);">
+      <div class="kpi-label">Gap vs Best Competitor (ABC)</div>
+      <div class="kpi-value text-yellow">+18 pts</div>
+      <div class="kpi-sub">Day-1 post-launch advantage over #1 competitor</div>
+    </div>
+  </div>
+
+  <!-- CURRENT SITE AUDIT -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Current Site Scores — All 4 Properties (Audited March 19, 2026)</div>
+        <div class="section-desc">Live audit using NuStack 70-point scoring framework across title tags, H1, meta, schema, content, mobile, performance</div>
+      </div>
+    </div>
+    <div class="site-grid">
+      <div class="site-col">
+        <div class="site-name" style="color:var(--green);">CCW</div>
+        <div class="site-url">completecoach.com</div>
+        <div class="site-score text-red">18/70</div>
+        <div class="site-grade text-red">F GRADE</div>
+        <div class="site-row"><span class="site-key">Title Tag</span><span class="site-val text-yellow">Exists (weak)</span></div>
+        <div class="site-row"><span class="site-key">H1</span><span class="site-val text-red">"Your Complete Transportation Solution Provider" — vague</span></div>
+        <div class="site-row"><span class="site-key">Meta Description</span><span class="site-val text-red">MISSING</span></div>
+        <div class="site-row"><span class="site-key">Schema Markup</span><span class="site-val text-red">NONE</span></div>
+        <div class="site-row"><span class="site-key">Federal Contract Content</span><span class="site-val text-red">NONE — $101.7M SFMTA not on site</span></div>
+        <div class="site-row"><span class="site-key">Leadership Page</span><span class="site-val text-red">None</span></div>
+        <div class="site-row"><span class="site-key">Copyright Year</span><span class="site-val text-red">© 2022</span></div>
+        <div class="site-row"><span class="site-key">Mobile</span><span class="site-val text-yellow">Responsive (WP)</span></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:26%;background:var(--red);"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted);">Post-redesign target: <span style="color:var(--blue);font-family:var(--mono);">59/70 (B+)</span></div>
+      </div>
+      <div class="site-col">
+        <div class="site-name" style="color:var(--blue);">TSI</div>
+        <div class="site-url">transitsales.com</div>
+        <div class="site-score text-red">16/70</div>
+        <div class="site-grade text-red">F GRADE — Worst of 4</div>
+        <div class="site-row"><span class="site-key">Title Tag</span><span class="site-val text-red">"home - Transit Sales International" (lowercase!)</span></div>
+        <div class="site-row"><span class="site-key">H1</span><span class="site-val text-red">"Available Transits" — means nothing</span></div>
+        <div class="site-row"><span class="site-key">Meta Description</span><span class="site-val text-red">MISSING</span></div>
+        <div class="site-row"><span class="site-key">Schema Markup</span><span class="site-val text-red">NONE</span></div>
+        <div class="site-row"><span class="site-key">Inventory Browsable</span><span class="site-val text-red">Static, no filters, no search</span></div>
+        <div class="site-row"><span class="site-key">30yr History Content</span><span class="site-val text-red">None visible</span></div>
+        <div class="site-row"><span class="site-key">Copyright Year</span><span class="site-val text-red">© 2022</span></div>
+        <div class="site-row"><span class="site-key">Mobile</span><span class="site-val text-yellow">Responsive (WP)</span></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:23%;background:var(--red);"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted);">Post-redesign target: <span style="color:var(--blue);font-family:var(--mono);">57/70 (B+)</span></div>
+      </div>
+      <div class="site-col">
+        <div class="site-name" style="color:var(--amber);">SBL</div>
+        <div class="site-url">sblbus.com</div>
+        <div class="site-score text-red">18/70</div>
+        <div class="site-grade text-red">F GRADE</div>
+        <div class="site-row"><span class="site-key">Title Tag</span><span class="site-val text-yellow">"Shuttle Bus Leasing | Used Buses for Lease"</span></div>
+        <div class="site-row"><span class="site-key">H1</span><span class="site-val text-red">TWO H1 tags — confuses Google</span></div>
+        <div class="site-row"><span class="site-key">Meta Description</span><span class="site-val text-red">MISSING</span></div>
+        <div class="site-row"><span class="site-key">Schema Markup</span><span class="site-val text-red">NONE</span></div>
+        <div class="site-row"><span class="site-key">Federal Contract Content</span><span class="site-val text-red">Nothing about CBP / Army / DHS work</span></div>
+        <div class="site-row"><span class="site-key">Olympic Content</span><span class="site-val text-red">Not prominently featured</span></div>
+        <div class="site-row"><span class="site-key">Copyright Year</span><span class="site-val text-red">© 2022</span></div>
+        <div class="site-row"><span class="site-key">Mobile</span><span class="site-val text-yellow">Responsive (WP)</span></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:26%;background:var(--red);"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted);">Post-redesign target: <span style="color:var(--blue);font-family:var(--mono);">56/70 (B)</span></div>
+      </div>
+      <div class="site-col">
+        <div class="site-name" style="color:var(--purple);">ZEPS</div>
+        <div class="site-url">zepsdrive.com</div>
+        <div class="site-score text-red">23/70</div>
+        <div class="site-grade text-red">F GRADE — best of 4, still failing</div>
+        <div class="site-row"><span class="site-key">Title Tag</span><span class="site-val text-yellow">"Zero Emission Propulsion System"</span></div>
+        <div class="site-row"><span class="site-key">H1</span><span class="site-val text-red">TWO H1 tags</span></div>
+        <div class="site-row"><span class="site-key">Meta Description</span><span class="site-val text-yellow">Weak</span></div>
+        <div class="site-row"><span class="site-key">Schema Markup</span><span class="site-val text-red">NONE</span></div>
+        <div class="site-row"><span class="site-key">Last Updated</span><span class="site-val text-red">Oct 3, 2023 — 17 months stale</span></div>
+        <div class="site-row"><span class="site-key">Competitor Closure Content</span><span class="site-val text-red">Nothing about Proterra/Lightning bankrupt</span></div>
+        <div class="site-row"><span class="site-key">4M Revenue Miles</span><span class="site-val text-red">Not prominently featured</span></div>
+        <div class="site-row"><span class="site-key">Mobile</span><span class="site-val text-yellow">Responsive (WP)</span></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:33%;background:var(--orange);"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted);">Post-redesign target: <span style="color:var(--blue);font-family:var(--mono);">59/70 (B+)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITOR AUDIT -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Competitor Site Audit — All Known Competitors (March 2026)</div>
+        <div class="section-desc">Every competitor scored on the same 70-point framework. The market has no strong digital presence — this is the opportunity.</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Competitor</th>
+          <th>Vertical</th>
+          <th>Score</th>
+          <th>Platform</th>
+          <th>Title Tag</th>
+          <th>Schema</th>
+          <th>Key Weaknesses</th>
+          <th>Threat Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">Midwest Bus Corporation<br><span class="small text-muted">midwestbus.com</span></td>
+          <td>Bus Rehab</td>
+          <td><span class="pill pill-d">32/70 (D+)</span></td>
+          <td class="small text-muted">Custom</td>
+          <td class="small">Functional but generic</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">No federal contract proof, no SFMTA equivalent, no ESOP story, outdated case studies</td>
+          <td><span class="pill pill-lost">HIGH — but beatable online</span></td>
+        </tr>
+        <tr>
+          <td class="bold">NEBR<br><span class="small text-muted">nebr.us</span></td>
+          <td>Bus Rehab</td>
+          <td><span class="pill pill-d">26/70 (D)</span></td>
+          <td class="small text-muted">LeadConnector</td>
+          <td class="small">Weak — no keyword targeting</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">PE-backed but zero digital sophistication. No content about MTA contracts. LeadConnector = low-end SaaS site builder. CCW wins day 1 after launch.</td>
+          <td><span class="pill pill-lost">HIGH THREAT — LOW SITE QUALITY</span></td>
+        </tr>
+        <tr>
+          <td class="bold">ABC Companies<br><span class="small text-muted">abc-companies.com</span></td>
+          <td>Used Bus + Rehab (motorcoach focus)</td>
+          <td><span class="pill pill-c">40/70 (C)</span></td>
+          <td class="small text-muted">Custom</td>
+          <td class="small">Better — has keywords</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">Best-in-class competitor online — but only a C. Motorcoach focus, not transit. Van Hool exclusive. TSI beats them on used transit bus inventory. CCW ZEPS beats their "Repowered" subpage.</td>
+          <td><span class="pill pill-idk">MODERATE — different market</span></td>
+        </tr>
+        <tr>
+          <td class="bold">LV Bus Sales<br><span class="small text-muted">lasvegasbussales.com</span></td>
+          <td>Used Bus Sales</td>
+          <td><span class="pill pill-d">30/70 (D)</span></td>
+          <td class="small text-muted">WordPress</td>
+          <td class="small">Vague, no meta</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">Las Vegas. Single location. TSI's ~1,000 bus inventory is 20× their apparent size. TSI beats them immediately.</td>
+          <td><span class="pill pill-win">LOW — TSI wins easily</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Transit Bus Leasing<br><span class="small text-muted">transitbusleasing.com</span></td>
+          <td>Bus Leasing</td>
+          <td><span class="pill pill-f">18/70 (F)</span></td>
+          <td class="small text-muted">GoDaddy</td>
+          <td class="small">Minimal</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">One-person LA operation. GoDaddy website. 4 bus listings. SBL has 30+ years and $37M federal track record. Not a real competitor online.</td>
+          <td><span class="pill pill-win">NO THREAT</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Motiv Power Systems<br><span class="small text-muted">motivps.com</span></td>
+          <td>Electric Bus Conversion</td>
+          <td><span class="pill pill-c">34/70 (C-)</span></td>
+          <td class="small text-muted">Custom</td>
+          <td class="small">OK — has medium duty keywords</td>
+          <td class="text-red small">None</td>
+          <td class="small text-muted">Medium-duty only — NOT 40ft transit. Does not compete with ZEPS for transit agency work. Different market entirely.</td>
+          <td><span class="pill pill-idk">LOW — different segment</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Lightning eMotors</td>
+          <td>Electric Bus</td>
+          <td class="text-muted small">N/A</td>
+          <td class="text-muted small">Bankrupt 2024</td>
+          <td class="text-muted small">—</td>
+          <td class="text-muted small">—</td>
+          <td class="small text-muted">Out of market. Website inactive. Former ZEPS competitor eliminated.</td>
+          <td><span class="pill pill-win">ELIMINATED</span></td>
+        </tr>
+        <tr>
+          <td class="bold">Proterra</td>
+          <td>Electric Bus OEM</td>
+          <td class="text-muted small">N/A</td>
+          <td class="text-muted small">Bankrupt 2023</td>
+          <td class="text-muted small">—</td>
+          <td class="text-muted small">—</td>
+          <td class="small text-muted">Out of market. Agencies that bought Proterra are now in maintenance crisis — potential ZEPS conversion pipeline.</td>
+          <td><span class="pill pill-win">ELIMINATED — OPPORTUNITY</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- THE HONEST VERDICT -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">The Honest Verdict — What Are We Overstating vs. Understating?</div>
+        <div class="section-desc">Calibrated assessment based on how transit agency procurement actually works</div>
+      </div>
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-col">
+        <div class="verdict-label" style="color:var(--red);">Where We Are OVERSTATING the Website's Impact</div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--red);"></div>
+          <div>
+            <div class="verdict-text bold">Websites Don't Win RFP-Driven Government Contracts</div>
+            <div class="verdict-sub">The DART Delaware $14.3M contract will NOT be won through SEO. It will be won by Patrick Scully calling Albert Loyola before the RFP drops. The website makes CCW look credible after the call — it doesn't generate the call.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--red);"></div>
+          <div>
+            <div class="verdict-text bold">SEO Rankings Take 4–12 Months to Move</div>
+            <div class="verdict-sub">After launch, CCW won't rank for "bus rehabilitation contractor" overnight. Competitive keywords take time. The sites will look dramatically better on Day 1 — but organic search traffic won't materially increase until Q4 2026 or later.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--red);"></div>
+          <div>
+            <div class="verdict-text bold">TSI "1,000 Bus Inventory" Claim Needs Verification</div>
+            <div class="verdict-sub">If the TSI inventory claim is inaccurate, the entire TSI site strategy collapses. Dale needs to confirm the exact current inventory count before we publish it. "~1,000 buses" from press cannot be assumed current.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--red);"></div>
+          <div>
+            <div class="verdict-text bold">ZEPS "92 Agency Deployments" Number Is Unverified</div>
+            <div class="verdict-sub">We traced the "92" figure to zepsdrive.com's sitemap (92 news articles). CPTDB Wiki documents only 14 agencies. Publishing 92 on the site without verification risks embarrassing CCW if a procurement officer fact-checks it.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--orange);"></div>
+          <div>
+            <div class="verdict-text bold">SBL Site Helps — But CBP Contract Gap Is the Real Problem</div>
+            <div class="verdict-sub">SBL's biggest revenue driver (T42 contract, $24.6M) expired May 2025 with no re-award. A great SBL website won't replace that contract. The federal sales problem is a relationship and BD problem — not a web presence problem.</div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict-col">
+        <div class="verdict-label" style="color:var(--green);">Where We Are UNDERSTATING the Website's Impact</div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">Procurement Officers Google Vendors Before Approving RFPs</div>
+            <div class="verdict-sub">Every transit agency procurement officer Googles a vendor before they go to the board with a recommendation. Current CCW site (© 2022, no contract proof) fails this check. A B+ site passes it. This single function is worth the entire engagement — one prevented disqualification pays for itself.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">SFMTA Sole-Bidder Story on CCW Site = Massive Credibility Signal</div>
+            <div class="verdict-sub">Currently, "$101.7M SFMTA sole-bidder contract" does not appear anywhere on completecoach.com. Every transit agency that finds CCW online sees no evidence of this. Post-redesign, it's the hero story. One DART Delaware procurement officer seeing this = $7.65M contract in play.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">TSI Has Strongest SEO Upside — Used Bus Purchase Is an Active Search</div>
+            <div class="verdict-sub">Transit agencies actively search "used transit buses for sale" — this is a buying-intent search, not a brand search. TSI's inventory appearing in Google results is a direct pipeline. This is the one area where SEO directly generates inbound calls without prior relationship.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">ZEPS Competitor Collapse = Massive Search Vacuum</div>
+            <div class="verdict-sub">Proterra and Lightning eMotors are bankrupt. Their former prospects are actively searching for alternatives. Agencies who bought Proterra need service and upgrades. A ZEPS site with "the Proterra alternative" content — posted now — captures this traffic for years before a new competitor rebuilds.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">Every Competitor's Site Is Weak — CCW Starts #1 on Day One</div>
+            <div class="verdict-sub">Best competitor: ABC Companies at 40/70 (C). Post-redesign CCW: 59/70 (B+). For 18 months after launch, Carson Capital's entire portfolio outranks every competitor. This window closes when competitors invest in their sites — which they will, especially PE-backed NEBR.</div>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="verdict-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="verdict-text bold">ESOP Story Is a Procurement Differentiator — Not on Any Site Currently</div>
+            <div class="verdict-sub">Many public transit agencies have DBE/ESOP procurement preferences. CCW is 100% employee-owned since 2021. This belongs prominently on completecoach.com — zero competitors have it. It's a qualification flag that some RFPs require and all value.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALIBRATED REVENUE PROJECTION -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Part 1 — Website ROI: What Better Sites Directly Cause</div>
+        <div class="section-desc">Only mechanisms where the website is the primary causal driver. Relationship deals and phone-call deals excluded.</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Revenue Driver</th>
+          <th>Company</th>
+          <th>Mechanism</th>
+          <th>Conservative (24mo)</th>
+          <th>Optimistic (24mo)</th>
+          <th>Probability</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">TSI Inbound Used Bus Inquiries</td>
+          <td><span class="pill" style="color:var(--blue);border-color:var(--blue);background:rgba(96,165,250,.08);">TSI</span></td>
+          <td class="small">SEO — "used transit buses" is a buying-intent search. TSI inventory becomes findable. Zero quality competition owns this keyword.</td>
+          <td class="mono text-yellow">$800K</td>
+          <td class="mono text-green">$3.2M</td>
+          <td class="text-green">High</td>
+          <td class="small text-muted">Strongest direct website→revenue connection. Buying-intent search with no capable competitor in the space.</td>
+        </tr>
+        <tr>
+          <td class="bold">CCW Rehab — Prevented Disqualifications</td>
+          <td><span class="pill" style="color:var(--green);border-color:var(--green);background:rgba(74,222,128,.08);">CCW</span></td>
+          <td class="small">Credibility gate — procurement officers who Google CCW after a referral currently find a 2022 site with no proof. Post-redesign: $101.7M SFMTA sole-bidder contract is the hero.</td>
+          <td class="mono text-yellow">$2M</td>
+          <td class="mono text-green">$4M</td>
+          <td class="text-green">High</td>
+          <td class="small text-muted">Conservative = 1 mid-sized rehab contract not lost due to site disqualification. Optimistic = 2–3 over 24 months. DART/Virginia/NC NOT included here — those are phone calls, not web traffic.</td>
+        </tr>
+        <tr>
+          <td class="bold">ZEPS Competitor-Collapse Capture</td>
+          <td><span class="pill" style="color:var(--purple);border-color:var(--purple);background:rgba(167,139,250,.08);">ZEPS</span></td>
+          <td class="small">Former Proterra/Lightning customers are actively searching alternatives. This is organic search traffic hitting the ZEPS site right now — with no quality result to land on.</td>
+          <td class="mono text-yellow">$500K</td>
+          <td class="mono text-green">$3M</td>
+          <td class="text-yellow">Medium</td>
+          <td class="small text-muted">Depends on ZEPS HVIP recertification status. If ZEPS is actively marketing: optimistic. If still dormant: conservative or $0.</td>
+        </tr>
+        <tr>
+          <td class="bold">CCW ESOP + Cooperative Visibility</td>
+          <td><span class="pill" style="color:var(--green);border-color:var(--green);background:rgba(74,222,128,.08);">CCW</span></td>
+          <td class="small">ESOP content + WA State DES + 791 Cooperative listings on site — agencies with preference requirements now find the qualification signal they need.</td>
+          <td class="mono text-yellow">$500K</td>
+          <td class="mono text-green">$2M</td>
+          <td class="text-yellow">Medium</td>
+          <td class="small text-muted">Rochester NY proved the cooperative model works. Making it prominent on the site removes friction for other agencies trying to use the same path.</td>
+        </tr>
+        <tr>
+          <td class="bold">SBL Credibility for Federal Requalification</td>
+          <td><span class="pill" style="color:var(--amber);border-color:var(--amber);background:rgba(245,158,11,.08);">SBL</span></td>
+          <td class="small">Federal buyers check sblbus.com before a debrief. Current site has zero CBP/Army/Olympic content. Site fixes = credibility during re-bid conversations.</td>
+          <td class="mono text-yellow">$0</td>
+          <td class="mono text-green">$1M</td>
+          <td class="text-red">Low</td>
+          <td class="small text-muted">Federal lease contracts come from relationships, not Google. The site is a credibility signal after the relationship opens the door — not the door itself.</td>
+        </tr>
+        <tr style="background:rgba(74,222,128,.04);">
+          <td class="bold">WEBSITE ROI TOTAL</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="mono text-yellow bold">$3.8M</td>
+          <td class="mono text-green bold">$13.2M</td>
+          <td class="text-yellow bold">Best estimate: $6–8M</td>
+          <td class="small text-muted">Defensible range. Conservative requires only TSI inbound + 1 prevented CCW disqualification. Optimistic requires ZEPS reactivation + multiple cooperative wins.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;padding:14px 20px;background:var(--surface2);border:1px solid var(--border2);border-left:3px solid var(--blue);border-radius:6px;font-size:12px;line-height:1.7;color:var(--muted);">
+      <strong style="color:var(--text);">Part 2 — Fleet Intelligence ROI (separate causal chain):</strong> DART Delaware ($14.3M grant, RFP pending) + NORTA New Orleans gap lease + IndyGo ZEPS battery refresh + TransIT Frederick repeat order = <strong style="color:var(--orange);">$22M+ in open pipeline</strong> surfaced by the fleet intelligence layer, not by SEO. These are <em>phone calls Patrick Scully needs to make this week</em>. The website makes CCW credible after the call. The fleet intelligence tool is what found the opportunity. Present these as two wins from one engagement — not as "the website did this."
+    </div>
+  </div>
+
+  <!-- FINAL CALIBRATED RECOMMENDATION -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">What The Site Work Actually Buys</div>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <div class="insight green">
+          <div class="insight-icon">✅</div>
+          <div>
+            <div class="insight-title">Credibility Gate — You Pass, Competitors Fail</div>
+            <div class="insight-text">Every transit procurement officer Googles vendors. Current CCW fails that check. Post-redesign: instant credibility with SFMTA $101.7M story front and center. Conservative value: priceless. Quantified: prevents 1 disqualification = $2M+ saved.</div>
+          </div>
+        </div>
+        <div class="insight blue">
+          <div class="insight-icon">🔍</div>
+          <div>
+            <div class="insight-title">TSI SEO — The Only True "Inbound from Web" Play</div>
+            <div class="insight-text">Used transit bus sales is actively searched. TSI inventory + smart SEO = inbound calls from East Coast agencies who have $80M+ in FTA replacement grants. This is the most direct website→revenue connection in the portfolio.</div>
+          </div>
+        </div>
+        <div class="insight" style="border-left-color:var(--purple);">
+          <div class="insight-icon">⚡</div>
+          <div>
+            <div class="insight-title">ZEPS — Strike While Competitors Are Down</div>
+            <div class="insight-text">Proterra and Lightning are bankrupt. The 18-month window where ZEPS is the ONLY credible electric bus option for 40ft transit buses is open right now. A site that captures this search traffic before a new competitor rebuilds is a 2–3 year traffic moat.</div>
+          </div>
+        </div>
+        <div class="insight orange">
+          <div class="insight-icon">⚠</div>
+          <div>
+            <div class="insight-title">CCW + SBL Sites Are Credibility Infrastructure — Not Lead Gen</div>
+            <div class="insight-text">These sites will NOT generate government contract phone calls directly. Their job is to prevent the "we looked at their website and passed" outcome. That's real value — but it's defensive, not offensive.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">The Things That Matter MORE Than The Website</div>
+      </div>
+      <div style="padding:20px;">
+        <table style="margin:0;">
+          <thead><tr><th>Priority</th><th>Action</th><th>Revenue Impact</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="mono text-red bold">#1</td>
+              <td class="small">Call Albert Loyola at DART Delaware — $14.3M grant just landed, no RFP yet</td>
+              <td class="mono text-yellow small">$7.65M</td>
+            </tr>
+            <tr>
+              <td class="mono text-red bold">#2</td>
+              <td class="small">Ask Dale: Is Memphis TN satellite open? Answer changes entire East Coast math.</td>
+              <td class="mono text-yellow small">$100M+ unlocked</td>
+            </tr>
+            <tr>
+              <td class="mono text-orange bold">#3</td>
+              <td class="small">Confirm SBL T42 CBP contract status — $24.6M expired, no re-award found</td>
+              <td class="mono text-yellow small">$24M gap</td>
+            </tr>
+            <tr>
+              <td class="mono text-orange bold">#4</td>
+              <td class="small">Call IndyGo Indianapolis — ZEPS fleet from 2015 is past battery refresh cycle</td>
+              <td class="mono text-yellow small">$2M–4M</td>
+            </tr>
+            <tr>
+              <td class="mono text-yellow bold">#5</td>
+              <td class="small">Launch all 4 sites — beats every competitor from Day 1, captures TSI inbound, fixes credibility gate</td>
+              <td class="mono text-yellow small">$3.8M–$8M (website only)</td>
+            </tr>
+            <tr>
+              <td class="mono text-yellow bold">#6</td>
+              <td class="small">Confirm ZEPS agency count with Dale — 92 vs 14 matters for credibility</td>
+              <td class="mono text-yellow small">Risk mitigation</td>
+            </tr>
+            <tr>
+              <td class="mono text-blue bold">#7</td>
+              <td class="small">Get CCW listed on more cooperative contracts — WA DES model proven in Rochester</td>
+              <td class="mono text-yellow small">National reach</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;padding:12px;background:var(--surface3);border-radius:6px;font-size:11px;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--text);">Bottom line for Dale:</strong> Two separate wins from one engagement. The websites fix the credibility problem — conservative $3.8M, realistic $6–8M, defensible at any number in that range. The fleet intelligence layer found $22M+ in open pipeline that nobody was actively tracking — DART Delaware, NORTA, IndyGo. Those are phone calls, not web traffic. Don't present them as the same thing. Present them as evidence that NuStack built something more useful than a website redesign.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">Carson Capital Corp — Website Impact Audit · NuStack Digital Ventures · March 2026 · Confidential — For Dale Carson / Patrick Scully only</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Coach Works — Digital Presence Audit | NuStack Digital Ventures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0B0D14;
+    --card: #13161F;
+    --border: rgba(255,255,255,0.08);
+    --accent-blue: #1B9DD9;
+    --light-blue: #5DC8F0;
+    --gold: #D4890A;
+    --red: #E05252;
+    --amber: #D4890A;
+    --green: #1EAB6A;
+    --white: #F0F4FF;
+    --muted: rgba(240,244,255,0.55);
+    --font: 'Inter', sans-serif;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── COVER PAGE ──────────────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(27,157,217,0.12) 0%, transparent 70%), var(--bg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    page-break-after: always;
+  }
+
+  .cover-top-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-blue) 0%, var(--light-blue) 100%);
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .cover-header {
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 44px;
+    height: 44px;
+    background: var(--accent-blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: -1px;
+  }
+
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+  .logo-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 48px;
+    text-align: center;
+  }
+
+  .cover-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-size: clamp(26px, 4vw, 46px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--white);
+    max-width: 820px;
+    margin-bottom: 18px;
+  }
+
+  .cover-subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 52px;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 820px;
+    margin-bottom: 48px;
+  }
+
+  .score-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .score-card.red::before { background: var(--red); }
+  .score-card.amber::before { background: var(--amber); }
+
+  .score-card-site {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .score-card-url {
+    font-size: 12px;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+  }
+
+  .score-num {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .score-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .grade-badge {
+    font-size: 22px;
+    font-weight: 800;
+    padding: 4px 18px;
+    border-radius: 6px;
+  }
+  .grade-badge.red { color: var(--red); background: rgba(224,82,82,0.12); border: 1px solid rgba(224,82,82,0.25); }
+  .grade-badge.amber { color: var(--amber); background: rgba(212,137,10,0.12); border: 1px solid rgba(212,137,10,0.25); }
+
+  .cover-footer {
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cover-footer-notice {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .cover-footer-contact {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .cover-footer-contact a { color: var(--accent-blue); text-decoration: none; }
+
+  /* ── PAGE SECTIONS ───────────────────────────────────── */
+  .page-section {
+    padding: 64px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-section.page-break { page-break-before: always; }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 10px;
+    max-width: 680px;
+    line-height: 1.7;
+  }
+
+  /* ── CALLOUT CARDS ───────────────────────────────────── */
+  .callout-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .callout-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .callout-card.blue-border { border-left: 3px solid var(--accent-blue); }
+  .callout-card.red-border { border-left: 3px solid var(--red); }
+  .callout-card.gold-border { border-left: 3px solid var(--gold); }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .callout-label.blue { color: var(--accent-blue); }
+  .callout-label.red { color: var(--red); }
+  .callout-label.gold { color: var(--gold); }
+
+  .callout-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── TABLE ───────────────────────────────────────────── */
+  .audit-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 48px;
+  }
+
+  .audit-table thead tr {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .audit-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .audit-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .audit-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  .audit-table td {
+    padding: 12px 14px;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .audit-table td.muted { color: var(--muted); font-size: 12px; }
+
+  /* severity pills */
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .pill.critical { background: rgba(224,82,82,0.15); color: var(--red); border: 1px solid rgba(224,82,82,0.3); }
+  .pill.high { background: rgba(212,137,10,0.15); color: var(--amber); border: 1px solid rgba(212,137,10,0.3); }
+  .pill.medium { background: rgba(240,244,255,0.08); color: var(--muted); border: 1px solid rgba(240,244,255,0.15); }
+
+  /* ── SITE SECTION HEADER ─────────────────────────────── */
+  .site-section-wrap {
+    page-break-before: always;
+  }
+
+  .site-accent-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue) 0%, var(--light-blue) 100%);
+    width: 100%;
+  }
+
+  .site-section-header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .site-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    background: rgba(27,157,217,0.12);
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(27,157,217,0.25);
+  }
+
+  .site-title-block { display: flex; flex-direction: column; gap: 3px; }
+  .site-main-title { font-size: 22px; font-weight: 800; color: var(--white); }
+  .site-url-label { font-size: 13px; color: var(--accent-blue); }
+
+  .site-overall-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .site-overall-num {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .site-overall-num.red { color: var(--red); }
+  .site-overall-num.amber { color: var(--amber); }
+  .site-overall-label { font-size: 11px; color: var(--muted); }
+
+  /* ── SCORE BARS ──────────────────────────────────────── */
+  .score-bars-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 28px 20px;
+    margin-bottom: 36px;
+  }
+
+  .score-bars-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .score-bar-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 48px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .score-bar-label {
+    font-size: 13px;
+    color: var(--white);
+  }
+
+  .score-bar-track {
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1s ease;
+  }
+  .score-bar-fill.red { background: var(--red); }
+  .score-bar-fill.amber { background: var(--amber); }
+  .score-bar-fill.green { background: var(--green); }
+
+  .score-bar-num {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+  }
+  .score-bar-num.red { color: var(--red); }
+  .score-bar-num.amber { color: var(--amber); }
+  .score-bar-num.green { color: var(--green); }
+
+  /* ── ISSUE CARDS ─────────────────────────────────────── */
+  .issues-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .issue-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+  }
+
+  .issue-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .issue-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    flex: 1;
+  }
+
+  .issue-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .issue-rec {
+    font-size: 12px;
+    color: var(--white);
+    background: rgba(27,157,217,0.07);
+    border-left: 3px solid var(--accent-blue);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .issue-rec strong { color: var(--accent-blue); }
+
+  .fed-impact {
+    background: rgba(212,137,10,0.08);
+    border: 1px solid rgba(212,137,10,0.25);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(212,137,10,0.9);
+    line-height: 1.5;
+  }
+  .fed-impact-label {
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    opacity: 0.8;
+  }
+
+  /* ── REVENUE IMPACT ──────────────────────────────────── */
+  .revenue-impact {
+    background: rgba(212,137,10,0.06);
+    border: 1px solid rgba(212,137,10,0.2);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .revenue-impact-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .revenue-impact p {
+    font-size: 14px;
+    color: var(--white);
+    line-height: 1.75;
+  }
+  .revenue-impact strong { color: var(--gold); }
+
+  /* ── GOVERNMENT READINESS ─────────────────────────────── */
+  .gov-section {
+    margin: 32px 0;
+    border: 1px solid rgba(227,76,76,0.3);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .gov-header {
+    background: rgba(227,76,76,0.12);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(227,76,76,0.2);
+  }
+  .gov-header-left { display: flex; align-items: center; gap: 12px; }
+  .gov-header-icon { font-size: 20px; }
+  .gov-header-title { font-size: 15px; font-weight: 700; color: var(--white); }
+  .gov-header-sub { font-size: 11px; color: rgba(240,244,255,0.55); margin-top: 2px; }
+  .gov-verdict {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gov-score-big { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .gov-score-big.fail { color: #E05252; }
+  .gov-verdict-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gov-verdict-badge.fail { background: rgba(224,82,82,0.2); color: #E05252; border: 1px solid rgba(224,82,82,0.4); }
+  .gov-body { padding: 20px 24px; }
+  .gov-score-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .gov-score-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .gov-score-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .gov-score-val { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .gov-score-val.bad { color: #E05252; }
+  .gov-score-val.warn { color: #D4890A; }
+  .gov-score-val.ok { color: #1EAB6A; }
+  .gov-issues-title { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .gov-issue-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .gov-issue-row:last-child { border-bottom: none; }
+  .gov-issue-sev {
+    flex-shrink: 0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .sev-critical { background: rgba(224,82,82,0.18); color: #E05252; border: 1px solid rgba(224,82,82,0.35); }
+  .sev-high { background: rgba(212,137,10,0.18); color: #D4890A; border: 1px solid rgba(212,137,10,0.35); }
+  .sev-medium { background: rgba(255,255,255,0.07); color: rgba(240,244,255,0.6); border: 1px solid rgba(255,255,255,0.12); }
+  .gov-issue-content { flex: 1; }
+  .gov-issue-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+  .gov-issue-reg {
+    font-size: 11px;
+    color: rgba(212,137,10,0.9);
+    background: rgba(212,137,10,0.08);
+    border-left: 3px solid rgba(212,137,10,0.5);
+    padding: 4px 8px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .gov-not-ready {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(224,82,82,0.07);
+    border: 1px solid rgba(224,82,82,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: rgba(240,244,255,0.7);
+  }
+  .gov-not-ready strong { color: #E05252; }
+
+  /* ── TOP FIXES ───────────────────────────────────────── */
+  .fixes-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 32px 0 16px;
+  }
+
+  .fixes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .fixes-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .fix-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent-blue);
+    min-width: 22px;
+    flex-shrink: 0;
+  }
+
+  /* ── AUTOMATION GRID ─────────────────────────────────── */
+  .automation-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .automation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .automation-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .automation-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .automation-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .automation-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── CLOSING PAGE ────────────────────────────────────── */
+  .closing-section {
+    page-break-before: always;
+    padding: 64px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 40px;
+  }
+
+  .comparison-table thead tr {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .comparison-table th {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+  .comparison-table th:nth-child(2) { color: var(--red); }
+  .comparison-table th:nth-child(3) { color: var(--green); }
+
+  .comparison-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  .comparison-table td {
+    padding: 14px 16px;
+    line-height: 1.5;
+  }
+  .comparison-table td:first-child { font-weight: 600; color: var(--white); }
+  .comparison-table td:nth-child(2) { color: var(--muted); font-size: 13px; }
+  .comparison-table td:nth-child(3) { color: var(--green); font-size: 13px; }
+
+  /* ── TIMELINE ────────────────────────────────────────── */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 22px;
+  }
+
+  .timeline-weeks {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+  }
+
+  .timeline-phase {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── DARK CALLOUT ────────────────────────────────────── */
+  .dark-callout {
+    background: rgba(27,157,217,0.06);
+    border: 1px solid rgba(27,157,217,0.2);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 0 10px 10px 0;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+
+  .dark-callout p {
+    font-size: 15px;
+    color: var(--white);
+    line-height: 1.8;
+  }
+  .dark-callout strong { color: var(--light-blue); }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── PRINT ───────────────────────────────────────────── */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { min-height: auto; background: #fff; }
+    .cover-top-bar { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .score-card, .callout-card, .issue-card, .automation-card, .timeline-card {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+    }
+    .score-num, .site-overall-num { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .pill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .cover { page-break-after: always; }
+    .site-section-wrap { page-break-before: always; }
+    .closing-section { page-break-before: always; }
+    a { text-decoration: none; }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .cover-header { padding: 24px 20px; }
+    .cover-body { padding: 24px 20px; }
+    .cover-footer { padding: 20px 20px; flex-direction: column; text-align: center; }
+    .score-grid { grid-template-columns: 1fr; }
+    .callout-grid { grid-template-columns: 1fr; }
+    .automation-grid { grid-template-columns: 1fr; }
+    .timeline-grid { grid-template-columns: 1fr; }
+    .page-section { padding: 40px 20px; }
+    .site-section-header { padding: 20px; }
+    .score-bar-row { grid-template-columns: 120px 1fr 40px; }
+    .comparison-table { font-size: 12px; }
+    .comparison-table td, .comparison-table th { padding: 10px 10px; }
+  }
+
+  @media (max-width: 480px) {
+    .cover-title { font-size: 22px; }
+    .score-bar-row { grid-template-columns: 100px 1fr 36px; gap: 8px; }
+    .site-section-header { flex-direction: column; align-items: flex-start; }
+    .site-overall-score { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER PAGE
+═══════════════════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-top-bar"></div>
+
+  <div class="cover-header">
+    <div class="logo-mark">N</div>
+    <div class="logo-text">
+      <span class="logo-name">NuStack Digital Ventures</span>
+      <span class="logo-sub">Digital Performance Audit</span>
+    </div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-label">Confidential Audit Report &nbsp;·&nbsp; March 2026</div>
+    <h1 class="cover-title">Complete Coach Works Family of Companies — Digital Presence Audit</h1>
+    <p class="cover-subtitle">A data-driven assessment of completecoach.com, sblbus.com, and transitsales.com — prepared exclusively for Dale Carson, March 2026</p>
+
+    <div class="score-grid">
+      <div class="score-card red">
+        <span class="score-card-site">CCW</span>
+        <span class="score-card-url">completecoach.com</span>
+        <span class="score-num" style="color:var(--red);">54</span>
+        <span class="score-label">out of 100</span>
+        <span class="grade-badge red">D+</span>
+      </div>
+      <div class="score-card amber">
+        <span class="score-card-site">TSI</span>
+        <span class="score-card-url">transitsales.com</span>
+        <span class="score-num" style="color:var(--amber);">63</span>
+        <span class="score-label">out of 100</span>
+        <span class="grade-badge amber">C</span>
+      </div>
+      <div class="score-card amber">
+        <span class="score-card-site">SBL</span>
+        <span class="score-card-url">sblbus.com</span>
+        <span class="score-num" style="color:var(--amber);">62</span>
+        <span class="score-label">out of 100</span>
+        <span class="grade-badge amber">C</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span class="cover-footer-notice">CONFIDENTIAL — Prepared exclusively for Dale Carson / Complete Coach Works. Not for distribution.</span>
+    <span class="cover-footer-contact">NuStack Digital Ventures &nbsp;·&nbsp; <a href="https://nustack.digital">nustack.digital</a></span>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     EXECUTIVE SUMMARY
+═══════════════════════════════════════════════════════ -->
+<section class="page-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Executive Summary</div>
+    <h2 class="section-title">The 60-Second Verdict</h2>
+    <p class="section-desc">Three sites. One family of companies. Shared problems — and a shared path to fixing them.</p>
+  </div>
+
+  <div class="callout-grid">
+    <div class="callout-card blue-border">
+      <div class="callout-label blue">The Opportunity</div>
+      <p class="callout-text">All three sites share identical foundational failures. This is fixable in one unified engagement — not three separate projects.</p>
+    </div>
+    <div class="callout-card red-border">
+      <div class="callout-label red">The Risk</div>
+      <p class="callout-text">6 critical issues flagged as federal contractor disqualifiers on every site. If CCW or TSI targets any government agency contract, these failures will surface in procurement review.</p>
+    </div>
+    <div class="callout-card gold-border">
+      <div class="callout-label gold">The Ask</div>
+      <p class="callout-text">One 6–8 week engagement. Three rebuilt sites. Shared design system, cross-company lead routing, and automation infrastructure.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:14px;">Issues Found on All Three Sites</h3>
+
+  <table class="audit-table">
+    <thead>
+      <tr>
+        <th>Issue</th>
+        <th>Category</th>
+        <th>Severity</th>
+        <th>Federal Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>No Content Security Policy header</td>
+        <td class="muted">Security</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">NIST SP 800-53 + CMMC Level 1</td>
+      </tr>
+      <tr>
+        <td>HTTPS enforced but HSTS header missing</td>
+        <td class="muted">Security</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">CISA BOD 18-01</td>
+      </tr>
+      <tr>
+        <td>Accessibility critically failing — Section 508 risk</td>
+        <td class="muted">Accessibility</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">Section 508 + ADA</td>
+      </tr>
+      <tr>
+        <td>WordPress site with unaudited third-party scripts</td>
+        <td class="muted">Supply Chain</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">CMMC SC.3.177</td>
+      </tr>
+      <tr>
+        <td>No federal contractor credentials visible</td>
+        <td class="muted">Contractor ID</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">FAR 9.104 Responsibility</td>
+      </tr>
+      <tr>
+        <td>No Social Proof on Website</td>
+        <td class="muted">Trust</td>
+        <td><span class="pill critical">Critical</span></td>
+        <td class="muted">CCW / SBL / TSI</td>
+      </tr>
+      <tr>
+        <td>Phone Number Hidden From Header</td>
+        <td class="muted">Conversion</td>
+        <td><span class="pill high">High</span></td>
+        <td class="muted">—</td>
+      </tr>
+      <tr>
+        <td>Form inputs missing accessible labels</td>
+        <td class="muted">Accessibility</td>
+        <td><span class="pill high">High</span></td>
+        <td class="muted">Section 508</td>
+      </tr>
+      <tr>
+        <td>No clickjacking protection header</td>
+        <td class="muted">Security</td>
+        <td><span class="pill medium">Medium</span></td>
+        <td class="muted">NIST SP 800-53</td>
+      </tr>
+      <tr>
+        <td>Missing ARIA landmark regions</td>
+        <td class="muted">Accessibility</td>
+        <td><span class="pill medium">Medium</span></td>
+        <td class="muted">Section 508</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SITE 1 — completecoach.com
+═══════════════════════════════════════════════════════ -->
+<div class="site-section-wrap">
+  <div class="site-accent-bar"></div>
+  <div class="site-section-header">
+    <div class="site-title-block">
+      <span class="site-badge">Site 1 of 3</span>
+    </div>
+    <div style="flex:1;padding-left:20px;">
+      <div class="site-main-title">Complete Coach Works</div>
+      <div class="site-url-label">completecoach.com</div>
+    </div>
+    <div class="site-overall-score">
+      <span class="site-overall-num red">54</span>
+      <span class="site-overall-label">Overall Score / 100</span>
+    </div>
+  </div>
+
+  <div class="page-section">
+
+    <div class="score-bars-section">
+      <div class="score-bars-title">Score Breakdown by Category</div>
+
+      <div class="score-bar-row">
+        <span class="score-bar-label">Visibility (SEO)</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:35%"></div></div>
+        <span class="score-bar-num red">35</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Trust</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:25%"></div></div>
+        <span class="score-bar-num red">25</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">UX</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:30%"></div></div>
+        <span class="score-bar-num red">30</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Conversion</span>
+        <div class="score-bar-track"><div class="score-bar-fill amber" style="width:50%"></div></div>
+        <span class="score-bar-num amber">50</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Content Depth</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:90%"></div></div>
+        <span class="score-bar-num green">90</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Messaging</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:85%"></div></div>
+        <span class="score-bar-num green">85</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Structure</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:75%"></div></div>
+        <span class="score-bar-num green">75</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Automation Ready</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:70%"></div></div>
+        <span class="score-bar-num green">70</span>
+      </div>
+    </div>
+
+    <div class="issues-title">Critical &amp; High Issues — completecoach.com</div>
+
+    <!-- Issue 1 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Call-to-Action Above the Fold</span>
+      </div>
+      <p class="issue-desc">Visitors see no clear next step in the first screen. They have to scroll to find out how to contact you. In a high-consideration B2B purchase, every extra scroll loses a decision-maker.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a prominent "Request a Quote" or "Contact Us" button visible without scrolling on every page, especially the homepage.</div>
+    </div>
+
+    <!-- Issue 2 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Content Security Policy Header</span>
+      </div>
+      <p class="issue-desc">Your site has no CSP header. Every form and session is exposed to cross-site scripting injection. Malicious scripts can run silently on any page load.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Configure CSP headers at the server or CDN level. Start with a report-only policy, then lock down to strict-allow lists.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        NIST SP 800-53 Rev 5 SC-18 (Mobile Code) + CMMC Level 1 Access Control. Missing CSP is a finding in any DFARS/CMMC pre-assessment.
+      </div>
+    </div>
+
+    <!-- Issue 3 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">HTTPS Enforced But HSTS Header Missing</span>
+      </div>
+      <p class="issue-desc">Browsers can still be downgraded to HTTP by attackers. Without HSTS, a man-in-the-middle can intercept form submissions and contact data.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add <code style="color:var(--light-blue);font-size:11px;">Strict-Transport-Security: max-age=31536000; includeSubDomains</code> to all server responses.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CISA Binding Operational Directive 18-01 mandates HSTS for all .gov domains and is the benchmark applied to federal contractor web properties during procurement review.
+      </div>
+    </div>
+
+    <!-- Issue 4 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">Accessibility Critically Failing — Section 508 Risk</span>
+      </div>
+      <p class="issue-desc">Inaccessible sites face ADA lawsuits and are excluded from federal contracting opportunities. Multiple WCAG 2.1 AA failures detected including missing alt text, insufficient color contrast, and keyboard navigation gaps.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Conduct a full WCAG 2.1 AA audit. Prioritize: alt text on all images, contrast ratios above 4.5:1, keyboard-navigable menus.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        Section 508 §1194 of the Rehabilitation Act requires all federal agency vendors to maintain accessible digital properties. Non-compliance is grounds for bid disqualification.
+      </div>
+    </div>
+
+    <!-- Issue 5 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">WordPress Site With Unaudited Third-Party Scripts</span>
+      </div>
+      <p class="issue-desc">Unvetted external scripts run on every page, creating supply chain risk. A single compromised plugin or external script can exfiltrate visitor data or inject malicious code for all users.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Audit all third-party plugins and scripts. Remove unused plugins. Implement Subresource Integrity (SRI) for external scripts.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CMMC SC.3.177 (Protection of CUI in Systems and Communications) — supply chain risk from unvetted scripts is a direct finding in Level 2+ assessments.
+      </div>
+    </div>
+
+    <!-- Issue 6 -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Federal Contractor Credentials Visible</span>
+      </div>
+      <p class="issue-desc">No CAGE code, NAICS codes, past performance, or SAM.gov registration is visible to procurement officers. A contracting officer who can't verify your eligibility in 30 seconds moves to the next vendor.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a dedicated "Government Contracting" section listing CAGE code, NAICS codes, SAM.gov status, and two or three past performance references.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        FAR 9.104 Responsibility Determination — contracting officers must affirmatively determine a vendor is responsible before award. Missing registration data creates friction that eliminates you from consideration.
+      </div>
+    </div>
+
+    <!-- HIGH Issues -->
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Missing Meta Description</span>
+      </div>
+      <p class="issue-desc">No meta description means Google writes its own snippet — usually a random sentence fragment. This reduces click-through rate from search results by an estimated 5–15%.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Write a 140–160 character meta description for every page. Lead with your strongest value proposition.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Phone Number Hidden From Header</span>
+      </div>
+      <p class="issue-desc">The phone number is not visible in the header navigation on desktop or mobile. For a high-value B2B service, a visible phone number is a conversion signal — it tells prospects you are real and reachable.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Place a click-to-call phone number in the top-right corner of every page header.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Form Inputs Missing Accessible Labels</span>
+      </div>
+      <p class="issue-desc">Contact form fields use placeholder text instead of explicit <code style="color:var(--light-blue);font-size:11px;">&lt;label&gt;</code> elements. Screen readers cannot identify the fields — a direct Section 508 failure.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Replace all placeholder-only form fields with proper <code style="color:var(--light-blue);font-size:11px;">&lt;label for="..."&gt;</code> elements.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">No Past Performance or Portfolio Section</span>
+      </div>
+      <p class="issue-desc">There is no dedicated section showcasing completed projects with outcomes, fleet sizes, or agency names. Federal procurement and large fleet operators want evidence before they call.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Build a structured portfolio: project type, agency/client (or "major transit agency, Pacific Northwest"), scope, completion year. Add 6–10 entries.</div>
+    </div>
+
+    <!-- GOVERNMENT CONTRACTOR READINESS — CCW -->
+    <div class="gov-section">
+      <div class="gov-header">
+        <div class="gov-header-left">
+          <div class="gov-header-icon">⚖️</div>
+          <div>
+            <div class="gov-header-title">Government Contractor Readiness — completecoach.com</div>
+            <div class="gov-header-sub">Federal / Section 508 / CMMC / FAR compliance assessment</div>
+          </div>
+        </div>
+        <div class="gov-verdict">
+          <div class="gov-score-big fail">33</div>
+          <div>
+            <div class="gov-verdict-badge fail">FAIL</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px;">Not contractor ready</div>
+          </div>
+        </div>
+      </div>
+      <div class="gov-body">
+        <div class="gov-score-grid">
+          <div class="gov-score-item">
+            <div class="gov-score-label">Security</div>
+            <div class="gov-score-val bad">15</div>
+          </div>
+          <div class="gov-score-item">
+            <div class="gov-score-label">Accessibility</div>
+            <div class="gov-score-val bad">15</div>
+          </div>
+          <div class="gov-score-item">
+            <div class="gov-score-label">Contractor ID</div>
+            <div class="gov-score-val bad">20</div>
+          </div>
+          <div class="gov-score-item">
+            <div class="gov-score-label">Supply Chain</div>
+            <div class="gov-score-val warn">55</div>
+          </div>
+          <div class="gov-score-item">
+            <div class="gov-score-label">Privacy</div>
+            <div class="gov-score-val ok">75</div>
+          </div>
+        </div>
+        <div class="gov-issues-title">Federal Compliance Failures — Regulatory Citations</div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-critical">Critical</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">No Content Security Policy header</div>
+            <div class="gov-issue-reg">NIST SP 800-53 Rev 5 SC-18 (Mobile Code) + CMMC Level 1 AC.1.001 — Missing CSP allows XSS attacks; CMMC assessors flag absent security headers as IT hygiene failures during Level 2 pre-assessment interviews.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-critical">Critical</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">HTTPS enforced but HSTS header missing</div>
+            <div class="gov-issue-reg">CISA BOD 18-01 · NIST SP 800-52 Rev 2 — HTTPS not enforced via HSTS; man-in-the-middle attacks possible. CMMC Level 2 SC.3.177 requires encryption of CUI in transit.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-critical">Critical</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">Accessibility critically failing — Section 508 risk</div>
+            <div class="gov-issue-reg">Section 508 §1194 + Rehabilitation Act 29 U.S.C. § 794d — ICT products must meet WCAG 2.1 AA; federal agencies cannot procure non-compliant ICT. Vendors supplying digital tools to government clients must deliver accessible work.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-critical">Critical</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">WordPress site with unaudited third-party scripts</div>
+            <div class="gov-issue-reg">EO 14028 (Improving the Nation's Cybersecurity) + NIST SP 800-161 Supply Chain Risk Management — CMMC Level 2 SR.3.169 requires vendors to manage supply chain risk. Unvetted scripts on a contractor's site signal inadequate security posture.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-critical">Critical</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">No federal contractor credentials visible</div>
+            <div class="gov-issue-reg">FAR 52.204-7 (SAM Registration) + FAR Subpart 9.1 (Responsibility Determinations) — 84% of government agencies research vendors online before shortlisting. No CAGE code, NAICS codes, or past performance visible means procurement officers cannot verify contractor responsibility.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-high">High</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">No past performance or portfolio section</div>
+            <div class="gov-issue-reg">FAR 15.305(a)(2) — Past performance is a mandatory evaluation factor in competitive acquisitions. Contracting officers who cannot verify past performance will score CCW lower or eliminate the bid.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-high">High</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">Form inputs missing accessible labels</div>
+            <div class="gov-issue-reg">Section 508 §1194.22(n) + WCAG 2.1 SC 1.3.1 — Form fields without labels fail automated 508 testing. Required for VPAT (Voluntary Product Accessibility Template) certification.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-medium">Medium</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">No clickjacking protection header (X-Frame-Options)</div>
+            <div class="gov-issue-reg">OWASP Top 10 A05:2021 (Security Misconfiguration) — Missing X-Frame-Options enables clickjacking. Federal IT procurement teams use automated scanners that flag this header as absent.</div>
+          </div>
+        </div>
+        <div class="gov-issue-row">
+          <span class="gov-issue-sev sev-medium">Medium</span>
+          <div class="gov-issue-content">
+            <div class="gov-issue-title">Missing ARIA landmark regions</div>
+            <div class="gov-issue-reg">Section 508 + WCAG 2.1 SC 1.3.6 — Missing ARIA landmarks prevent screen readers from navigating page structure. WCAG 2.1 AA compliance required for Section 508 conformance.</div>
+          </div>
+        </div>
+        <div class="gov-not-ready">
+          <span style="font-size:18px;">🚫</span>
+          <div><strong>Not Government Contractor Ready.</strong> These 9 compliance failures would surface in any federal procurement review. Fixing security headers, accessibility, and contractor credentials page resolves 7 of 9 in a single sprint.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="revenue-impact">
+      <div class="revenue-impact-label">Revenue Impact Estimate</div>
+      <p>A transit agency procurement manager searching "bus refurbishment contractor" or "ZEPS electric bus conversion" won't find CCW. Three major press events in early 2026 drove zero search traffic because the site can't be crawled effectively. The content is strong — the infrastructure to surface it is broken. Conservative opportunity cost: <strong>$200K–$800K/year</strong> in lost inbound contracts from state, regional, and federal transit agencies.</p>
+    </div>
+
+    <div class="fixes-title">Top 5 Fixes for CCW — Ordered by Impact</div>
+    <ol class="fixes-list">
+      <li><span class="fix-num">1</span>Add a visible "Request a Quote" CTA above the fold on the homepage and all service pages — estimated 2 hours, immediate conversion lift.</li>
+      <li><span class="fix-num">2</span>Fix all four security headers (CSP, HSTS, X-Frame-Options, Permissions-Policy) — one server configuration block, eliminates all federal compliance findings.</li>
+      <li><span class="fix-num">3</span>Create a dedicated Government Contracting page listing CAGE code, NAICS codes, SAM.gov status, and past performance — this page alone can unlock procurement inquiries.</li>
+      <li><span class="fix-num">4</span>Run a full WCAG 2.1 AA audit and fix the top 10 violations — alt text, label elements, and color contrast cover 80% of Section 508 risk in one pass.</li>
+      <li><span class="fix-num">5</span>Write keyword-targeted metadata for every service page and submit an XML sitemap — this surfaces the strong existing content to search engines within 30–60 days.</li>
+    </ol>
+
+    <div class="automation-title">Automation Opportunities — CCW</div>
+    <div class="automation-grid">
+      <div class="automation-card">
+        <div class="automation-icon">📋</div>
+        <div class="automation-name">Project Inquiry Intake</div>
+        <div class="automation-desc">Structured form → auto-route to right service lead → confirmation email with timeline PDF + next steps → 3/7-day follow-up sequence.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🔁</div>
+        <div class="automation-name">Cross-Company Routing</div>
+        <div class="automation-desc">Prospects asking about sales or leasing routed automatically to TSI or SBL — no lost leads across the family of companies.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📅</div>
+        <div class="automation-name">Site Visit Scheduling</div>
+        <div class="automation-desc">Embed calendar booking for facility tours and project consultations — reduces inbound phone tag for high-value opportunities.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🏛</div>
+        <div class="automation-name">Government RFP Alerts</div>
+        <div class="automation-desc">Monitor SAM.gov for ZEPS, transit refurbishment, and fleet upgrade RFPs — auto-notify relevant team members when matching solicitations drop.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📰</div>
+        <div class="automation-name">Press Coverage Amplifier</div>
+        <div class="automation-desc">Every press mention auto-posts to the site news feed and triggers a newsletter to the prospect list — turns media coverage into sales activity.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📊</div>
+        <div class="automation-name">Monthly Traffic Reports</div>
+        <div class="automation-desc">Automated Google Search Console + GA4 report delivered to Dale the first Monday of every month — no manual pulling.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SITE 2 — transitsales.com
+═══════════════════════════════════════════════════════ -->
+<div class="site-section-wrap">
+  <div class="site-accent-bar"></div>
+  <div class="site-section-header">
+    <div class="site-title-block">
+      <span class="site-badge">Site 2 of 3</span>
+    </div>
+    <div style="flex:1;padding-left:20px;">
+      <div class="site-main-title">Transit Sales International</div>
+      <div class="site-url-label">transitsales.com</div>
+    </div>
+    <div class="site-overall-score">
+      <span class="site-overall-num amber">63</span>
+      <span class="site-overall-label">Overall Score / 100</span>
+    </div>
+  </div>
+
+  <div class="page-section">
+
+    <div class="score-bars-section">
+      <div class="score-bars-title">Score Breakdown by Category</div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Visibility (SEO)</span>
+        <div class="score-bar-track"><div class="score-bar-fill amber" style="width:70%"></div></div>
+        <span class="score-bar-num amber">70</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Trust</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:0%"></div></div>
+        <span class="score-bar-num red">0</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">UX</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:30%"></div></div>
+        <span class="score-bar-num red">30</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Conversion</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:75%"></div></div>
+        <span class="score-bar-num green">75</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Content Depth</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:90%"></div></div>
+        <span class="score-bar-num green">90</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Messaging</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:85%"></div></div>
+        <span class="score-bar-num green">85</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Structure</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:80%"></div></div>
+        <span class="score-bar-num green">80</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Automation Ready</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:100%"></div></div>
+        <span class="score-bar-num green">100</span>
+      </div>
+    </div>
+
+    <div class="issues-title">Critical &amp; High Issues — transitsales.com</div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Social Proof on Website</span>
+      </div>
+      <p class="issue-desc">TSI claims largest inventory in the nation but presents zero testimonials, reviews, agency references, or customer success stories. In a $50K–$500K purchase decision, absence of social proof is a conversion killer.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a testimonials section with 3–5 verified customer quotes. If customers won't go on record, use "Major transit agency, Mid-Atlantic region" format with verified purchase detail.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Content Security Policy Header</span>
+      </div>
+      <p class="issue-desc">No CSP header on any page. The inventory system and contact forms are fully exposed to cross-site scripting attacks. Customer data submitted through TSI forms has no injection protection.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Implement CSP headers at the server level. This resolves in the same pass as the CCW fix — one configuration, three sites.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        NIST SP 800-53 Rev 5 SC-18 + CMMC Level 1 — agency fleet procurement officers will flag missing security headers during vendor review.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">HTTPS Enforced But HSTS Header Missing</span>
+      </div>
+      <p class="issue-desc">HTTPS is active but HSTS is not set. Downgrade attacks remain possible on every page load. Any buyer submitting contact information or RFQ data is at risk.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add HSTS header with a one-year max-age. Resolves in the same security header pass across all three sites.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CISA BOD 18-01 · NIST SP 800-52 Rev 2 — applies to all vendors operating within federal agency supply chains.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">Accessibility Critically Failing — Section 508 Risk</span>
+      </div>
+      <p class="issue-desc">Multiple WCAG 2.1 AA violations across inventory pages. Transit agencies — the primary buyer — are subject to Section 508 and evaluate vendors on compliance posture.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Priority fix: alt text on all inventory photos, proper label elements on all forms, keyboard accessibility on the inventory filter/search UI.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        Section 508 §1194 + Rehabilitation Act. Transit agency procurement teams are legally required to use accessible tools and may apply the same lens to vendor selection.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">WordPress Site With Unaudited Third-Party Scripts</span>
+      </div>
+      <p class="issue-desc">Unvetted plugins and external scripts run across the inventory database pages. A compromised plugin can expose buyer inquiry data and inventory pricing to third parties.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Audit all active plugins. Remove anything unused. Enable automatic security updates for WordPress core. Consider migrating inventory to a headless architecture for full control.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CMMC SC.3.177 — unvetted third-party code is a supply chain vulnerability finding in any pre-contract cybersecurity review.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Federal Contractor Credentials Visible</span>
+      </div>
+      <p class="issue-desc">SAM.gov status, CAGE code, NAICS codes, and past performance data are absent from the site. Procurement officers searching TSI before a fleet purchase have no way to verify eligibility or experience.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a "Fleet Procurement" or "Government Sales" page with full contractor credentials, purchasing vehicle info (GSA, cooperative purchasing), and a direct contact for agency buyers.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        FAR 9.104 Responsibility Determination — contractors must affirmatively demonstrate responsibility. An absent credentials page is an avoidable disqualifier.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Missing Meta Description</span>
+      </div>
+      <p class="issue-desc">Yoast SEO is installed but the homepage title reads "home - Transit Sales International" and no meta description is set. Google is writing its own snippet — typically a random address or phone number fragment.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Rewrite homepage title to "Used Transit Buses For Sale | Transit Sales International — Over 1,000 Models." Set a compelling 150-character meta description.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Phone Number Hidden From Header</span>
+      </div>
+      <p class="issue-desc">The phone number is not persistently visible in the navigation header. Bus buyers — especially agency fleet managers — expect immediate access to a phone number on every page.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a click-to-call phone number to the top-right of every page. Add a secondary "Chat with a Sales Rep" option if available.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Form Inputs Missing Accessible Labels</span>
+      </div>
+      <p class="issue-desc">Contact and inquiry forms use placeholder-only inputs. Screen reader users cannot identify fields. This is a direct WCAG 2.1 AA failure and Section 508 violation.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Replace all placeholder-only fields with proper <code style="color:var(--light-blue);font-size:11px;">&lt;label for&gt;</code> associations across all forms.</div>
+    </div>
+
+    <div class="revenue-impact">
+      <div class="revenue-impact-label">Revenue Impact Estimate</div>
+      <p>TSI claims "largest inventory in the nation with over 1,000 makes and models available" but shows 70+ listings — the other 930 don't exist to Google. No pricing + stale inventory = buyers bounce to competitors who show starting prices. An agency fleet manager with a 10-bus purchase researches online before calling. TSI is invisible to that search. <strong>Estimated lift from fixes alone: $245K+ annually</strong> — based on 70 units × $35K avg × 10% conversion improvement from improved SEO, pricing transparency, and social proof.</p>
+    </div>
+
+    <div class="fixes-title">Top 5 Fixes for TSI — Ordered by Impact</div>
+    <ol class="fixes-list">
+      <li><span class="fix-num">1</span>Fix Yoast SEO — rewrite the homepage title (currently "home - Transit Sales International"), write a meta description, add an H1 tag. 30-minute fix, immediate Google impression improvement.</li>
+      <li><span class="fix-num">2</span>Add pricing or price ranges ("starting at $28,000") to inventory listings — the single highest-impact trust signal for bus buyers browsing without calling first.</li>
+      <li><span class="fix-num">3</span>Audit all 70+ listings: mark sold units as Sold, replace generic stock photos with actual vehicle photos, update year and mileage on stale listings.</li>
+      <li><span class="fix-num">4</span>Update the About page with 2026 milestones, current inventory stats, and at least one agency reference or testimonial.</li>
+      <li><span class="fix-num">5</span>Add Organization schema markup with consistent NAP (Name, Address, Phone) — improves local and branded search results in 30–60 days.</li>
+    </ol>
+
+    <div class="automation-title">Automation Opportunities — TSI</div>
+    <div class="automation-grid">
+      <div class="automation-card">
+        <div class="automation-icon">🔄</div>
+        <div class="automation-name">Inventory Sync</div>
+        <div class="automation-desc">Real-time Available / Pending / Sold status across all listings. Eliminates the "is this still available?" call and builds buyer confidence.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📄</div>
+        <div class="automation-name">Auto Quote Response</div>
+        <div class="automation-desc">Inquiry → automated confirmation with full specs PDF + three alternative options + calendar booking link for sales consultation.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🔔</div>
+        <div class="automation-name">Saved Search Alerts</div>
+        <div class="automation-desc">"Notify me when a 35ft low-floor diesel comes in" — email/SMS alert when matching inventory is added. Captures buyers not ready to purchase today.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🏛</div>
+        <div class="automation-name">Fleet Procurement Track</div>
+        <div class="automation-desc">Dedicated intake for agencies buying 5–20 buses. Routes to senior sales, triggers proposal template, schedules fleet review call automatically.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🔀</div>
+        <div class="automation-name">Cross-Company Routing</div>
+        <div class="automation-desc">Buyers asking about refurbishment or rehab automatically routed to CCW. Keeps every lead in the family.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📊</div>
+        <div class="automation-name">Monthly Inventory Report</div>
+        <div class="automation-desc">Automated digest: listings added, leads generated per listing, most-viewed inventory — delivered to sales team every Monday.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SITE 3 — sblbus.com
+═══════════════════════════════════════════════════════ -->
+<div class="site-section-wrap">
+  <div class="site-accent-bar"></div>
+  <div class="site-section-header">
+    <div class="site-title-block">
+      <span class="site-badge">Site 3 of 3</span>
+    </div>
+    <div style="flex:1;padding-left:20px;">
+      <div class="site-main-title">SBL Bus Leasing</div>
+      <div class="site-url-label">sblbus.com</div>
+    </div>
+    <div class="site-overall-score">
+      <span class="site-overall-num amber">62</span>
+      <span class="site-overall-label">Overall Score / 100</span>
+    </div>
+  </div>
+
+  <div class="page-section">
+
+    <div class="score-bars-section">
+      <div class="score-bars-title">Score Breakdown by Category</div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Visibility (SEO)</span>
+        <div class="score-bar-track"><div class="score-bar-fill amber" style="width:70%"></div></div>
+        <span class="score-bar-num amber">70</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Trust</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:0%"></div></div>
+        <span class="score-bar-num red">0</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">UX</span>
+        <div class="score-bar-track"><div class="score-bar-fill red" style="width:30%"></div></div>
+        <span class="score-bar-num red">30</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Conversion</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:75%"></div></div>
+        <span class="score-bar-num green">75</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Content Depth</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:90%"></div></div>
+        <span class="score-bar-num green">90</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Messaging</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:85%"></div></div>
+        <span class="score-bar-num green">85</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Structure</span>
+        <div class="score-bar-track"><div class="score-bar-fill green" style="width:80%"></div></div>
+        <span class="score-bar-num green">80</span>
+      </div>
+      <div class="score-bar-row">
+        <span class="score-bar-label">Automation Ready</span>
+        <div class="score-bar-track"><div class="score-bar-fill amber" style="width:70%"></div></div>
+        <span class="score-bar-num amber">70</span>
+      </div>
+    </div>
+
+    <div class="issues-title">Critical &amp; High Issues — sblbus.com</div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Social Proof on Website</span>
+      </div>
+      <p class="issue-desc">SBL has zero visible testimonials, case studies, or agency references. For a leasing product — where buyers are committing to multi-year payment obligations — trust signals are not optional. They are the conversion lever.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add 3–5 testimonials from current or past lessees. Include fleet size, lease duration, and business type. If names cannot be used, get approval for a first name + company type format.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Content Security Policy Header</span>
+      </div>
+      <p class="issue-desc">No CSP header detected. Lease inquiry forms and any financial data submitted through the site are exposed to injection attacks. This is particularly serious for a financial-product website.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Implement CSP in the same pass as CCW and TSI — one configuration block resolves all three sites simultaneously.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        NIST SP 800-53 Rev 5 SC-18 + CMMC Level 1 — missing security headers are automatic findings in any federal vendor pre-assessment.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">HTTPS Enforced But HSTS Header Missing</span>
+      </div>
+      <p class="issue-desc">HTTPS active but HSTS not configured. Downgrade attacks are possible on every session. For a leasing product where buyers share fleet and financial details, this is a material security gap.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add HSTS with <code style="color:var(--light-blue);font-size:11px;">max-age=31536000; includeSubDomains</code> — resolves in the same pass as CCW and TSI.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CISA BOD 18-01 · NIST SP 800-52 Rev 2 — federal agency fleet managers evaluating lease vendors apply CISA transport security benchmarks.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">Accessibility Critically Failing — Section 508 Risk</span>
+      </div>
+      <p class="issue-desc">Multiple WCAG 2.1 AA violations present. Transit agencies and public fleet operators — SBL's primary market — are government entities subject to Section 508 and often apply accessibility requirements to their vendor interactions.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Fix alt text on all fleet photos, add proper form labels to the lease inquiry form, verify keyboard navigation works on the fleet availability section.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        Section 508 §1194 + Rehabilitation Act — public fleet operators are government entities bound by Section 508 requirements for all digital tools they use.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">WordPress Site With Unaudited Third-Party Scripts</span>
+      </div>
+      <p class="issue-desc">Unvetted plugins running across all pages. For a leasing product, a compromised script could intercept lease inquiry data including fleet size, budget, and contact information.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Audit all active plugins. Remove unused. Update all active plugins to current versions. Consider moving the lease inquiry form to a hardened, script-free landing page.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        CMMC SC.3.177 — supply chain risk from unvetted third-party code is a direct finding in pre-contract cybersecurity reviews with transit agencies.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill critical">Critical</span>
+        <span class="issue-title">No Federal Contractor Credentials Visible</span>
+      </div>
+      <p class="issue-desc">SAM.gov registration, CAGE code, NAICS codes, and contract vehicle information are absent from the site. Public transit agencies procuring lease services often require contractor registration verification before engaging.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add a "Government &amp; Agency Leasing" section with contractor credentials, cooperative purchasing program participation (NASPO, OMNIA Partners), and a direct agency contact.</div>
+      <div class="fed-impact">
+        <div class="fed-impact-label">⚖ Federal Impact</div>
+        FAR 9.104 Responsibility Determination — public agency procurement officers must confirm vendor responsibility before award. Missing data triggers exclusion.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Phone Number Hidden From Header</span>
+      </div>
+      <p class="issue-desc">Phone number is not persistently visible in the header. Leasing decisions involve conversation — a fleet manager needs to feel like they can reach a human immediately. A hidden phone number signals otherwise.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Place a click-to-call phone number in the top-right corner of every page. Add "Available Mon–Fri 8am–5pm CT" to set expectations.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Form Inputs Missing Accessible Labels</span>
+      </div>
+      <p class="issue-desc">Lease inquiry form fields use placeholder-only inputs without explicit label elements. Screen reader users cannot complete the form — a direct Section 508 failure and a legal exposure for a company leasing to public agencies.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Add proper <code style="color:var(--light-blue);font-size:11px;">&lt;label for&gt;</code> elements to every input field in the lease inquiry and contact forms.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header">
+        <span class="pill high">High</span>
+        <span class="issue-title">Copyright Footer Shows 2022</span>
+      </div>
+      <p class="issue-desc">The footer copyright reads 2022. It is now 2026. A four-year-stale copyright date is a visible signal to sophisticated buyers that the site — and possibly the business — has not been actively maintained.</p>
+      <div class="issue-rec"><strong>Recommendation:</strong> Update copyright to 2026. This is a 5-minute fix with an outsized trust impact on first-time visitors.</div>
+    </div>
+
+    <div class="revenue-impact">
+      <div class="revenue-impact-label">Revenue Impact Estimate</div>
+      <p>One transit agency on a multi-year lease is worth $50K–$500K. SBL ranks for essentially no lease-specific search terms — "short term bus lease," "gap fleet leasing transit," "seasonal shuttle bus lease" are all uncontested. Zero lead capture means zero follow-up on every visitor who doesn't pick up the phone. With a structured intake form, follow-up automation, and two targeted blog posts per month, SBL can be the dominant search result for gap fleet leasing in the U.S. within 90 days. No competitor is doing this work.</p>
+    </div>
+
+    <div class="fixes-title">Top 5 Fixes for SBL — Ordered by Impact</div>
+    <ol class="fixes-list">
+      <li><span class="fix-num">1</span>Add phone number and "Get a Lease Quote" CTA to every page header — 30-minute fix, immediate conversion lift for every visitor who arrives already intent to lease.</li>
+      <li><span class="fix-num">2</span>Update copyright year (2022 → 2026) — a 5-minute trust signal fix that removes an immediate credibility objection from sophisticated buyers.</li>
+      <li><span class="fix-num">3</span>Add price ranges ("starting at $X/month") or a lease calculator to fleet listings — the single highest-impact conversion action for a leasing product.</li>
+      <li><span class="fix-num">4</span>Publish 2 blog posts per month targeting lease-specific keywords: "short term bus lease transit agency," "gap fleet bus rental transit," "seasonal shuttle bus lease." No competitor ranks for these terms.</li>
+      <li><span class="fix-num">5</span>Add Organization schema markup with consistent NAP (Name, Address, Phone) — improves local and branded search results and feeds Google's Knowledge Panel within 30–60 days.</li>
+    </ol>
+
+    <div class="automation-title">Automation Opportunities — SBL</div>
+    <div class="automation-grid">
+      <div class="automation-card">
+        <div class="automation-icon">📋</div>
+        <div class="automation-name">Lease Inquiry Intake</div>
+        <div class="automation-desc">Structured form → auto-route to sales rep → confirmation email with PDF overview → 3-day and 7-day follow-up sequence if no response.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🔔</div>
+        <div class="automation-name">Inventory Availability Alerts</div>
+        <div class="automation-desc">"Notify me when a 40ft low-floor becomes available" — captures buyers on a timeline and keeps SBL top-of-mind when inventory matches.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🧮</div>
+        <div class="automation-name">Fleet Gap Calculator</div>
+        <div class="automation-desc">Interactive tool: enter fleet size, peak demand period, current capacity → outputs recommended lease configuration + estimated monthly cost. Lead-gated.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">🔀</div>
+        <div class="automation-name">Cross-Sell to TSI / CCW</div>
+        <div class="automation-desc">Lease-to-own inquiries routed to TSI. Lessees asking about rehab or upgrades routed to CCW. Every lead stays in the family.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📅</div>
+        <div class="automation-name">Lease Renewal Reminders</div>
+        <div class="automation-desc">Automated 90/60/30-day renewal reminders to existing lessees. Prevents churn from competitors who call first.</div>
+      </div>
+      <div class="automation-card">
+        <div class="automation-icon">📊</div>
+        <div class="automation-name">Monthly Lead Reports</div>
+        <div class="automation-desc">Automated report: inquiry volume, source breakdown, conversion rate — delivered to Dale the first Monday of every month.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     CLOSING — THE NUSTACK PROPOSAL
+═══════════════════════════════════════════════════════ -->
+<div class="closing-section">
+
+  <div class="section-header">
+    <div class="section-eyebrow">The NuStack Proposal</div>
+    <h2 class="section-title">One Engagement. Three Sites. Built Right.</h2>
+    <p class="section-desc">Every issue identified in this audit — across all three sites — is addressable in a single unified engagement. Here is what that looks like.</p>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Current State</th>
+        <th>Post-NuStack</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Search visibility</td>
+        <td>3 sites, near-zero organic traffic</td>
+        <td>All 3 ranked for target terms within 90 days</td>
+      </tr>
+      <tr>
+        <td>Lead capture</td>
+        <td>Phone-only, no automated forms</td>
+        <td>Automated intake on all 3 sites, routed to right rep</td>
+      </tr>
+      <tr>
+        <td>Federal compliance</td>
+        <td>6 critical failures on each site</td>
+        <td>All Section 508 + CMMC hygiene issues resolved</td>
+      </tr>
+      <tr>
+        <td>Cross-company routing</td>
+        <td>None — each site operates in isolation</td>
+        <td>CCW ↔ TSI ↔ SBL leads routed automatically</td>
+      </tr>
+      <tr>
+        <td>Trust signals</td>
+        <td>No reviews, no credentials, no social proof</td>
+        <td>Schema, reviews, CAGE/NAICS visible to procurement</td>
+      </tr>
+      <tr>
+        <td>Reporting</td>
+        <td>None — no data visibility</td>
+        <td>Monthly automated reports, Google Search Console live</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:16px;">Engagement Timeline</h3>
+
+  <div class="timeline-grid">
+    <div class="timeline-card">
+      <div class="timeline-weeks">Week 1–2</div>
+      <div class="timeline-phase">Discovery &amp; Foundation</div>
+      <div class="timeline-desc">Discovery sessions with Dale and site owners. Design system development. DNS and infrastructure review. Content audit and keyword mapping for all three sites.</div>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-weeks">Week 3–5</div>
+      <div class="timeline-phase">Build</div>
+      <div class="timeline-desc">All 3 sites rebuilt on the shared design system. Cross-company lead routing wired. Automation flows built and tested. Security headers configured across all three.</div>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-weeks">Week 6–8</div>
+      <div class="timeline-phase">QA, Launch &amp; Reporting</div>
+      <div class="timeline-desc">Full QA across all devices and browsers. Go-live on all 3 sites. Google Search Console connected. Automated monthly reports configured and delivered for the first time.</div>
+    </div>
+  </div>
+
+  <div class="dark-callout">
+    <p>All three sites run on the same Divi version, managed by one developer. The rebuild work batches efficiently — design system built once, applied three times. The result isn't three separate site rebuilds. It's one cohesive family of companies with a shared design language, cross-company lead routing, and automation infrastructure that none of the three sites have today. <strong>Six to eight weeks. Done right. No patches.</strong></p>
+  </div>
+
+  <div class="site-footer">
+    NuStack Digital Ventures &nbsp;·&nbsp; nustack.digital &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; March 2026
+  </div>
+
+</div>
+
+</body>
+</html>
