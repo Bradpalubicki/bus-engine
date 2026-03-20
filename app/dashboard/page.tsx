@@ -1,5 +1,6 @@
 import { MorningHuddle } from '@/components/dashboard/MorningHuddle'
 import { WebsiteHealthScores } from '@/components/dashboard/WebsiteHealthScores'
+import { FTAPipelineBanner } from '@/components/dashboard/FTAPipelineBanner'
 import {
   demoDashboardKPIs,
   demoWorkOrders,
@@ -53,6 +54,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
+      <FTAPipelineBanner />
       <MorningHuddle
         data={{
           workOrders,
