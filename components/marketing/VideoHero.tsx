@@ -44,8 +44,8 @@ export default function VideoHero({
   return (
     <section className="hero-section relative flex flex-col overflow-hidden">
       <style>{`
-        .hero-section { height: 85svh; }
-        @media (min-width: 768px) { .hero-section { height: calc(100svh - 64px); } }
+        .hero-section { height: 92svh; }
+        @media (min-width: 768px) { .hero-section { height: 90vh; } }
         @keyframes fadeUp {
           from { opacity: 0.01; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -56,6 +56,7 @@ export default function VideoHero({
           50%       { transform: translateY(8px); }
         }
         .bounce-slow { animation: bounce-slow 1.6s ease-in-out infinite; }
+        .hero-headline-zeps { font-size: clamp(1.6rem, 3vw, 2.8rem); }
       `}</style>
 
       <video
@@ -83,7 +84,7 @@ export default function VideoHero({
 
           {/* H1 */}
           <h1
-            className="hero-fade text-3xl md:text-5xl font-bold mb-5 leading-tight"
+            className={`hero-fade font-bold mb-5 leading-tight${brand === 'ZEPS' ? ' hero-headline-zeps' : ' text-3xl md:text-5xl'}`}
             style={{ animationDelay: '0.1s' }}
           >
             {renderHeadline()}
