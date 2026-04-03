@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com',
     siteName: 'Complete Coach Works',
     type: 'website',
-    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg', width: 1200, height: 630, alt: 'Complete Coach Works — Transit Bus Remanufacturing' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'Complete Coach Works — Transit Bus Remanufacturing' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Complete Coach Works | Transit Bus Remanufacturing',
     description: 'The Nation\'s Largest Transit Bus Remanufacturing Company. ZEPS electric, CNG repower, midlife overhaul.',
-    images: ['https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg'],
+    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&h=630&fit=crop'],
   },
 }
 
@@ -32,7 +32,7 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'Complete Coach Works',
   url: 'https://completecoach.com',
-  logo: 'https://completecoach.com/wp-content/uploads/2024/02/CCW-Logo.png',
+  logo: 'https://bus-engine.vercel.app/logo.png',
   foundingDate: '1987',
   description: 'The nation\'s largest transit bus remanufacturing company. ZEPS electric conversion, CNG repower, midlife refurbishment.',
   address: {
