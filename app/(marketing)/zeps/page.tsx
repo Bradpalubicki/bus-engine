@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   title: 'ZEPS Electric Bus Conversion — Zero Emission Powertrain System | Complete Coach Works',
   description: 'ZEPS converts existing transit buses to battery-electric for $580K vs $830K new OEM. 70+ conversions, 4M miles, FTA compliant, CARB certified. 403, 504, or 605 kWh packs.',
   alternates: { canonical: 'https://completecoach.com/zeps' },
+  openGraph: {
+    title: 'ZEPS Electric Bus Conversion | Zero Emission Powertrain System',
+    description: 'Convert your existing fleet to battery-electric. $580K vs $830K new OEM. CARB certified, FTA compliant, HVIP eligible up to $165K per bus.',
+    url: 'https://completecoach.com/zeps',
+    siteName: 'Complete Coach Works',
+    type: 'website',
+    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/07/ZEPS1.jpg', width: 1200, height: 630, alt: 'ZEPS Electric Bus Conversion by Complete Coach Works' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ZEPS Electric Bus Conversion | Zero Emission Powertrain System',
+    description: 'Convert your fleet to battery-electric. $580K vs $830K new. CARB certified, HVIP eligible.',
+    images: ['https://completecoach.com/wp-content/uploads/2024/07/ZEPS1.jpg'],
+  },
 }
 
 const zepsProductSchema = {

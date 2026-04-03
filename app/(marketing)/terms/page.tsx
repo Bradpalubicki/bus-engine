@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Use | Complete Coach Works',
   description: 'Terms and conditions for use of the Complete Coach Works website.',
-  robots: { index: false },
+  alternates: { canonical: 'https://completecoach.com/terms' },
 }
 
 export default function TermsPage() {

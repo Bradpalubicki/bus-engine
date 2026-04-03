@@ -16,6 +16,13 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com/tsi',
     siteName: 'Complete Coach Works',
     type: 'website',
+    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg', width: 1200, height: 630, alt: 'Transit Sales International — Pre-Owned Transit Buses' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Transit Sales International | Used Transit Buses for Sale',
+    description: 'Pre-owned transit buses for government agencies. FTA compliant. 60-day delivery.',
+    images: ['https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg'],
   },
 }
 

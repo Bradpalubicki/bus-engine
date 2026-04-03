@@ -115,15 +115,35 @@ export default function Footer() {
             <a href={`mailto:${f.email}`} className="text-blue-200 text-sm hover:text-white block">{f.email}</a>
           </div>
         </div>
+        {/* Trust badges */}
+        <div className="border-t border-blue-800 pt-6 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-blue-300">
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
+              <span>HTTPS Secure Site</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+              <span>APTA Member</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-[#E8A020]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" /></svg>
+              <span>100% Employee-Owned (ESOP)</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg>
+              <span>SAM.gov Registered</span>
+            </div>
+          </div>
+        </div>
+
         <div className="border-t border-blue-800 pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between text-sm text-blue-300 gap-3">
             <p>{f.copy}</p>
             <div className="flex flex-wrap items-center gap-4 text-xs">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
-              <a href="https://www.healthplan.org/legal/machine_readable_files" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                Machine-Readable Files
-              </a>
+              <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
               <span>FTA Certified &middot; Buy America Compliant &middot; CARB Approved</span>
             </div>
           </div>

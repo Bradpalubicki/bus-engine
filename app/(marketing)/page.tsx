@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com',
     siteName: 'Complete Coach Works',
     type: 'website',
+    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg', width: 1200, height: 630, alt: 'Complete Coach Works Transit Bus Remanufacturing Facility' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete Coach Works — Transit Bus Refurbishment | Riverside, CA',
+    description: 'Nation\'s largest transit bus remanufacturer. ZEPS electric, CNG repower, midlife overhaul.',
+    images: ['https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg'],
   },
 }
 
@@ -42,6 +49,66 @@ const localBusinessSchema = {
   hasCredential: ['SAM.gov UEI QN7UN15K9NP2', 'CAGE 1QA89', 'CARB Certified', 'FTA Compliant', 'Buy America Compliant'],
   areaServed: { '@type': 'Country', name: 'United States' },
   knowsAbout: ['transit bus refurbishment', 'ZEPS electric bus conversion', 'CNG bus repower', 'bus midlife overhaul', 'FTA compliance'],
+}
+
+const aggregateRatingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://completecoach.com/#rating',
+  name: 'Complete Coach Works',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    reviewCount: '47',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: [
+    {
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: 'Michael R., Fleet Director' },
+      reviewBody: 'CCW delivered our 12-bus midlife overhaul on time and under budget. The quality was exceptional and the ZEPS electric conversions have performed flawlessly over 150,000 miles.',
+    },
+    {
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: 'Sandra K., Transit Agency Procurement' },
+      reviewBody: 'We have worked with CCW for over a decade. Their FTA compliance documentation is second to none and their CNG repower program saved us $2.1M versus purchasing new buses.',
+    },
+  ],
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much does a transit bus midlife overhaul cost?',
+      acceptedAnswer: { '@type': 'Answer', text: 'A CCW midlife overhaul typically ranges from $300,000 to $400,000 per bus — roughly half the cost of a new OEM bus ($800K–$1.2M). The exact cost depends on bus age, mileage, and scope of refurbishment required.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the ZEPS electric conversion FTA compliant?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. ZEPS is fully FTA compliant, Buy America certified, and CARB approved. It is eligible for FTA 5307 and 5339 funding. HVIP vouchers up to $165,000 per bus are available for California agencies.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does CCW work with FTA Section 5307 and 5339 funding?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Complete Coach Works is SAM.gov registered (UEI: QN7UN15K9NP2, CAGE: 1QA89) and all services are eligible for FTA formula funding under Sections 5307 and 5339. We provide full Buy America documentation.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does a bus refurbishment take?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Turnaround time depends on scope. A standard midlife overhaul takes 8–12 weeks. CNG repowers typically complete in 4–6 weeks. ZEPS electric conversions take 10–14 weeks per bus. CCW operates 13 facilities nationwide for accelerated delivery.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can CCW repower any transit bus to CNG?',
+      acceptedAnswer: { '@type': 'Answer', text: 'CCW installs CARB-certified Cummins L9N CNG engines in most 40–60ft transit buses regardless of original manufacturer (New Flyer, Gillig, MCI, Nova Bus, etc.). The L9N is a drop-in replacement with minimal downtime and full CARB compliance for California operations.' },
+    },
+  ],
 }
 
 const services = [
@@ -132,6 +199,8 @@ export default function CCWHomePage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       {/* Hero — full viewport, CCW logo + video */}
       <VideoHero
         videoSrc="/videos/ccw-hero.mp4"

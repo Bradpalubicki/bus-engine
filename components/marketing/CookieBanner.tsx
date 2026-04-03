@@ -19,6 +19,11 @@ export default function CookieBanner() {
     setVisible(false)
   }
 
+  function decline() {
+    localStorage.setItem(STORAGE_KEY, 'declined')
+    setVisible(false)
+  }
+
   if (!visible) return null
 
   return (
@@ -30,11 +35,17 @@ export default function CookieBanner() {
         </p>
         <div className="flex items-center gap-3 flex-shrink-0">
           <Link
-            href="/privacy-policy"
+            href="/cookies"
             className="text-xs text-blue-300 hover:text-white underline transition-colors whitespace-nowrap"
           >
-            Learn More
+            Cookie Policy
           </Link>
+          <button
+            onClick={decline}
+            className="bg-transparent border border-blue-400 text-blue-200 text-sm font-semibold px-5 py-2 rounded-lg hover:border-white hover:text-white transition-colors whitespace-nowrap"
+          >
+            Decline
+          </button>
           <button
             onClick={accept}
             className="bg-[#E8A020] text-[#003087] text-sm font-bold px-5 py-2 rounded-lg hover:bg-[#d4911a] transition-colors whitespace-nowrap"

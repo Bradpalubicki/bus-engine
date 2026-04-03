@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Privacy Policy | Complete Coach Works',
   description: 'Privacy policy for completecoach.com — how we collect, use, and protect your information.',
-  robots: { index: false },
+  alternates: { canonical: 'https://completecoach.com/privacy-policy' },
 }
 
 export default function PrivacyPolicyPage() {

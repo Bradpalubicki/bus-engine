@@ -12,11 +12,18 @@ export const metadata: Metadata = {
   description: 'The Nation\'s Largest Transit Bus Remanufacturing Company. CCW refurbishes, repowers, and rehabilitates transit buses for public agencies nationwide.',
   keywords: 'transit bus remanufacturing, bus overhaul, ZEPS electric bus, CNG repower, bus rehabilitation',
   openGraph: {
-    title: 'Complete Coach Works',
-    description: 'The Nation\'s Largest Transit Bus Remanufacturing Company',
+    title: 'Complete Coach Works | Transit Bus Remanufacturing',
+    description: 'The Nation\'s Largest Transit Bus Remanufacturing Company. 38 years. 350 employee-owners. ZEPS electric conversion, CNG repower, midlife overhaul.',
     url: 'https://completecoach.com',
     siteName: 'Complete Coach Works',
     type: 'website',
+    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg', width: 1200, height: 630, alt: 'Complete Coach Works — Transit Bus Remanufacturing' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete Coach Works | Transit Bus Remanufacturing',
+    description: 'The Nation\'s Largest Transit Bus Remanufacturing Company. ZEPS electric, CNG repower, midlife overhaul.',
+    images: ['https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg'],
   },
 }
 
@@ -40,6 +47,8 @@ const organizationSchema = {
   sameAs: [
     'https://transitsales.com',
     'https://sblbus.com',
+    'https://www.linkedin.com/company/complete-coach-works/',
+    'https://www.facebook.com/completecoachworks/',
   ],
   numberOfEmployees: { '@type': 'QuantitativeValue', value: 350 },
 }
@@ -52,6 +61,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://completecoach.com" />
+        <link rel="preconnect" href="https://transitsales.com" />
+        <link rel="dns-prefetch" href="https://www.linkedin.com" />
+        <link rel="dns-prefetch" href="https://www.facebook.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
