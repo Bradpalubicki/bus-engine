@@ -6,6 +6,15 @@ export const metadata = {
   title: 'About Complete Coach Works | 38 Years of Transit Bus Remanufacturing',
 }
 
+const aboutBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://completecoach.com/about' },
+  ],
+}
+
 const leadership = [
   { name: 'Patrick Scully', title: 'President' },
   { name: 'Dale Carson', title: 'Chairman & Founder' },
@@ -45,6 +54,7 @@ const familyCompanies = [
 export default function AboutPage() {
   return (
     <div className="py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumbSchema) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#003087] mb-4">About Complete Coach Works</h1>

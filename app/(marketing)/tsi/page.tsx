@@ -26,6 +26,15 @@ export const metadata: Metadata = {
   },
 }
 
+const tsiBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+    { '@type': 'ListItem', position: 2, name: 'Transit Sales International', item: 'https://completecoach.com/tsi' },
+  ],
+}
+
 const tsiOrganizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -78,6 +87,7 @@ export default function TSIHomePage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tsiOrganizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tsiBreadcrumbSchema) }} />
       <VideoHero
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/03/facility.jpg"

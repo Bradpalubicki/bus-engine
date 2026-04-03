@@ -7,6 +7,15 @@ export const metadata = {
   description: 'CCW offers full-spectrum transit bus rehabilitation — midlife overhaul, ZEPS electric conversion, CNG repower, interior rehab, body & paint. FTA compliant, Buy America certified.',
 }
 
+const servicesBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://completecoach.com/services' },
+  ],
+}
+
 const services = [
   {
     icon: Wrench,
@@ -75,6 +84,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesBreadcrumbSchema) }} />
       {/* Hero */}
       <section className="bg-[#003087] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

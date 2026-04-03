@@ -27,6 +27,15 @@ export const metadata: Metadata = {
   },
 }
 
+const sblBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+    { '@type': 'ListItem', position: 2, name: 'Shuttle Bus Leasing', item: 'https://completecoach.com/sbl' },
+  ],
+}
+
 const sblOrganizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -96,6 +105,7 @@ export default function SBLHomePage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblOrganizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblBreadcrumbSchema) }} />
       <VideoHero
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/06/SBL.jpg"

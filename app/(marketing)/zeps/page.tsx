@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   },
 }
 
+const zepsBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+    { '@type': 'ListItem', position: 2, name: 'ZEPS Electric Conversion', item: 'https://completecoach.com/zeps' },
+  ],
+}
+
 const zepsProductSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
@@ -112,6 +121,7 @@ export default function ZEPSPage() {
   return (
     <main className="bg-[#0A1F12] text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(zepsProductSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(zepsBreadcrumbSchema) }} />
 
       {/* ── HERO ── */}
       <style>{`

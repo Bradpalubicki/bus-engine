@@ -48,17 +48,19 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div>
-        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Agency / Organization *</label>
+        <label htmlFor="agency" className="block text-xs font-semibold text-gray-600 mb-1.5">Agency / Organization *</label>
         <input
+          id="agency"
           name="agency"
           required
+          aria-required="true"
           placeholder="City of Riverside Transit"
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1"
         />
       </div>
       <div>
-        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Fleet Size *</label>
-        <select name="fleetSize" required className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
+        <label htmlFor="fleetSize" className="block text-xs font-semibold text-gray-600 mb-1.5">Fleet Size *</label>
+        <select id="fleetSize" name="fleetSize" required aria-required="true" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
           <option value="">Select fleet size</option>
           <option value="1-25">1–25 buses</option>
           <option value="26-100">26–100 buses</option>
@@ -67,11 +69,11 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
         </select>
       </div>
       <div>
-        <label className="block text-xs font-semibold text-gray-600 mb-1.5">
+        <label htmlFor="serviceType" className="block text-xs font-semibold text-gray-600 mb-1.5">
           {tsiFields ? 'Bus Type / Fuel Preference' : sblFields ? 'Lease Type' : 'Service Needed'} *
         </label>
         {tsiFields ? (
-          <select name="serviceType" required className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
+          <select id="serviceType" name="serviceType" required aria-required="true" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
             <option value="">Select preference</option>
             <option value="diesel">Diesel</option>
             <option value="cng">CNG / LNG</option>
@@ -80,7 +82,7 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
             <option value="any">Any / No Preference</option>
           </select>
         ) : sblFields ? (
-          <select name="serviceType" required className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
+          <select id="serviceType" name="serviceType" required aria-required="true" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
             <option value="">Select lease type</option>
             <option value="short-term">Short-Term / Gap (1–12 months)</option>
             <option value="contract">Contract Lease (1–5 years)</option>
@@ -88,7 +90,7 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
             <option value="employee-shuttle">Employee Shuttle</option>
           </select>
         ) : (
-          <select name="serviceType" required className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
+          <select id="serviceType" name="serviceType" required aria-required="true" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none">
             <option value="">Select service</option>
             <option value="midlife-refurbishment">Midlife Refurbishment</option>
             <option value="zeps-electric">ZEPS Electric Conversion</option>
@@ -101,8 +103,9 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
       </div>
       {sblFields && (
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Needed By</label>
+          <label htmlFor="neededBy" className="block text-xs font-semibold text-gray-600 mb-1.5">Needed By</label>
           <input
+            id="neededBy"
             name="neededBy"
             type="date"
             className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none"
@@ -110,11 +113,13 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
         </div>
       )}
       <div className={sblFields ? 'md:col-span-1' : 'md:col-span-2'}>
-        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Contact Email *</label>
+        <label htmlFor="email" className="block text-xs font-semibold text-gray-600 mb-1.5">Contact Email *</label>
         <input
+          id="email"
           name="email"
           type="email"
           required
+          aria-required="true"
           placeholder="fleet@transitagency.gov"
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none"
         />

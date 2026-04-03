@@ -27,8 +27,18 @@ export default function ContactPage() {
     setSubmitted(true)
   }
 
+  const contactBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://completecoach.com' },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://completecoach.com/contact' },
+    ],
+  }
+
   return (
     <div className="py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactBreadcrumb) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#003087] mb-4">Contact Us</h1>
