@@ -68,8 +68,8 @@ export default function VideoHero({
       <div className={`absolute inset-0 bg-gradient-to-br ${overlay}`} />
 
       {/* Main hero content */}
-      <div className="relative z-10 flex-1 flex items-center justify-center px-6">
-        <div className="text-center text-white max-w-5xl mx-auto">
+      <div className="relative z-10 flex-1 flex items-center justify-start px-6 md:px-16">
+        <div className="text-left text-white max-w-2xl">
 
           {/* Eyebrow pill */}
           {eyebrow && (
@@ -92,7 +92,7 @@ export default function VideoHero({
           {/* Proof-point pills or plain subheadline */}
           {proofPoints && proofPoints.length > 0 ? (
             <div
-              className="hero-fade flex flex-wrap justify-center gap-2 mb-8"
+              className="hero-fade flex flex-wrap justify-start gap-2 mb-8"
               style={{ animationDelay: '0.2s' }}
             >
               {proofPoints.map((point) => (
@@ -116,7 +116,7 @@ export default function VideoHero({
 
           {/* CTAs */}
           <div
-            className="hero-fade flex flex-col sm:flex-row gap-4 justify-center"
+            className="hero-fade flex flex-col sm:flex-row gap-4 justify-start"
             style={{ animationDelay: '0.3s' }}
           >
             <a
