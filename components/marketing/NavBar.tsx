@@ -1,32 +1,13 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
-const dashboardOptions = [
-  { label: 'Complete Coach Works', abbr: 'CCW', href: '/dashboard/ccw', color: '#003087' },
-  { label: 'Transit Sales International', abbr: 'TSI', href: '/dashboard/tsi', color: '#14b8a6' },
-  { label: 'Shuttle Bus Leasing', abbr: 'SBL', href: '/dashboard/sbl', color: '#2563eb' },
-  { label: 'ZEPS Electric', abbr: 'ZEPS', href: '/dashboard/zeps', color: '#16a34a' },
-]
-
 export function NavBar() {
   const [open, setOpen] = useState(false)
-  const [dashOpen, setDashOpen] = useState(false)
-  const [mobileDashOpen, setMobileDashOpen] = useState(false)
-  const dashRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (dashRef.current && !dashRef.current.contains(e.target as Node)) {
-        setDashOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
   const isTSI = pathname.startsWith('/tsi')
   const isSBL = pathname.startsWith('/sbl')
   const isZEPS = pathname.startsWith('/zeps')
@@ -146,7 +127,7 @@ export function NavBar() {
               </Link>
             )
           })}
-          {/* Phone — right side, before dashboard */}
+          {/* Phone — right side */}
           <a
             href={`tel:${brandConfig[brand].tel}`}
             aria-label={`Call ${brandConfig[brand].name} at ${brandConfig[brand].phone}`}
@@ -157,37 +138,6 @@ export function NavBar() {
             </svg>
             {brandConfig[brand].phone}
           </a>
-          {/* Operations Dashboard dropdown */}
-          <div className="relative" ref={dashRef}>
-            <button
-              onClick={() => setDashOpen(!dashOpen)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-300 hover:border-gray-400 hover:text-gray-900 transition-colors whitespace-nowrap"
-            >
-              <span className="hidden xl:inline">Operations </span>Dashboard
-              <svg className={`w-3.5 h-3.5 transition-transform ${dashOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {dashOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
-                {dashboardOptions.map(opt => (
-                  <Link
-                    key={opt.href}
-                    href={opt.href}
-                    onClick={() => setDashOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 transition-colors"
-                  >
-                    <span
-                      className="w-2 h-2 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: opt.color }}
-                    />
-                    <span className="text-xs font-bold text-gray-400 w-8 flex-shrink-0">{opt.abbr}</span>
-                    <span className="text-sm text-gray-700">{opt.label}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
         <div className="md:hidden flex items-center gap-3">
           <a href={`tel:${brandConfig[brand].tel}`} aria-label={`Call ${brandConfig[brand].name} at ${brandConfig[brand].phone}`} className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
@@ -207,32 +157,6 @@ export function NavBar() {
           {navLinks[brand].map(link => (
             <Link key={link.href + link.label} href={link.href} className="block text-sm font-medium text-gray-700" onClick={() => setOpen(false)}>{link.label}</Link>
           ))}
-          <div>
-            <button
-              onClick={() => setMobileDashOpen(!mobileDashOpen)}
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-700 w-full text-left"
-            >
-              Operations Dashboard
-              <svg className={`w-3.5 h-3.5 ml-auto transition-transform ${mobileDashOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {mobileDashOpen && (
-              <div className="mt-2 ml-4 space-y-2">
-                {dashboardOptions.map(opt => (
-                  <Link
-                    key={opt.href}
-                    href={opt.href}
-                    onClick={() => { setOpen(false); setMobileDashOpen(false) }}
-                    className="flex items-center gap-2 text-sm text-gray-600"
-                  >
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: opt.color }} />
-                    {opt.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       )}
     </nav>
