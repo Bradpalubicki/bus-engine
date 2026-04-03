@@ -7,8 +7,8 @@ import { AgencyProofStrip } from '@/components/AgencyProofStrip'
 import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
-  title: 'Transit Sales International — Pre-Owned Transit Buses For Sale | Murrieta, CA',
-  description: 'TSI sells pre-owned transit buses — 30 to 60ft, diesel, CNG, electric, hybrid. FTA compliant. Buy America docs available. 60-day accelerated delivery program.',
+  title: 'Transit Sales International | Used Transit Buses',
+  description: 'TSI sells pre-owned transit buses — 30 to 60ft, diesel, CNG, electric, hybrid. FTA compliant, Buy America docs included. 60-day accelerated delivery.',
   alternates: { canonical: 'https://completecoach.com/tsi' },
   openGraph: {
     title: 'Transit Sales International | Used Transit Buses for Sale | FTA Compliant',

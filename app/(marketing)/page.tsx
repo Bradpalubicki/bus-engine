@@ -6,8 +6,8 @@ import { AgencyProofStrip } from '@/components/AgencyProofStrip'
 import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
-  title: 'Complete Coach Works — Transit Bus Refurbishment & ZEPS Electric Conversion | Riverside, CA',
-  description: 'CCW refurbishes transit buses at half the cost of new. ZEPS electric conversion: 70+ buses, 4M miles, $580K vs $830K OEM. FTA compliant. SAM registered.',
+  title: 'Complete Coach Works | Transit Bus Remanufacturing',
+  description: 'CCW refurbishes transit buses at half the cost of new. ZEPS electric conversion: 70+ buses, 4M miles. FTA compliant, SAM registered. Riverside, CA.',
   alternates: { canonical: 'https://completecoach.com' },
   openGraph: {
     title: 'Complete Coach Works — Transit Bus Refurbishment | Riverside, CA',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com',
     siteName: 'Complete Coach Works',
     type: 'website',
-    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg', width: 1200, height: 630, alt: 'Complete Coach Works Transit Bus Remanufacturing Facility' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'Complete Coach Works Transit Bus Remanufacturing Facility' }],
   },
   twitter: {
     card: 'summary_large_image',

@@ -8,8 +8,8 @@ import { sblFleetImages } from '@/data/imageManifest'
 import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
-  title: 'Shuttle Bus Leasing — Short & Long-Term Transit Bus Leasing | Riverside, CA',
-  description: 'SBL offers seasonal, gap, contract, and lease-to-own bus programs. 2002 & 2010 Olympics supplier. 1,000+ bus inventory. FTA compliant. Get a quote in 24 hours.',
+  title: 'Shuttle Bus Leasing | Transit Bus Rental & Lease',
+  description: 'SBL offers seasonal, gap, contract, and lease-to-own bus programs. 2002 & 2010 Olympics supplier. 1,000+ bus inventory. FTA compliant. Quote in 24 hours.',
   alternates: { canonical: 'https://completecoach.com/sbl' },
   openGraph: {
     title: 'Shuttle Bus Leasing | Transit Bus Rental & Lease | Seasonal & Contract',
