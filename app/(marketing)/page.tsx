@@ -133,7 +133,7 @@ export default function CCWHomePage() {
         videoSrc="/videos/ccw-hero.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg"
         overlay="from-[#0A1628]/85 to-[#003087]/55"
-        headline="America's Transit Bus Refurbishment Leader"
+        headline="America's Largest Transit Bus Remanufacturer"
         subheadline="Half the cost. Half the delivery time. FTA compliant."
         ctaPrimary={{ label: 'Get a Fleet Assessment', href: '/contact' }}
         ctaSecondary={{ label: 'See ZEPS Electric', href: '/zeps' }}
