@@ -48,10 +48,25 @@ const tsiOrganizationSchema = {
   email: 'info@transitsales.com',
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    reviewCount: '34',
+    ratingValue: '3.1',
+    reviewCount: '9',
     bestRating: '5',
+    worstRating: '1',
   },
+  review: [
+    {
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: 'Edith Martin' },
+      reviewBody: 'Its a Service company with a friendly, well trained staff that will help get you what you need whether its parts, service or a whole fleet.',
+    },
+    {
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: 'Luis Padilla' },
+      reviewBody: 'Great place to work for.',
+    },
+  ],
 }
 
 const busPhotos = [

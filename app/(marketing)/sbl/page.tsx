@@ -49,10 +49,21 @@ const sblOrganizationSchema = {
   email: 'info@completecoach.com',
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.7',
-    reviewCount: '28',
+    ratingValue: '5.0',
+    reviewCount: '1',
     bestRating: '5',
+    worstRating: '1',
   },
+  hasCredential: [
+    'SAM.gov UEI TAN4FVDLRK13',
+    'CAGE 061K3',
+    'NAICS 532120 — Truck, Utility Trailer, and RV Rental and Leasing',
+    'DHS/CBP Federal Contract 70B03C23C00000052',
+    'U.S. Army IDIQ W911SA04A0020',
+    'CARB Fleet Compliance Agreement',
+    '2002 Salt Lake City Winter Olympics — Official Bus Supplier',
+    '2010 Vancouver Winter Olympics — Official Bus Supplier',
+  ],
 }
 
 const leasePrograms = [
@@ -368,6 +379,35 @@ export default function SBLHomePage() {
           <p className="text-sm text-gray-500 mb-6">1,000+ buses in inventory. All lengths, all fuel types. Ready for lease.</p>
           <ServiceGallery images={sblFleetImages} defaultShow={6} />
           <AgencyProofStrip />
+        </div>
+      </section>
+
+      {/* ── FEDERAL CONTRACTS ── */}
+      <section className="py-16 bg-[#F8F9FB]">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#2d7a3a] uppercase tracking-widest mb-3">Government Contracts</div>
+            <h2 className="text-3xl font-bold text-gray-900">Federal Agency Track Record</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">SAM.gov registered. DHS, Army, and state agency contracts on record. FTA-compliant fleet leasing for public agencies.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-8">
+            {[
+              { agency: 'U.S. Dept. of Homeland Security (CBP)', contract: '70B03C23C00000052', detail: 'Bus leasing services contract — federal procurement.' },
+              { agency: 'U.S. Army — IDIQ', contract: 'W911SA04A0020', detail: 'Non-tactical vehicle bus leasing IDIQ with task order awards.' },
+              { agency: '2002 & 2010 Olympics', contract: 'Official Supplier', detail: 'Salt Lake City Winter Games (2002) and Vancouver Winter Games (2010).' },
+            ].map(c => (
+              <div key={c.contract} className="bg-white border border-gray-200 rounded-xl p-5">
+                <div className="text-xs font-bold text-[#2d7a3a] uppercase tracking-wide mb-2">{c.agency}</div>
+                <div className="text-xs font-mono text-gray-400 mb-3">{c.contract}</div>
+                <p className="text-gray-600 text-sm">{c.detail}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500 font-medium">
+            {['SAM.gov UEI: TAN4FVDLRK13', 'CAGE: 061K3', 'NAICS 532120', 'CARB Fleet Compliance'].map(b => (
+              <span key={b} className="flex items-center gap-1.5"><span className="text-[#2d7a3a] font-bold">✓</span>{b}</span>
+            ))}
+          </div>
         </div>
       </section>
 
