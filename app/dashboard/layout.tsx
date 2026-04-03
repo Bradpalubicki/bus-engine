@@ -1,5 +1,6 @@
 import { Sidebar } from '@/components/dashboard/Sidebar'
 import { EngineSwitcher } from '@/components/dashboard/EngineSwitcher'
+import CompanySwitcher from '@/components/dashboard/CompanySwitcher'
 
 export const metadata = {
   title: 'Operations Dashboard | Complete Coach Works',
@@ -23,6 +24,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </div>
         </header>
+        <CompanySwitcher />
         {/* Main */}
         <main className="flex-1 overflow-y-auto p-6">
           {children}

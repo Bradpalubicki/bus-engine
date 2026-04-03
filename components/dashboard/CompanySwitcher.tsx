@@ -1,50 +1,43 @@
 'use client'
-import { useState } from 'react'
 
-interface CompanySwitcherProps {
-  defaultCompany?: 'CCW' | 'TSI' | 'SBL'
-  onSwitch?: (company: 'CCW' | 'TSI' | 'SBL') => void
-}
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-export default function CompanySwitcher({ defaultCompany = 'CCW', onSwitch }: CompanySwitcherProps) {
-  const [active, setActive] = useState<'CCW' | 'TSI' | 'SBL'>(defaultCompany)
+const companies = [
+  { abbr: 'ALL',  name: 'Consolidated',               href: '/dashboard/owner', color: '#C8A84B' },
+  { abbr: 'CCW',  name: 'Complete Coach Works',        href: '/dashboard/ccw',   color: '#003087' },
+  { abbr: 'TSI',  name: 'Transit Sales International', href: '/dashboard/tsi',   color: '#14b8a6' },
+  { abbr: 'SBL',  name: 'Shuttle Bus Leasing',         href: '/dashboard/sbl',   color: '#2563eb' },
+  { abbr: 'ZEPS', name: 'Electric',                    href: '/dashboard/zeps',  color: '#16a34a' },
+]
 
-  const handleSwitch = (company: 'CCW' | 'TSI' | 'SBL') => {
-    setActive(company)
-    onSwitch?.(company)
-  }
+export default function CompanySwitcher() {
+  const pathname = usePathname()
 
   return (
-    <div className="flex flex-col gap-0">
-      <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1 w-fit">
-        <button
-          onClick={() => handleSwitch('CCW')}
-          className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
-            active === 'CCW' ? 'bg-[#003087] text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          CCW
-        </button>
-        <button
-          onClick={() => handleSwitch('TSI')}
-          className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
-            active === 'TSI' ? 'bg-[#1a5fa8] text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          TSI
-        </button>
-        <button
-          onClick={() => handleSwitch('SBL')}
-          className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
-            active === 'SBL' ? 'bg-[#2d7a3a] text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          SBL
-        </button>
-      </div>
-      <div className="bg-amber-400 text-amber-900 text-center py-1.5 px-4 text-xs font-semibold rounded-b-lg">
-        DEMO MODE — All data is illustrative. Connect Supabase + Sage Intacct for live data.
-      </div>
+    <div className="bg-white border-b border-gray-100 px-6 py-2.5 flex items-center gap-2 overflow-x-auto flex-shrink-0">
+      {companies.map((co) => {
+        const active = pathname === co.href || pathname.startsWith(co.href + '/')
+        return (
+          <Link
+            key={co.href}
+            href={co.href}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 border"
+            style={
+              active
+                ? { backgroundColor: co.color, borderColor: co.color, color: '#fff' }
+                : { backgroundColor: 'transparent', borderColor: '#d1d5db', color: '#6b7280' }
+            }
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+              style={{ backgroundColor: active ? '#ffffff99' : co.color }}
+            />
+            <span className="hidden sm:inline">{co.name}</span>
+            <span className="sm:hidden">{co.abbr}</span>
+          </Link>
+        )
+      })}
     </div>
   )
 }
