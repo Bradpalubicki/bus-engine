@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-
 interface VideoHeroProps {
   videoSrc: string
   fallbackImage: string
@@ -14,23 +12,6 @@ interface VideoHeroProps {
   stats?: { value: string; label: string }[]
 }
 
-const brandLogos = {
-  CCW: {
-    src: 'https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png',
-    width: 520,
-    height: 175,
-    alt: 'Complete Coach Works',
-  },
-  TSI: {
-    src: 'https://transitsales.com/wp-content/uploads/2021/01/TSI-Logo-White.png',
-    width: 400,
-    height: 134,
-    alt: 'Transit Sales International',
-  },
-  SBL: null,
-  ZEPS: null,
-}
-
 export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, subheadline, ctaPrimary, ctaSecondary, brand, stats }: VideoHeroProps) {
   const brandColors = {
     CCW: { primary: '#003087', accent: '#E8A020' },
@@ -39,7 +20,6 @@ export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, 
     ZEPS: { primary: '#16a34a', accent: '#4ade80' },
   }
   const colors = brandColors[brand]
-  const logo = brandLogos[brand]
 
   return (
     <section className="relative flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 64px)' }}>
@@ -58,24 +38,6 @@ export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, 
       {/* Main hero content — centered in the upper portion */}
       <div className="relative z-10 flex-1 flex items-center justify-center px-6">
         <div className="text-center text-white max-w-5xl mx-auto">
-          {/* Company logo — large, fills header */}
-          <div className="flex justify-center mb-6">
-            {logo ? (
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={logo.width}
-                height={logo.height}
-                className="object-contain drop-shadow-2xl brightness-0 invert w-auto"
-                style={{ maxHeight: '140px', maxWidth: '90vw' }}
-                priority
-              />
-            ) : (
-              <span className="text-4xl md:text-6xl font-black tracking-tight drop-shadow-2xl">
-                Shuttle Bus Leasing
-              </span>
-            )}
-          </div>
           <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">{headline}</h1>
           <p className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto">{subheadline}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
