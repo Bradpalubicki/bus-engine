@@ -62,7 +62,7 @@ export default function Footer() {
           <div>
             <div className="mb-4">
               <Image
-                src="https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png"
+                src="/logo.png"
                 alt="Complete Coach Works"
                 width={160}
                 height={54}
@@ -106,6 +106,7 @@ export default function Footer() {
               <li><Link href="/locations" className="hover:text-white">13 Locations</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
               <li><Link href="/dashboard/ccw" className="hover:text-white">Client Dashboard</Link></li>
+              {isTSI && <li><Link href="/tsi/capabilities" className="hover:text-white">TSI Capabilities Statement</Link></li>}
             </ul>
           </div>
           <div>
