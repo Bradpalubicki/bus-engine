@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com/tsi',
     siteName: 'Complete Coach Works',
     type: 'website',
-    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg', width: 1200, height: 630, alt: 'Transit Sales International — Pre-Owned Transit Buses' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'Transit Sales International — Pre-Owned Transit Buses' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Transit Sales International | Used Transit Buses for Sale',
     description: 'Pre-owned transit buses for government agencies. FTA compliant. 60-day delivery.',
-    images: ['https://completecoach.com/wp-content/uploads/2024/04/trimet.jpg'],
+    images: ['https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop'],
   },
 }
 
@@ -31,7 +31,7 @@ const tsiOrganizationSchema = {
   '@type': 'Organization',
   name: 'Transit Sales International',
   url: 'https://completecoach.com/tsi',
-  logo: 'https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png',
+  logo: 'https://bus-engine.vercel.app/logo.png',
   description: 'Pre-owned transit bus sales for government agencies. 30 to 60ft buses, all fuel types, FTA compliant, Buy America documentation available. 60-day accelerated delivery.',
   parentOrganization: { '@type': 'Organization', name: 'Carson Capital Corp' },
   address: { '@type': 'PostalAddress', streetAddress: '25280 Nance Street', addressLocality: 'Murrieta', addressRegion: 'CA', postalCode: '92562', addressCountry: 'US' },
