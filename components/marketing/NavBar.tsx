@@ -80,7 +80,7 @@ export function NavBar() {
     ZEPS: [
       { href: '/zeps', label: 'Overview' },
       { href: '/zeps/fta-grants', label: 'FTA Grants' },
-      { href: '/services/zeps-electric', label: 'Technology' },
+      { href: '/ccw/compliance', label: 'Capabilities' },
       { href: '/news', label: 'News' },
       { href: '/contact', label: 'Contact' },
     ],
