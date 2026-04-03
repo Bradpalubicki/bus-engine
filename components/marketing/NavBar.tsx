@@ -18,7 +18,6 @@ export function NavBar() {
     SBL: { name: 'Shuttle Bus Leasing', color: '#2d7a3a', logo: 'SBL' },
     ZEPS: { name: 'ZEPS Drive', color: '#16a34a', logo: 'ZEPS' },
   } as const
-  const config = brandConfig[brand]
 
   const [zepsPulse, setZepsPulse] = useState(false)
   useEffect(() => {
@@ -100,12 +99,6 @@ export function NavBar() {
             <span className="text-2xl font-black tracking-tight text-[#16a34a]">ZEPS Drive</span>
           )}
         </Link>
-        <div className="hidden md:flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-          <Link href="/" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL && !isZEPS ? 'bg-[#003087] text-white' : 'text-gray-600 hover:text-gray-900'}`}>CCW</Link>
-          <Link href="/tsi" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isTSI ? 'bg-[#1a5fa8] text-white' : 'text-gray-600 hover:text-gray-900'}`}>TSI</Link>
-          <Link href="/sbl" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'text-gray-600 hover:text-gray-900'}`}>SBL</Link>
-          <Link href="/zeps" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isZEPS ? 'bg-[#16a34a] text-white' : 'text-gray-600 hover:text-gray-900'}`}>ZEPS</Link>
-        </div>
         <div className="hidden md:flex items-center gap-6">
           {navLinks[brand].map(link => {
             const isZeps = link.href === '/zeps'
@@ -134,9 +127,6 @@ export function NavBar() {
           <Link href="/client-login" className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-300 hover:border-gray-400 hover:text-gray-900 transition-colors">
             Client Login
           </Link>
-          <Link href="/dashboard" className="px-4 py-2 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90" style={{ backgroundColor: config.color }}>
-            Dashboard →
-          </Link>
         </div>
         <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,17 +136,10 @@ export function NavBar() {
       </div>
       {open && (
         <div className="md:hidden bg-white border-t border-gray-200 px-6 py-4 space-y-3">
-          <div className="flex gap-2 mb-3">
-            <Link href="/" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL && !isZEPS ? 'bg-[#003087] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>CCW</Link>
-            <Link href="/tsi" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isTSI ? 'bg-[#1a5fa8] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>TSI</Link>
-            <Link href="/sbl" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>SBL</Link>
-            <Link href="/zeps" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isZEPS ? 'bg-[#16a34a] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>ZEPS</Link>
-          </div>
           {navLinks[brand].map(link => (
             <Link key={link.href + link.label} href={link.href} className="block text-sm font-medium text-gray-700" onClick={() => setOpen(false)}>{link.label}</Link>
           ))}
           <Link href="/client-login" className="block text-sm font-medium text-gray-600" onClick={() => setOpen(false)}>Client Login</Link>
-          <Link href="/dashboard" className="block text-sm font-bold" style={{ color: config.color }} onClick={() => setOpen(false)}>Dashboard →</Link>
         </div>
       )}
     </nav>
