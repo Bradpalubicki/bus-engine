@@ -30,14 +30,14 @@ const familyCompanies = [
     abbr: 'TSI',
     name: 'Transit Sales International',
     description: 'Transit bus sales, leasing, and parts distribution serving agencies across the western United States.',
-    url: 'https://transitsales.com',
+    url: 'https://bus-engine.vercel.app/tsi',
     primary: false,
   },
   {
     abbr: 'SBL',
     name: 'Shuttle Bus Leasing',
     description: 'Commercial vehicle leasing solutions for transit agencies, airports, universities, and corporate fleets.',
-    url: 'https://sblbus.com',
+    url: 'https://bus-engine.vercel.app/sbl',
     primary: false,
   },
 ]
