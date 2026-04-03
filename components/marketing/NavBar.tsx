@@ -71,10 +71,10 @@ export function NavBar() {
     ],
     SBL: [
       { href: '/sbl/fleet', label: 'Fleet' },
+      { href: '/ccw/compliance', label: 'Capabilities' },
       { href: '/news', label: 'News' },
       { href: '/sbl/resources', label: 'Resources' },
       { href: '/careers', label: 'Careers' },
-      { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
     ],
     ZEPS: [

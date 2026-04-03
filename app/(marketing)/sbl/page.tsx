@@ -66,6 +66,33 @@ const sblOrganizationSchema = {
   ],
 }
 
+const sblFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long are SBL bus leases?',
+      acceptedAnswer: { '@type': 'Answer', text: 'SBL offers short-term leases from 1–12 months for gap coverage and emergencies, contract leases from 1–5 years for ongoing fleet needs, and lease-to-own programs for agencies looking to transition to ownership. All programs are FTA compliant.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does SBL have federal government contracts?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Shuttle Bus Leasing holds active federal contracts including a DHS/CBP bus leasing contract (70B03C23C00000052) and a U.S. Army non-tactical vehicle IDIQ (W911SA04A0020). SAM.gov registered: UEI TAN4FVDLRK13, CAGE 061K3.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What bus types does SBL lease?',
+      acceptedAnswer: { '@type': 'Answer', text: 'SBL leases 30ft, 35ft, 40ft, and 60ft articulated transit buses. Available in diesel, CNG, hybrid, and electric configurations. All buses are maintained, inspected, and CARB compliant for California operations. 1,000+ units in inventory.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can SBL provide emergency replacement buses?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. SBL specializes in short-term gap coverage for agencies experiencing fleet downtime due to rehabilitation, accidents, or unexpected demand. Buses can typically be deployed within days with FTA-compliant lease documentation.' },
+    },
+  ],
+}
+
 const leasePrograms = [
   {
     type: 'Short-Term / Gap',
@@ -117,6 +144,7 @@ export default function SBLHomePage() {
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblOrganizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblBreadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sblFaqSchema) }} />
       <VideoHero
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/06/SBL.jpg"

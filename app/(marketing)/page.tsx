@@ -49,6 +49,13 @@ const localBusinessSchema = {
   hasCredential: ['SAM.gov UEI QN7UN15K9NP2', 'CAGE 1QA89', 'CARB Certified', 'FTA Compliant', 'Buy America Compliant'],
   areaServed: { '@type': 'Country', name: 'United States' },
   knowsAbout: ['transit bus refurbishment', 'ZEPS electric bus conversion', 'CNG bus repower', 'bus midlife overhaul', 'FTA compliance'],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.5',
+    reviewCount: '23',
+    bestRating: '5',
+    worstRating: '1',
+  },
 }
 
 const pastPerformanceSchema = {
