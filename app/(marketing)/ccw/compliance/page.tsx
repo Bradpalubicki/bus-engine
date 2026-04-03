@@ -3,7 +3,7 @@ import ComplianceBadge from '@/components/marketing/ComplianceBadge'
 import SAMGovBadge from '@/components/marketing/SAMGovBadge'
 
 export const metadata: Metadata = {
-  title: 'Compliance & Certifications — Complete Coach Works | FTA, Buy America, ADA, CARB',
+  title: 'Capabilities & Compliance — Complete Coach Works | FTA, Buy America, CARB',
   description: 'Complete Coach Works compliance documentation: FTA TVM registration, Buy America (49 USC 5323(j)), DBE Program (49 CFR 26.49), ADA, CARB ZEPS certification, SAM.gov registration UEI QN7UN15K9NP2.',
   alternates: { canonical: 'https://completecoach.com/ccw/compliance' },
 }

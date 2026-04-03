@@ -54,6 +54,7 @@ export function NavBar() {
   const navLinks = {
     CCW: [
       { href: '/services', label: 'Services' },
+      { href: '/ccw/compliance', label: 'Capabilities' },
       { href: '/about', label: 'About' },
       { href: '/parts', label: 'Parts' },
       { href: '/gallery', label: 'Gallery' },
@@ -78,8 +79,8 @@ export function NavBar() {
     ],
     ZEPS: [
       { href: '/zeps', label: 'Overview' },
-      { href: '/zeps/technology', label: 'Technology' },
-      { href: '/zeps/fleet', label: 'Fleet Solutions' },
+      { href: '/zeps/fta-grants', label: 'FTA Grants' },
+      { href: '/services/zeps-electric', label: 'Technology' },
       { href: '/news', label: 'News' },
       { href: '/contact', label: 'Contact' },
     ],
