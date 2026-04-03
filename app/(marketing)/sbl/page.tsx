@@ -5,6 +5,7 @@ import VideoHero from '@/components/marketing/VideoHero'
 import { AgencyProofStrip } from '@/components/AgencyProofStrip'
 import { ServiceGallery } from '@/components/ServiceGallery'
 import { sblFleetImages } from '@/data/imageManifest'
+import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
   title: 'Shuttle Bus Leasing — Short & Long-Term Transit Bus Leasing | Riverside, CA',
@@ -73,9 +74,9 @@ const fleetCards = [
 ]
 
 const news = [
-  { img: 'https://completecoach.com/wp-content/uploads/2026/01/259815575_4678958475502208_3840108230888364033_n-400x250.jpg', title: 'SBL Announces Two-Bus Lease for Ozark Regional Transit Authority', date: 'January 2026' },
-  { img: 'https://completecoach.com/wp-content/uploads/2025/11/Screenshot-2025-11-24-154806-400x250.jpg', title: 'Flexibility That Fits: Why Bus Leasing Is a Game-Changer for Transit Agencies', date: 'November 2025' },
-  { img: 'https://completecoach.com/wp-content/uploads/2026/03/Lifecycle-website-980x405-1-400x250.jpg', title: 'Lifecycle Cost Matters: Value Through Smarter Fleet Investment', date: 'March 2026' },
+  { img: '/images/sbl-fleet/shuttle-bus-leasing-fleet-riverside-ca-used-transit-buses.jpg', title: 'SBL Announces Two-Bus Lease for Ozark Regional Transit Authority', date: 'January 2026' },
+  { img: '/images/sbl-fleet/new-flyer-d60lf-60ft-articulated-transit-bus-lease.jpg', title: 'Flexibility That Fits: Why Bus Leasing Is a Game-Changer for Transit Agencies', date: 'November 2025' },
+  { img: '/images/midlife-overhaul/transit-bus-midlife-overhaul-shop-floor-complete-coach-works.jpg', title: 'Lifecycle Cost Matters: Value Through Smarter Fleet Investment', date: 'March 2026' },
 ]
 
 export default function SBLHomePage() {
@@ -86,7 +87,14 @@ export default function SBLHomePage() {
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/06/SBL.jpg"
         overlay="from-[#1a2e1a]/88 to-[#2d7a3a]/55"
+        eyebrow="Short-Term · Contract · Lease-to-Own Programs"
         headline="Transit Bus Leasing Built for Agencies"
+        accentWord="Leasing"
+        proofPoints={[
+          'Gap coverage same week',
+          'Lease-to-own available',
+          'CCW-maintained fleet',
+        ]}
         subheadline="Short-term, contract, and lease-to-own programs. 1,000+ bus inventory. Quote in 24 hours."
         ctaPrimary={{ label: 'View Lease Programs', href: '/sbl/fleet' }}
         ctaSecondary={{ label: 'Get a Quote', href: '/contact' }}
@@ -159,6 +167,45 @@ export default function SBLHomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── LEASE VS BUY COMPARISON ── */}
+      <section className="py-16 bg-[#F8F9FB]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div className="text-sm font-bold text-[#2d7a3a] uppercase tracking-widest mb-3">Side by Side</div>
+            <h2 className="text-3xl font-bold text-gray-900">Lease vs. Buy vs. Finance</h2>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-[#1a2e1a] text-white">
+                  <th className="text-left px-5 py-4 font-semibold rounded-tl-2xl">Criteria</th>
+                  <th className="text-center px-5 py-4 font-semibold">Purchase New</th>
+                  <th className="text-center px-5 py-4 font-semibold">CCW/TSI Pre-Owned</th>
+                  <th className="text-center px-5 py-4 font-semibold bg-[#2d7a3a] rounded-tr-2xl">SBL Lease ✓</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Upfront cost', '$700K–$900K', '$250K–$450K', '$0 down available'],
+                  ['Monthly cost', 'Loan payment', 'Loan payment', 'Fixed lease rate'],
+                  ['Maintenance', 'Your cost', 'Your cost', 'Included options'],
+                  ['Fleet flexibility', 'Low', 'Medium', 'High'],
+                  ['FTA funding', 'Yes', 'Yes', 'Yes'],
+                  ['End of term', 'Own asset', 'Own asset', 'Return or buy'],
+                ].map(([criteria, newBus, preOwned, lease], i) => (
+                  <tr key={criteria} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F8F9FB]'}>
+                    <td className="px-5 py-3.5 font-medium text-gray-800">{criteria}</td>
+                    <td className="px-5 py-3.5 text-center text-gray-500">{newBus}</td>
+                    <td className="px-5 py-3.5 text-center text-gray-500">{preOwned}</td>
+                    <td className="px-5 py-3.5 text-center font-semibold text-[#2d7a3a]">{lease}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -301,13 +348,43 @@ export default function SBLHomePage() {
         </div>
       </section>
 
+      {/* ── SBL RFP FORM ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#2d7a3a] uppercase tracking-widest mb-3">Get a Quote</div>
+            <h2 className="text-3xl font-bold text-gray-900">Request a Lease Quote</h2>
+            <p className="text-gray-500 mt-3">We&apos;ll respond within 24 hours with a custom lease proposal.</p>
+          </div>
+          <RFPForm brand="SBL" accentColor="#2563eb" />
+        </div>
+      </section>
+
+      {/* ── AI NUDGE BANNER ── */}
+      <section className="py-10 px-6" style={{ backgroundColor: '#eef2ff', borderTop: '1px solid #c7d2fe', borderBottom: '1px solid #c7d2fe' }}>
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#6366f1' }}>AI Leasing Advisor — Available 24/7</div>
+            <p className="text-gray-800 font-semibold text-lg leading-snug">Questions about lease programs, pricing, or fleet coverage?</p>
+            <p className="text-gray-500 text-sm mt-1">Our AI agent can walk you through SBL's short-term, contract, and lease-to-own programs — and match buses to your routes.</p>
+          </div>
+          <a
+            href="#ai-agent"
+            className="flex-shrink-0 font-bold px-7 py-3 rounded-lg text-white hover:brightness-110 transition-all whitespace-nowrap text-sm"
+            style={{ backgroundColor: '#4f46e5' }}
+          >
+            Ask Now →
+          </a>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-[#2d7a3a] text-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Lease Your Next Fleet?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to <span style={{ color: '#60a5fa' }}>Lease</span> Your Next Fleet?</h2>
           <p className="text-green-200 text-lg mb-8">Get a custom lease quote within 24 hours. Our team will match you with the right buses for your routes, ridership, and budget.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-[#2d7a3a] font-bold px-8 py-4 rounded-lg hover:bg-green-50 transition-colors text-lg">
+            <Link href="/contact" className="font-bold px-8 py-4 rounded-lg hover:brightness-110 transition-all text-lg" style={{ backgroundColor: '#2563eb', color: '#fff' }}>
               Request a Lease Quote
             </Link>
             <Link href="/sbl/fleet" className="border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white/10 transition-colors text-lg">

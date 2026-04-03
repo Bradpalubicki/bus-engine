@@ -3,6 +3,7 @@ import Image from 'next/image'
 import VideoHero from '@/components/marketing/VideoHero'
 import Link from 'next/link'
 import { AgencyProofStrip } from '@/components/AgencyProofStrip'
+import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
   title: 'Complete Coach Works — Transit Bus Refurbishment & ZEPS Electric Conversion | Riverside, CA',
@@ -49,7 +50,7 @@ const services = [
     desc: 'Complete structural, mechanical, and cosmetic restoration. Extends bus life 10+ years at half the cost of new.',
     stat: '$300–400K avg. contract',
     href: '/services/midlife-overhaul',
-    img: 'https://completecoach.com/wp-content/uploads/2024/03/rehabs.jpg',
+    img: '/images/midlife-overhaul/transit-bus-refurbishment-in-progress-complete-coach-works.jpg',
     cta: 'Learn More',
   },
   {
@@ -57,7 +58,7 @@ const services = [
     desc: 'Battery-electric powertrain retrofit for any 30–60ft transit bus. FTA compliant, CARB certified, HVIP eligible.',
     stat: '70+ conversions completed',
     href: '/zeps',
-    img: 'https://completecoach.com/wp-content/uploads/2024/07/ZEPS1.jpg',
+    img: '/images/zeps-electric/zeps-zero-emission-electric-bus-conversion-complete-coach-works.jpg',
     cta: 'Explore ZEPS',
   },
   {
@@ -65,7 +66,7 @@ const services = [
     desc: 'CARB-certified L9N CNG repowers. Drop-in replacement with minimal downtime. Proven in California fleets.',
     stat: 'CARB L9N certified',
     href: '/services/cng-repower',
-    img: 'https://completecoach.com/wp-content/uploads/2024/07/repowers.jpg',
+    img: '/images/cng-repower/cng-bus-engine-repower-installation-complete-coach-works.jpg',
     cta: 'Learn More',
   },
   {
@@ -73,7 +74,7 @@ const services = [
     desc: 'Full structural and body collision repair. Certified technicians, OEM-grade materials, rapid turnaround.',
     stat: 'All makes & models',
     href: '/services/body-paint',
-    img: 'https://completecoach.com/wp-content/uploads/2024/05/OCTA-BUS-ACCIDENT.jpg',
+    img: '/images/body-paint/octa-transit-bus-accident-repair-complete-restoration-ccw.jpg',
     cta: 'Learn More',
   },
   {
@@ -81,7 +82,7 @@ const services = [
     desc: 'Flooring, seating, lighting, ADA upgrades, and full cosmetic refresh. Fleet-wide programs available.',
     stat: 'ADA compliant upgrades',
     href: '/services/interior-rehab',
-    img: 'https://completecoach.com/wp-content/uploads/2024/05/IMG_4045.jpg',
+    img: '/images/interior-rehab/transit-bus-interior-rehabilitation-seating-flooring-ccw.jpg',
     cta: 'Learn More',
   },
   {
@@ -89,7 +90,7 @@ const services = [
     desc: 'Engine, transmission, and drivetrain overhaul. Factory-trained technicians on all major transit platforms.',
     stat: 'All major platforms',
     href: '/services/midlife-overhaul',
-    img: 'https://completecoach.com/wp-content/uploads/2024/07/powertrain1.jpg',
+    img: '/images/midlife-overhaul/transit-bus-undercarriage-rehabilitation-total-rebuild-ccw.jpg',
     cta: 'Learn More',
   },
 ]
@@ -105,20 +106,23 @@ const galleryImages = [
 
 const news = [
   {
-    img: 'https://completecoach.com/wp-content/uploads/2026/03/Lifecycle-website-980x405-1-400x250.jpg',
+    img: '/images/midlife-overhaul/transit-bus-midlife-overhaul-shop-floor-complete-coach-works.jpg',
     title: 'Lifecycle Cost Matters: Value Through Smarter Fleet Investment',
+    summary: 'CCW and SBL outline why midlife refurbishment and leasing programs deliver better ROI than new bus procurement for most transit agencies.',
     date: 'March 2026',
     href: '/news',
   },
   {
-    img: 'https://completecoach.com/wp-content/uploads/2026/02/apta-400x250.jpg',
+    img: '/images/client-proof/foothill-transit-bus-fleet-complete-coach-works.jpg',
     title: 'CCW Wins APTA Ad Wheel Award for 50-50 Bus Campaign',
+    summary: 'Complete Coach Works earned industry recognition for its 50-50 campaign, highlighting the economics of remanufacturing vs. new bus acquisition.',
     date: 'February 2026',
     href: '/news',
   },
   {
-    img: 'https://completecoach.com/wp-content/uploads/2026/01/Mountain-Line-Logo_FINAL-400x250.webp',
+    img: '/images/midlife-overhaul/sfmta-transit-bus-midlife-overhaul-contract-complete-coach-works.jpg',
     title: 'CCW Awarded Mountain Line Bus Refurbishment Contract',
+    summary: 'Mountain Line selected CCW for a multi-bus refurbishment contract, citing CCW\'s FTA compliance record and Western U.S. facility coverage.',
     date: 'January 2026',
     href: '/news',
   },
@@ -133,7 +137,14 @@ export default function CCWHomePage() {
         videoSrc="/videos/ccw-hero.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg"
         overlay="from-[#0A1628]/85 to-[#003087]/55"
+        eyebrow="FTA Compliant · Buy America Certified"
         headline="America's Largest Transit Bus Remanufacturer"
+        accentWord="Remanufacturer"
+        proofPoints={[
+          '40–60% less than buying new',
+          '12–18 mo faster than OEM',
+          'FTA Section 5307 / 5339 eligible',
+        ]}
         subheadline="Half the cost. Half the delivery time. FTA compliant."
         ctaPrimary={{ label: 'Get a Fleet Assessment', href: '/contact' }}
         ctaSecondary={{ label: 'See ZEPS Electric', href: '/zeps' }}
@@ -201,6 +212,44 @@ export default function CCWHomePage() {
             <Link href="/services/midlife-overhaul" className="inline-block border-2 border-[#003087] text-[#003087] font-bold px-8 py-3 rounded-lg hover:bg-[#003087] hover:text-white transition-colors">
               View All Services
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMPARISON TABLE ── */}
+      <section className="py-20 bg-[#F8F9FB]">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#E8A020] uppercase tracking-widest mb-3">Side by Side</div>
+            <h2 className="text-3xl font-bold text-[#003087]">The Smarter Fleet Decision</h2>
+            <p className="text-gray-500 mt-3">How CCW refurbishment compares to buying new or using a competitor.</p>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-[#003087] text-white">
+                  <th className="text-left px-5 py-4 font-semibold rounded-tl-2xl">Criteria</th>
+                  <th className="text-center px-5 py-4 font-semibold">New OEM Bus</th>
+                  <th className="text-center px-5 py-4 font-semibold bg-[#E8A020] text-[#003087] rounded-tr-2xl">CCW Refurbishment ✓</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Cost', '$700K–$900K', '$300K–$450K'],
+                  ['Lead Time', '12–18 months', '90–120 days'],
+                  ['FTA Compliant', 'Yes', 'Yes'],
+                  ['Buy America', 'Yes', 'Yes'],
+                  ['Warranty', 'OEM standard', 'CCW 1-yr parts & labor'],
+                  ['ESOP / American Workforce', 'Varies', 'Yes — 350 employee-owners'],
+                ].map(([criteria, newBus, ccw], i) => (
+                  <tr key={criteria} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F8F9FB]'}>
+                    <td className="px-5 py-3.5 font-medium text-gray-800">{criteria}</td>
+                    <td className="px-5 py-3.5 text-center text-gray-500">{newBus}</td>
+                    <td className="px-5 py-3.5 text-center font-semibold text-[#003087]">{ccw}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -306,6 +355,7 @@ export default function CCWHomePage() {
                 <div className="p-5">
                   <div className="text-xs text-gray-400 mb-2">{item.date}</div>
                   <h3 className="font-bold text-gray-900 group-hover:text-[#003087] transition-colors leading-snug">{item.title}</h3>
+                  <p className="text-xs text-gray-500 mt-2 leading-relaxed">{item.summary}</p>
                   <div className="mt-3 text-sm font-semibold text-[#003087] group-hover:underline">Read More →</div>
                 </div>
               </Link>
@@ -327,16 +377,46 @@ export default function CCWHomePage() {
       {/* ── CTA BANNER ── */}
       <section className="py-16 bg-[#003087] text-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Extend Your Fleet&apos;s Life?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Extend Your <span style={{ color: '#F5A623' }}>Fleet&apos;s</span> Life?</h2>
           <p className="text-blue-200 text-lg mb-8">Get a free fleet assessment from CCW&apos;s engineering team. Most agencies save 40–60% vs buying new.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-[#E8A020] text-[#003087] font-bold px-8 py-4 rounded-lg hover:bg-[#d4911a] transition-colors text-lg">
+            <Link href="/contact" className="font-bold px-8 py-4 rounded-lg hover:brightness-110 transition-all text-lg" style={{ backgroundColor: '#F5A623', color: '#0A1628' }}>
               Get a Free Assessment
             </Link>
             <Link href="/ccw/compliance" className="border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white/10 transition-colors text-lg">
               View Compliance Docs
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── RFP FORM ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#E8A020] uppercase tracking-widest mb-3">Free Assessment</div>
+            <h2 className="text-3xl font-bold text-[#003087]">Request a Fleet Assessment</h2>
+            <p className="text-gray-500 mt-3">Tell us what you need — our engineering team will respond within one business day.</p>
+          </div>
+          <RFPForm brand="CCW" accentColor="#F5A723" />
+        </div>
+      </section>
+
+      {/* ── AI NUDGE BANNER ── */}
+      <section className="py-10 px-6" style={{ backgroundColor: '#eef2ff', borderTop: '1px solid #c7d2fe', borderBottom: '1px solid #c7d2fe' }}>
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#6366f1' }}>AI Fleet Advisor — Available 24/7</div>
+            <p className="text-gray-800 font-semibold text-lg leading-snug">Have specs, compliance, or funding questions?</p>
+            <p className="text-gray-500 text-sm mt-1">Our AI agent knows CCW's full service catalog, FTA eligibility, Buy America requirements, and ZEPS pricing.</p>
+          </div>
+          <a
+            href="#ai-agent"
+            className="flex-shrink-0 font-bold px-7 py-3 rounded-lg text-white hover:brightness-110 transition-all whitespace-nowrap text-sm"
+            style={{ backgroundColor: '#4f46e5' }}
+          >
+            Ask Now →
+          </a>
         </div>
       </section>
 

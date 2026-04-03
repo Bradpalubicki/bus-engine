@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Metadata } from 'next'
 import ZEPSCalculator from '@/components/marketing/ZEPSCalculator'
 
@@ -35,36 +36,42 @@ const stages = [
     title: 'Fleet Assessment',
     desc: 'CCW engineers inspect your fleet — age, condition, and remaining useful life. We determine ZEPS eligibility and recommend the optimal battery pack size per route. 30–60 day process.',
     icon: '🔍',
+    img: '/images/zeps-electric/trimet-transit-bus-before-zeps-electric-conversion.jpg',
   },
   {
     num: '02',
     title: 'Powertrain Removal',
     desc: 'The diesel or CNG drivetrain is fully extracted: engine, transmission, radiator, fuel system, exhaust system. The chassis, body, and structure are retained and reused.',
     icon: '🔧',
+    img: '/images/zeps-electric/zeps-electric-conversion-step-1-chassis-strip-powertrain-removal.jpg',
   },
   {
     num: '03',
     title: 'Battery Pack Integration',
     desc: 'Choose 403, 504, or 605 kWh Samsung NMC lithium-ion pack based on your route requirements. Thermal management system and Battery Management System (BMS) installed.',
     icon: '⚡',
+    img: '/images/zeps-electric/zeps-electric-conversion-step-2-battery-pack-installation.jpg',
   },
   {
     num: '04',
     title: 'Electric Motor & Drivetrain',
     desc: '131 kW permanent magnet synchronous motor installed with regenerative braking. Differential remanufactured to 6.1:1 ratio for EV torque curve. Voith VEDS for articulated buses.',
     icon: '⚙️',
+    img: '/images/zeps-electric/zeps-electric-bus-chassis-conversion-in-progress.jpg',
   },
   {
     num: '05',
     title: 'Systems & Controls Rebuild',
     desc: 'Complete electrical rebuild: 50 kW on-board charger, 480V 3-phase charging port, energy-efficient HVAC, electric power steering, LED lighting, driver display, and route computer.',
     icon: '🖥️',
+    img: '/images/zeps-electric/zeps-zero-emission-propulsion-system-developed-complete-coach-works.jpg',
   },
   {
     num: '06',
     title: 'Testing & Certification',
     desc: 'CARB emissions testing, FTA compliance documentation, ADA systems verification, Buy America certification package. Pre-delivery inspection and road test.',
     icon: '✅',
+    img: '/images/zeps-electric/zeps-zero-emission-electric-bus-conversion-complete-coach-works.jpg',
   },
 ]
 
@@ -87,28 +94,53 @@ export default function ZEPSPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(zepsProductSchema) }} />
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1F12] via-[#0d2d1a] to-[#001f0d]" />
-        {/* Subtle grid texture */}
-        <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: 'linear-gradient(#22c55e 1px, transparent 1px), linear-gradient(90deg, #22c55e 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
-        }} />
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0.01; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .zeps-fade { animation: fadeUp 0.6s ease forwards; }
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0); }
+          50%       { transform: translateY(8px); }
+        }
+        .bounce-slow { animation: bounce-slow 1.6s ease-in-out infinite; }
+        .zeps-hero { min-height: 85svh; }
+        @media (min-width: 768px) { .zeps-hero { min-height: calc(100svh - 64px); } }
+      `}</style>
+      <section className="zeps-hero relative flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/zeps-electric/zero-emission-transit-bus-electric-fleet-ccw.jpg"
+          alt="ZEPS zero emission electric bus fleet"
+          fill
+          className="absolute inset-0 object-cover"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1F12]/90 via-[#0d2d1a]/85 to-[#001f0d]/80" />
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto py-24">
-          <div className="inline-flex items-center gap-2 bg-[#22c55e]/15 border border-[#22c55e]/40 rounded-full px-6 py-2 text-[#22c55e] text-sm font-bold mb-8">
-            <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
-            ZEPS — Zero Emission Powertrain System
+
+          {/* Eyebrow */}
+          <div className="zeps-fade inline-flex items-center gap-2 bg-[#16a34a]/15 border border-[#16a34a]/40 rounded-full px-6 py-2 text-[#16a34a] text-sm font-bold mb-8" style={{ animationDelay: '0s' }}>
+            <span className="w-2 h-2 bg-[#16a34a] rounded-full animate-pulse" />
+            FTA Low-No Eligible · HVIP Vouchers Up to $153K
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-none tracking-tight">
-            Your Fleet Goes Electric.<br />
-            <span className="text-[#22c55e]">Your Budget Stays Intact.</span>
+
+          {/* H1 */}
+          <h1 className="zeps-fade text-5xl md:text-7xl font-bold mb-6 leading-none tracking-tight" style={{ animationDelay: '0.1s' }}>
+            Your Fleet Goes <span style={{ color: '#16a34a' }}>Electric.</span><br />
+            Your Budget Stays Intact.
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-            ZEPS converts the diesel buses you already own into battery-electric vehicles — for <strong className="text-white">$580K per bus</strong> vs. $830K for a new OEM electric. Same chassis your drivers know. Zero emissions. 6-month delivery.
-          </p>
+
+          {/* Proof-point pills */}
+          <div className="zeps-fade flex flex-wrap justify-center gap-2 mb-10" style={{ animationDelay: '0.2s' }}>
+            {['$153K HVIP voucher per bus', 'Stackable with FTA Low-No grants', 'SFMTA $101.7M contract proven'].map(p => (
+              <span key={p} className="px-4 py-1.5 rounded-full text-sm font-medium border border-white/30" style={{ backgroundColor: 'rgba(255,255,255,0.10)', color: '#fff' }}>{p}</span>
+            ))}
+          </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12 max-w-4xl mx-auto">
+          <div className="zeps-fade grid grid-cols-2 md:grid-cols-5 gap-4 mb-12 max-w-4xl mx-auto" style={{ animationDelay: '0.3s' }}>
             {[
               { value: '$580K', label: 'Per Conversion' },
               { value: '70+', label: 'Conversions Done' },
@@ -117,20 +149,27 @@ export default function ZEPSPage() {
               { value: '6 mo', label: 'Delivery' },
             ].map(s => (
               <div key={s.label} className="bg-white/5 rounded-xl p-5 border border-white/10">
-                <div className="text-2xl md:text-3xl font-bold text-[#22c55e]">{s.value}</div>
+                <div className="text-2xl md:text-3xl font-bold" style={{ color: '#16a34a' }}>{s.value}</div>
                 <div className="text-xs text-gray-400 mt-1">{s.label}</div>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="inline-block bg-[#22c55e] text-[#0A1F12] font-bold px-10 py-4 rounded-xl text-lg hover:bg-[#16a34a] transition-colors">
+          <div className="zeps-fade flex flex-col sm:flex-row gap-4 justify-center" style={{ animationDelay: '0.4s' }}>
+            <Link href="/contact" className="inline-block font-bold px-10 py-4 rounded-xl text-lg hover:brightness-110 transition-all" style={{ backgroundColor: '#16a34a', color: '#0A1628' }}>
               Request Fleet Assessment →
             </Link>
             <a href="#how-it-works" className="inline-block border border-white/20 text-white font-semibold px-10 py-4 rounded-xl text-lg hover:bg-white/5 transition-colors">
               How It Works ↓
             </a>
           </div>
+        </div>
+
+        {/* Bouncing chevron */}
+        <div className="absolute bottom-10 right-8 z-10 bounce-slow opacity-70">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
       </section>
 
@@ -233,15 +272,21 @@ export default function ZEPSPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {stages.map((stage, i) => (
-              <div key={stage.num} className="relative bg-white/5 rounded-2xl p-7 border border-white/10 hover:border-[#22c55e]/40 transition-colors group">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="text-4xl font-black text-[#22c55e]/20 group-hover:text-[#22c55e]/40 transition-colors leading-none">{stage.num}</div>
-                  <div className="text-2xl">{stage.icon}</div>
+              <div key={stage.num} className="relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-[#22c55e]/40 transition-colors group">
+                <div className="relative h-40 overflow-hidden">
+                  <Image src={stage.img} alt={stage.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0A1F12]/80" />
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="text-4xl font-black text-[#22c55e]/60 leading-none">{stage.num}</span>
+                    <span className="text-xl">{stage.icon}</span>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{stage.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{stage.desc}</p>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold mb-2">{stage.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{stage.desc}</p>
+                </div>
                 {i < stages.length - 1 && (
-                  <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-[#22c55e]/30 text-xl">→</div>
+                  <div className="hidden lg:block absolute -right-3 top-20 text-[#22c55e]/30 text-xl z-10">→</div>
                 )}
               </div>
             ))}
@@ -323,6 +368,33 @@ export default function ZEPSPage() {
         </div>
       </section>
 
+      {/* ── ZEPS PHOTO GALLERY ── */}
+      <section className="py-16 px-6 bg-[#060e08]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-block text-[#22c55e] text-xs font-bold uppercase tracking-widest mb-3">Fleet in Service</div>
+            <h2 className="text-3xl font-bold">ZEPS Conversions in Revenue Service</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[
+              { src: '/images/zeps-electric/zeps-zero-emission-electric-bus-conversion-complete-coach-works.jpg', alt: 'ZEPS electric bus conversion — CCW' },
+              { src: '/images/zeps-electric/zero-emission-transit-bus-electric-fleet-ccw.jpg', alt: 'Zero emission transit bus fleet' },
+              { src: '/images/zeps-electric/utah-wave-wireless-charging-zero-emission-transit-bus.jpg', alt: 'Utah WAVE wireless charging ZEPS bus' },
+              { src: '/images/zeps-electric/zeps-electric-bus-retrofit-introduction-complete-coach-works.jpg', alt: 'ZEPS electric bus retrofit program' },
+              { src: '/images/zeps-electric/zeps-zero-emission-propulsion-system-developed-complete-coach-works.jpg', alt: 'ZEPS zero emission propulsion system' },
+              { src: '/images/client-proof/indygo-indianapolis-zeps-electric-bus-fleet-ccw.jpg', alt: 'IndyGo Indianapolis — 21 ZEPS buses' },
+            ].map(img => (
+              <div key={img.src} className="relative aspect-video rounded-xl overflow-hidden group">
+                <Image src={img.src} alt={img.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 33vw" />
+                <div className="absolute inset-0 bg-[#16a34a]/0 group-hover:bg-[#16a34a]/30 transition-colors flex items-end p-3">
+                  <p className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">{img.alt}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FUNDING & INCENTIVES ── */}
       <section className="py-20 px-6 bg-[#060e08]">
         <div className="max-w-5xl mx-auto">
@@ -392,16 +464,34 @@ export default function ZEPSPage() {
         </div>
       </section>
 
+      {/* ── AI NUDGE BANNER ── */}
+      <section className="py-10 px-6" style={{ backgroundColor: '#eef2ff', borderTop: '1px solid #c7d2fe', borderBottom: '1px solid #c7d2fe' }}>
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#6366f1' }}>AI ZEPS Advisor — Available 24/7</div>
+            <p className="text-gray-800 font-semibold text-lg leading-snug">Questions about ZEPS eligibility, HVIP vouchers, or battery specs?</p>
+            <p className="text-gray-500 text-sm mt-1">Our AI agent knows every ZEPS configuration, FTA Low-No program requirements, and California HVIP voucher rules — up to $153K per bus.</p>
+          </div>
+          <a
+            href="#ai-agent"
+            className="flex-shrink-0 font-bold px-7 py-3 rounded-lg text-white hover:brightness-110 transition-all whitespace-nowrap text-sm"
+            style={{ backgroundColor: '#4f46e5' }}
+          >
+            Ask Now →
+          </a>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="py-24 px-6 bg-gradient-to-b from-[#0A1F12] to-[#0d2d1a]">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-block text-[#22c55e] text-xs font-bold uppercase tracking-widest mb-4">Get Started</div>
-          <h2 className="text-4xl font-bold mb-4">Ready to Electrify Your Fleet?</h2>
+          <h2 className="text-4xl font-bold mb-4">Ready to <span style={{ color: '#16a34a' }}>Electrify</span> Your Fleet?</h2>
           <p className="text-gray-300 text-lg mb-10 leading-relaxed">
             CCW's engineering team will assess your fleet at no charge — matching bus age, condition, and route requirements to the right ZEPS configuration.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-[#22c55e] text-[#0A1F12] font-bold px-10 py-4 rounded-xl text-lg hover:bg-[#16a34a] transition-colors">
+            <Link href="/contact" style={{ backgroundColor: '#16a34a', color: '#0A1628' }} className="font-bold px-10 py-4 rounded-xl text-lg hover:brightness-110 transition-all">
               Request Fleet Assessment →
             </Link>
             <Link href="/services/zeps-electric" className="border border-white/20 text-white font-semibold px-10 py-4 rounded-xl text-lg hover:bg-white/5 transition-colors">

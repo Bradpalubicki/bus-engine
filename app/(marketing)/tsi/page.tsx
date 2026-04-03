@@ -4,6 +4,7 @@ import Link from 'next/link'
 import VideoHero from '@/components/marketing/VideoHero'
 import { demoTSIInventory } from '@/lib/demo-data'
 import { AgencyProofStrip } from '@/components/AgencyProofStrip'
+import RFPForm from '@/components/marketing/RFPForm'
 
 export const metadata: Metadata = {
   title: 'Transit Sales International — Pre-Owned Transit Buses For Sale | Murrieta, CA',
@@ -55,9 +56,9 @@ const fuelColors: Record<string, string> = {
 }
 
 const news = [
-  { img: 'https://completecoach.com/wp-content/uploads/2026/03/Go-Durham-Adjusted-400x250.jpg', title: 'TSI Completes First Delivery Under 10-Bus Contract with RATP Dev', date: 'March 2026' },
-  { img: 'https://completecoach.com/wp-content/uploads/2026/01/CCW-Murrieta-11-400x250.jpg', title: 'TSI Introduces Accelerated Delivery Program — 60-Day Guarantee', date: 'January 2026' },
-  { img: 'https://completecoach.com/wp-content/uploads/2025/11/Screenshot-2025-11-24-154806-400x250.jpg', title: 'Flexibility That Fits: Why Bus Leasing Is a Game-Changer for Transit Agencies', date: 'November 2025' },
+  { img: '/images/tsi-inventory/used-transit-bus-2001-new-flyer-d40lf-diesel-trimet-fleet.jpg', title: 'TSI Completes First Delivery Under 10-Bus Contract with RATP Dev', date: 'March 2026' },
+  { img: '/images/tsi-inventory/shuttle-bus-leasing-fleet-riverside-ca-used-transit-buses.jpg', title: 'TSI Introduces Accelerated Delivery Program — 60-Day Guarantee', date: 'January 2026' },
+  { img: '/images/client-proof/trimet-portland-transit-bus-refurbishment-ccw.jpg', title: 'Flexibility That Fits: Why Bus Leasing Is a Game-Changer for Transit Agencies', date: 'November 2025' },
 ]
 
 export default function TSIHomePage() {
@@ -68,7 +69,14 @@ export default function TSIHomePage() {
         videoSrc="https://transitsales.com/wp-content/uploads/2018/12/Murrieta-Bus-Yard-Drone-Video1.mp4"
         fallbackImage="https://completecoach.com/wp-content/uploads/2024/03/facility.jpg"
         overlay="from-[#0f3a6e]/85 to-[#1a5fa8]/55"
+        eyebrow="1,000+ Units in Stock · 60-Day Delivery Guarantee"
         headline="Pre-Owned Transit Buses Ready to Deploy"
+        accentWord="Deploy"
+        proofPoints={[
+          '60-Day accelerated delivery',
+          '40–50% less than new OEM',
+          'FTA 5307/5339 funding eligible',
+        ]}
         subheadline="30 to 60ft · All fuel types · FTA compliant · 60-day delivery"
         ctaPrimary={{ label: 'Browse Inventory', href: '/tsi/inventory' }}
         ctaSecondary={{ label: 'Get a Quote', href: '/contact' }}
@@ -187,6 +195,43 @@ export default function TSIHomePage() {
             <Link href="/tsi/inventory" className="inline-block bg-[#1a5fa8] text-white font-bold px-10 py-4 rounded-xl hover:bg-[#1555a0] transition-colors text-lg">
               View All 1,000+ Buses →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRE-OWNED VS NEW COMPARISON ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div className="text-sm font-bold text-[#1a5fa8] uppercase tracking-widest mb-3">Side by Side</div>
+            <h2 className="text-3xl font-bold text-gray-900">Pre-Owned vs. New OEM</h2>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-[#1a5fa8] text-white">
+                  <th className="text-left px-5 py-4 font-semibold rounded-tl-2xl">Criteria</th>
+                  <th className="text-center px-5 py-4 font-semibold">New OEM Bus</th>
+                  <th className="text-center px-5 py-4 font-semibold bg-[#14b8a6] text-[#0f3a6e] rounded-tr-2xl">TSI Pre-Owned ✓</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Cost', '$700K–$900K', '$250K–$450K'],
+                  ['Delivery', '12–18 months', '30–60 days'],
+                  ['FTA Eligible', 'Yes', 'Yes (5307/5339)'],
+                  ['Buy America', 'Yes', 'Verify by unit'],
+                  ['Condition', 'New', 'Inspected + certified'],
+                  ['Refurb available', 'No', 'Yes — CCW on-site'],
+                ].map(([criteria, newBus, tsi], i) => (
+                  <tr key={criteria} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F8F9FB]'}>
+                    <td className="px-5 py-3.5 font-medium text-gray-800">{criteria}</td>
+                    <td className="px-5 py-3.5 text-center text-gray-500">{newBus}</td>
+                    <td className="px-5 py-3.5 text-center font-semibold text-[#1a5fa8]">{tsi}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -400,13 +445,43 @@ export default function TSIHomePage() {
         <AgencyProofStrip />
       </div>
 
+      {/* ── TSI RFP FORM ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#1a5fa8] uppercase tracking-widest mb-3">Get a Quote</div>
+            <h2 className="text-3xl font-bold text-gray-900">Find Your Next Bus</h2>
+            <p className="text-gray-500 mt-3">Tell us what you need — a TSI specialist will respond within one business day.</p>
+          </div>
+          <RFPForm brand="TSI" accentColor="#14b8a6" />
+        </div>
+      </section>
+
+      {/* ── AI NUDGE BANNER ── */}
+      <section className="py-10 px-6" style={{ backgroundColor: '#eef2ff', borderTop: '1px solid #c7d2fe', borderBottom: '1px solid #c7d2fe' }}>
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#6366f1' }}>AI Bus Expert — Available 24/7</div>
+            <p className="text-gray-800 font-semibold text-lg leading-snug">Questions about inventory, delivery timelines, or FTA funding?</p>
+            <p className="text-gray-500 text-sm mt-1">Our AI agent knows TSI's full inventory, 60-day delivery program, FTA 5307/5339 eligibility, and Buy America requirements.</p>
+          </div>
+          <a
+            href="#ai-agent"
+            className="flex-shrink-0 font-bold px-7 py-3 rounded-lg text-white hover:brightness-110 transition-all whitespace-nowrap text-sm"
+            style={{ backgroundColor: '#4f46e5' }}
+          >
+            Ask Now →
+          </a>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-[#1a5fa8] text-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Find Your Next Fleet?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Find Your Next <span style={{ color: '#14b8a6' }}>Fleet?</span></h2>
           <p className="text-blue-200 text-lg mb-8">TSI has placed buses with 50+ transit agencies. Tell us what you need and we&apos;ll find it.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tsi/inventory" className="bg-white text-[#1a5fa8] font-bold px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors text-lg">
+            <Link href="/tsi/inventory" className="font-bold px-8 py-4 rounded-lg hover:brightness-110 transition-all text-lg" style={{ backgroundColor: '#14b8a6', color: '#0A1628' }}>
               Browse All Inventory
             </Link>
             <Link href="/contact" className="border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white/10 transition-colors text-lg">
