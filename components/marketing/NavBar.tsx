@@ -34,7 +34,9 @@ export function NavBar() {
   const navLinks = {
     CCW: [
       { href: '/services', label: 'Services' },
-      { href: '/zeps', label: 'ZEPS Electric' },
+      { href: '/about', label: 'About' },
+      { href: '/parts', label: 'Parts' },
+      { href: '/gallery', label: 'Gallery' },
       { href: '/news', label: 'News & Events' },
       { href: '/careers', label: 'Employment' },
       { href: '/contact', label: 'Contact' },

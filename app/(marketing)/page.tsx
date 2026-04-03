@@ -143,10 +143,27 @@ export default function CCWHomePage() {
           { value: '350+', label: 'Employees' },
           { value: '70+', label: 'ZEPS Conversions' },
           { value: '4M+', label: 'Electric Miles' },
-          { value: '$102M', label: 'Annual Revenue' },
+          { value: '#1', label: "Nation's Leading Remanufacturer" },
           { value: '10', label: 'Locations' },
         ]}
       />
+
+      {/* ── AI AGENT TEASER ── */}
+      <section className="bg-[#0A1628] py-4 px-6 border-b border-[#003087]/40">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-blue-200 text-sm text-center sm:text-left">
+            <span className="text-[#E8A020] font-bold">Questions about specs, pricing, or FTA compliance?</span>
+            {' '}Ask our AI Fleet Advisor — available 24/7.
+          </p>
+          <Link
+            href="#ai-agent"
+            id="open-ai-chat"
+            className="flex-shrink-0 bg-[#E8A020] text-[#0A1628] text-sm font-bold px-5 py-2 rounded-lg hover:bg-[#d4911a] transition-colors whitespace-nowrap"
+          >
+            Ask Now →
+          </Link>
+        </div>
+      </section>
 
       {/* ── SERVICES ── */}
       <section id="services" className="py-20 bg-white">

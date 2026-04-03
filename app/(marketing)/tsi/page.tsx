@@ -191,6 +191,104 @@ export default function TSIHomePage() {
         </div>
       </section>
 
+      {/* ── AI AGENT TEASER ── */}
+      <section className="bg-[#0f3a6e] py-4 px-6 border-b border-[#1a5fa8]/40">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-blue-200 text-sm text-center sm:text-left">
+            <span className="text-[#60a5fa] font-bold">Questions about inventory, FTA compliance, or delivery timelines?</span>
+            {' '}Ask our AI Bus Expert — available 24/7.
+          </p>
+          <Link
+            href="/contact"
+            className="flex-shrink-0 bg-[#60a5fa] text-[#0f3a6e] text-sm font-bold px-5 py-2 rounded-lg hover:bg-[#93c5fd] transition-colors whitespace-nowrap"
+          >
+            Ask Now →
+          </Link>
+        </div>
+      </section>
+
+      {/* ── CONTACT CTA STRIP ── */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-sm font-bold text-[#1a5fa8] uppercase tracking-widest mb-3">Ready to Buy?</div>
+            <h2 className="text-3xl font-bold text-gray-900">Three Ways to Connect</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            {/* Talk to an Expert */}
+            <div className="bg-[#F8F9FB] rounded-2xl p-8 border border-gray-200 flex flex-col items-center text-center">
+              <div className="relative w-20 h-24 rounded-xl overflow-hidden mb-4 flex-shrink-0">
+                <Image
+                  src="https://completecoach.com/wp-content/uploads/2026/02/james-200x300-1.jpg"
+                  alt="James Carson — TSI Western Regional Sales"
+                  fill
+                  className="object-cover object-top"
+                  sizes="80px"
+                />
+              </div>
+              <div className="font-bold text-gray-900 text-lg">James Carson</div>
+              <div className="text-sm text-[#1a5fa8] font-medium mt-1 mb-1">Western Regional Sales</div>
+              <div className="text-xs text-gray-500 mb-5">20+ years placing transit buses with agencies nationwide</div>
+              <Link
+                href="/contact"
+                className="w-full bg-[#1a5fa8] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#1555a0] transition-colors text-sm"
+              >
+                Talk to an Expert →
+              </Link>
+            </div>
+
+            {/* Call Us */}
+            <div className="bg-[#1a5fa8] rounded-2xl p-8 flex flex-col items-center text-center text-white">
+              <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <div className="text-sm font-medium text-blue-200 mb-2">Call Us Directly</div>
+              <a href="tel:9516849585" className="text-3xl font-black text-white hover:text-[#60a5fa] transition-colors mb-2 block">
+                (951) 684-9585
+              </a>
+              <div className="text-xs text-blue-200 mb-6">Mon–Fri · 8am–5pm Pacific</div>
+              <a
+                href="tel:9516849585"
+                className="w-full bg-white text-[#1a5fa8] font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors text-sm"
+              >
+                Call Now →
+              </a>
+            </div>
+
+            {/* We'll Contact You */}
+            <div className="bg-[#F8F9FB] rounded-2xl p-8 border border-gray-200 flex flex-col items-center text-center">
+              <div className="w-14 h-14 bg-[#1a5fa8]/10 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-7 h-7 text-[#1a5fa8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div className="font-bold text-gray-900 text-lg mb-1">We Can Contact You</div>
+              <div className="text-sm text-gray-500 mb-5">Leave your info and a TSI specialist will reach out within one business day.</div>
+              <div className="w-full space-y-3 mb-5">
+                <div className="text-left">
+                  <div className="text-xs text-gray-500 mb-1 font-medium">Your Name</div>
+                  <div className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-400 bg-white">e.g. John Smith, Fleet Manager</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-xs text-gray-500 mb-1 font-medium">Email or Phone</div>
+                  <div className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-400 bg-white">e.g. john@transitagency.gov</div>
+                </div>
+              </div>
+              <Link
+                href="/contact"
+                className="w-full bg-[#1a5fa8] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#1555a0] transition-colors text-sm"
+              >
+                Send My Inquiry →
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Why Buy Pre-Owned */}
       <section className="py-16 bg-[#0f3a6e] text-white">
         <div className="max-w-7xl mx-auto px-6">
