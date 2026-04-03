@@ -63,10 +63,9 @@ export function NavBar() {
     ],
     TSI: [
       { href: '/tsi/inventory', label: 'Inventory' },
-      { href: '/news', label: 'News' },
+      { href: '/tsi/capabilities', label: 'Capabilities' },
       { href: '/tsi/resources', label: 'Resources' },
-      { href: '/careers', label: 'Careers' },
-      { href: '/gallery', label: 'Gallery' },
+      { href: '/news', label: 'News' },
       { href: '/contact', label: 'Contact' },
     ],
     SBL: [
