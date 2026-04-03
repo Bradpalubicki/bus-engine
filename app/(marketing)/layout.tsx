@@ -1,5 +1,6 @@
 import { NavBar } from '@/components/marketing/NavBar'
 import AIChat from '@/components/marketing/AIChat'
+import CookieBanner from '@/components/marketing/CookieBanner'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Facebook, Linkedin, Twitter } from 'lucide-react'
@@ -86,6 +87,8 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <div className="flex flex-col md:flex-row items-center justify-between text-sm text-blue-300 gap-3">
               <p>&copy; 2026 Complete Coach Works. All rights reserved. | Employee-Owned Since 2021</p>
               <div className="flex flex-wrap items-center gap-4 text-xs">
+                <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+                <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
                 <a
                   href="https://www.healthplan.org/legal/machine_readable_files"
                   target="_blank"
@@ -104,6 +107,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         </div>
       </footer>
       <AIChat />
+      <CookieBanner />
     </div>
   )
 }
