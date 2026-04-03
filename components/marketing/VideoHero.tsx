@@ -10,7 +10,7 @@ interface VideoHeroProps {
   subheadline: string
   ctaPrimary: { label: string; href: string }
   ctaSecondary?: { label: string; href: string }
-  brand: 'CCW' | 'TSI' | 'SBL'
+  brand: 'CCW' | 'TSI' | 'SBL' | 'ZEPS'
   stats?: { value: string; label: string }[]
 }
 
@@ -28,6 +28,7 @@ const brandLogos = {
     alt: 'Transit Sales International',
   },
   SBL: null,
+  ZEPS: null,
 }
 
 export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, subheadline, ctaPrimary, ctaSecondary, brand, stats }: VideoHeroProps) {
@@ -35,6 +36,7 @@ export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, 
     CCW: { primary: '#003087', accent: '#E8A020' },
     TSI: { primary: '#1a5fa8', accent: '#60a5fa' },
     SBL: { primary: '#2d7a3a', accent: '#86efac' },
+    ZEPS: { primary: '#16a34a', accent: '#4ade80' },
   }
   const colors = brandColors[brand]
   const logo = brandLogos[brand]
@@ -103,7 +105,7 @@ export default function VideoHero({ videoSrc, fallbackImage, overlay, headline, 
             <div className="flex flex-wrap justify-center gap-6 md:gap-0 md:grid md:divide-x divide-white/20" style={{ gridTemplateColumns: `repeat(${stats.length}, 1fr)` }}>
               {stats.map((s) => (
                 <div key={s.label} className="text-center px-4">
-                  <div className="text-xl md:text-2xl font-bold text-[#E8A020]">{s.value}</div>
+                  <div className="text-xl md:text-2xl font-bold" style={{ color: colors.accent }}>{s.value}</div>
                   <div className="text-xs text-white/75 mt-0.5">{s.label}</div>
                 </div>
               ))}

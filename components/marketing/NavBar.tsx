@@ -9,12 +9,14 @@ export function NavBar() {
   const pathname = usePathname()
   const isTSI = pathname.startsWith('/tsi')
   const isSBL = pathname.startsWith('/sbl')
-  const brand = isTSI ? 'TSI' : isSBL ? 'SBL' : 'CCW'
+  const isZEPS = pathname.startsWith('/zeps')
+  const brand = isTSI ? 'TSI' : isSBL ? 'SBL' : isZEPS ? 'ZEPS' : 'CCW'
 
   const brandConfig = {
     CCW: { name: 'Complete Coach Works', color: '#003087', logo: 'CCW' },
     TSI: { name: 'Transit Sales International', color: '#1a5fa8', logo: 'TSI' },
     SBL: { name: 'Shuttle Bus Leasing', color: '#2d7a3a', logo: 'SBL' },
+    ZEPS: { name: 'ZEPS Drive', color: '#16a34a', logo: 'ZEPS' },
   } as const
   const config = brandConfig[brand]
 
@@ -54,12 +56,19 @@ export function NavBar() {
       { href: '/gallery', label: 'Gallery' },
       { href: '/contact', label: 'Contact' },
     ],
+    ZEPS: [
+      { href: '/zeps', label: 'Overview' },
+      { href: '/zeps/technology', label: 'Technology' },
+      { href: '/zeps/fleet', label: 'Fleet Solutions' },
+      { href: '/news', label: 'News' },
+      { href: '/contact', label: 'Contact' },
+    ],
   } as const
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href={brand === 'TSI' ? '/tsi' : brand === 'SBL' ? '/sbl' : '/'} className="flex items-center">
+        <Link href={brand === 'TSI' ? '/tsi' : brand === 'SBL' ? '/sbl' : brand === 'ZEPS' ? '/zeps' : '/'} className="flex items-center">
           {brand === 'CCW' ? (
             <Image
               src="https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png"
@@ -78,7 +87,7 @@ export function NavBar() {
               className="h-14 w-auto object-contain"
               priority
             />
-          ) : (
+          ) : brand === 'SBL' ? (
             <Image
               src="https://sblbus.com/wp-content/uploads/2023/08/SBL_NEW2023.jpg"
               alt="Shuttle Bus Leasing"
@@ -87,12 +96,15 @@ export function NavBar() {
               className="h-14 w-auto object-contain"
               priority
             />
+          ) : (
+            <span className="text-2xl font-black tracking-tight text-[#16a34a]">ZEPS Drive</span>
           )}
         </Link>
         <div className="hidden md:flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-          <Link href="/" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL ? 'bg-[#003087] text-white' : 'text-gray-600 hover:text-gray-900'}`}>CCW</Link>
+          <Link href="/" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL && !isZEPS ? 'bg-[#003087] text-white' : 'text-gray-600 hover:text-gray-900'}`}>CCW</Link>
           <Link href="/tsi" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isTSI ? 'bg-[#1a5fa8] text-white' : 'text-gray-600 hover:text-gray-900'}`}>TSI</Link>
           <Link href="/sbl" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'text-gray-600 hover:text-gray-900'}`}>SBL</Link>
+          <Link href="/zeps" className={`px-3 py-1 rounded text-sm font-medium transition-colors ${isZEPS ? 'bg-[#16a34a] text-white' : 'text-gray-600 hover:text-gray-900'}`}>ZEPS</Link>
         </div>
         <div className="hidden md:flex items-center gap-6">
           {navLinks[brand].map(link => {
@@ -135,9 +147,10 @@ export function NavBar() {
       {open && (
         <div className="md:hidden bg-white border-t border-gray-200 px-6 py-4 space-y-3">
           <div className="flex gap-2 mb-3">
-            <Link href="/" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL ? 'bg-[#003087] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>CCW</Link>
+            <Link href="/" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${!isTSI && !isSBL && !isZEPS ? 'bg-[#003087] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>CCW</Link>
             <Link href="/tsi" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isTSI ? 'bg-[#1a5fa8] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>TSI</Link>
             <Link href="/sbl" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isSBL ? 'bg-[#2d7a3a] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>SBL</Link>
+            <Link href="/zeps" className={`flex-1 text-center px-3 py-1 rounded text-sm font-medium transition-colors ${isZEPS ? 'bg-[#16a34a] text-white' : 'bg-gray-100 text-gray-600'}`} onClick={() => setOpen(false)}>ZEPS</Link>
           </div>
           {navLinks[brand].map(link => (
             <Link key={link.href + link.label} href={link.href} className="block text-sm font-medium text-gray-700" onClick={() => setOpen(false)}>{link.label}</Link>
