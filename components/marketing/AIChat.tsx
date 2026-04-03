@@ -2,6 +2,49 @@
 import { useState, useRef, useEffect } from 'react'
 import Vapi from '@vapi-ai/web'
 
+function MarkdownMessage({ content }: { content: string }) {
+  const lines = content.split('\n')
+  const elements: React.ReactNode[] = []
+  let listItems: string[] = []
+
+  const flushList = (key: string) => {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul key={key} className="list-disc pl-4 space-y-0.5 my-1">
+          {listItems.map((item, i) => <li key={i}>{renderInline(item)}</li>)}
+        </ul>
+      )
+      listItems = []
+    }
+  }
+
+  const renderInline = (text: string): React.ReactNode => {
+    const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>
+      if (part.startsWith('*') && part.endsWith('*')) return <em key={i}>{part.slice(1, -1)}</em>
+      return part
+    })
+  }
+
+  lines.forEach((line, i) => {
+    const isBullet = /^[-•]\s+/.test(line)
+    if (isBullet) {
+      listItems.push(line.replace(/^[-•]\s+/, ''))
+    } else {
+      flushList(`list-${i}`)
+      if (line.trim() === '') {
+        if (elements.length > 0) elements.push(<br key={`br-${i}`} />)
+      } else {
+        elements.push(<p key={`p-${i}`} className="my-0.5">{renderInline(line)}</p>)
+      }
+    }
+  })
+  flushList('list-end')
+
+  return <div className="space-y-0.5">{elements}</div>
+}
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
@@ -185,7 +228,7 @@ export default function AIChat() {
             {activeMessages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${m.role === 'user' ? 'bg-[#003087] text-white rounded-br-sm' : 'bg-gray-100 text-gray-800 rounded-bl-sm'}`}>
-                  {m.content}
+                  {m.role === 'assistant' ? <MarkdownMessage content={m.content} /> : m.content}
                 </div>
               </div>
             ))}
