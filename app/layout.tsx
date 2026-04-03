@@ -63,8 +63,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://completecoach.com" />
         <link rel="preconnect" href="https://transitsales.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.linkedin.com" />
         <link rel="dns-prefetch" href="https://www.facebook.com" />
+        <link rel="preload" as="image" href="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

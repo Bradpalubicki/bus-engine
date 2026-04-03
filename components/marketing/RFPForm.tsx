@@ -129,6 +129,19 @@ export default function RFPForm({ brand = 'CCW', accentColor = '#003087' }: RFPF
         >
           {loading ? 'Sending…' : 'Send Request →'}
         </button>
+        <div className="flex items-center justify-center gap-4 mt-3 text-xs text-gray-400">
+          <span className="flex items-center gap-1">
+            <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>
+            Secured by SSL
+          </span>
+          <span className="text-gray-300">·</span>
+          <span className="flex items-center gap-1">
+            <svg className="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Privacy Protected
+          </span>
+          <span className="text-gray-300">·</span>
+          <span>Your data is never shared</span>
+        </div>
       </div>
     </form>
   )

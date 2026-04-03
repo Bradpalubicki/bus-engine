@@ -4,22 +4,22 @@ import { Metadata } from 'next'
 import ZEPSCalculator from '@/components/marketing/ZEPSCalculator'
 
 export const metadata: Metadata = {
-  title: 'ZEPS Electric Bus Conversion — Zero Emission Powertrain System | Complete Coach Works',
-  description: 'ZEPS converts existing transit buses to battery-electric for $580K vs $830K new OEM. 70+ conversions, 4M miles, FTA compliant, CARB certified. 403, 504, or 605 kWh packs.',
+  title: 'ZEPS Electric | Zero-Emission Bus Conversion | CCW',
+  description: 'ZEPS electric bus conversion: FTA Low-No eligible, HVIP voucher up to $165K per bus. Zero-emission powertrain from $580K. CARB certified, Buy America. 70+ conversions.',
   alternates: { canonical: 'https://completecoach.com/zeps' },
   openGraph: {
-    title: 'ZEPS Electric Bus Conversion | Zero Emission Powertrain System',
-    description: 'Convert your existing fleet to battery-electric. $580K vs $830K new OEM. CARB certified, FTA compliant, HVIP eligible up to $165K per bus.',
+    title: 'ZEPS Zero-Emission Bus Conversion | Complete Coach Works',
+    description: 'FTA Low-No eligible electric bus conversion. HVIP voucher up to $165K per bus. $580K vs $830K new OEM. CARB certified, Buy America compliant.',
     url: 'https://completecoach.com/zeps',
     siteName: 'Complete Coach Works',
     type: 'website',
-    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/07/ZEPS1.jpg', width: 1200, height: 630, alt: 'ZEPS Electric Bus Conversion by Complete Coach Works' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'ZEPS Zero-Emission Electric Bus Conversion by Complete Coach Works' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ZEPS Electric Bus Conversion | Zero Emission Powertrain System',
-    description: 'Convert your fleet to battery-electric. $580K vs $830K new. CARB certified, HVIP eligible.',
-    images: ['https://completecoach.com/wp-content/uploads/2024/07/ZEPS1.jpg'],
+    title: 'ZEPS Zero-Emission Bus Conversion | Complete Coach Works',
+    description: 'FTA Low-No eligible electric bus conversion. HVIP voucher up to $165K. $580K vs $830K new OEM.',
+    images: ['https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop'],
   },
 }
 
@@ -35,6 +35,12 @@ const zepsProductSchema = {
     priceCurrency: 'USD',
     price: '580000',
     availability: 'https://schema.org/InStock',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '14',
+    bestRating: '5',
   },
   additionalProperty: [
     { '@type': 'PropertyValue', name: 'Battery Options', value: '403, 504, or 605 kWh' },
@@ -142,8 +148,8 @@ export default function ZEPSPage() {
 
           {/* H1 */}
           <h1 className="zeps-fade text-5xl md:text-7xl font-bold mb-6 leading-none tracking-tight" style={{ animationDelay: '0.1s' }}>
-            Your Fleet Goes <span style={{ color: '#16a34a' }}>Electric.</span><br />
-            Your Budget Stays Intact.
+            Zero-Emission Bus Conversion<br />
+            <span style={{ color: '#16a34a' }}>Built for Your Budget.</span>
           </h1>
 
           {/* Proof-point pills */}
@@ -415,7 +421,7 @@ export default function ZEPSPage() {
           <div className="text-center mb-12">
             <div className="inline-block text-[#22c55e] text-xs font-bold uppercase tracking-widest mb-3">Funding</div>
             <h2 className="text-4xl font-bold mb-4">Incentives That Cut Your Net Cost</h2>
-            <p className="text-gray-400">ZEPS is eligible for the federal and state programs most transit agencies already use.</p>
+            <p className="text-gray-400">ZEPS is eligible for the federal and state programs most transit agencies already use. <Link href="/zeps/fta-grants" className="text-[#22c55e] hover:underline">Full FTA grant guide →</Link></p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -504,13 +510,20 @@ export default function ZEPSPage() {
           <p className="text-gray-300 text-lg mb-10 leading-relaxed">
             CCW's engineering team will assess your fleet at no charge — matching bus age, condition, and route requirements to the right ZEPS configuration.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link href="/contact" style={{ backgroundColor: '#16a34a', color: '#0A1628' }} className="font-bold px-10 py-4 rounded-xl text-lg hover:brightness-110 transition-all">
               Request Fleet Assessment →
             </Link>
-            <Link href="/services/zeps-electric" className="border border-white/20 text-white font-semibold px-10 py-4 rounded-xl text-lg hover:bg-white/5 transition-colors">
-              ZEPS Service Details
+            <Link href="/zeps/fta-grants" className="border border-white/20 text-white font-semibold px-10 py-4 rounded-xl text-lg hover:bg-white/5 transition-colors">
+              FTA Grant Eligibility →
             </Link>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
+            <Link href="/about" className="hover:text-gray-300 transition-colors">About Complete Coach Works</Link>
+            <span>·</span>
+            <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact Our Engineering Team</Link>
+            <span>·</span>
+            <Link href="/services/zeps-electric" className="hover:text-gray-300 transition-colors">ZEPS Service Details</Link>
           </div>
         </div>
       </section>

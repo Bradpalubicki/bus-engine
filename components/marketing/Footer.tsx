@@ -138,6 +138,23 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Trust strip */}
+        <div className="border-t border-blue-800 pt-4 mb-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-blue-300 font-medium">
+            <span>38 Years in Business</span>
+            <span className="text-blue-700">·</span>
+            <span>350 Employee-Owners</span>
+            <span className="text-blue-700">·</span>
+            <span>SAM.gov Registered</span>
+            <span className="text-blue-700">·</span>
+            <span>FTA Certified</span>
+            <span className="text-blue-700">·</span>
+            <span>Buy America Compliant</span>
+            <span className="text-blue-700">·</span>
+            <span>CARB Approved</span>
+          </div>
+        </div>
+
         <div className="border-t border-blue-800 pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between text-sm text-blue-300 gap-3">
             <p>{f.copy}</p>

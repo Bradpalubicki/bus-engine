@@ -23,8 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // CCW compliance + programs
     { url: `${base}/ccw/compliance`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/dbe`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    // ZEPS grant pages
+    { url: `${base}/zeps/fta-grants`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     // TSI + SBL brands
     { url: `${base}/tsi`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${base}/tsi/inventory`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${base}/tsi/capabilities`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${base}/sbl`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/sbl/fleet`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
   ]
 }

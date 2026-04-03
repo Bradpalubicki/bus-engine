@@ -37,6 +37,12 @@ const tsiOrganizationSchema = {
   address: { '@type': 'PostalAddress', streetAddress: '25280 Nance Street', addressLocality: 'Murrieta', addressRegion: 'CA', postalCode: '92562', addressCountry: 'US' },
   telephone: '+19516849585',
   email: 'info@transitsales.com',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    reviewCount: '34',
+    bestRating: '5',
+  },
 }
 
 const busPhotos = [

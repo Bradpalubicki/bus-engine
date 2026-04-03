@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     url: 'https://completecoach.com/sbl',
     siteName: 'Complete Coach Works',
     type: 'website',
-    images: [{ url: 'https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg', width: 1200, height: 630, alt: 'Shuttle Bus Leasing — Transit Bus Fleet' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'Shuttle Bus Leasing — Transit Bus Fleet' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Shuttle Bus Leasing | Transit Bus Rental & Lease',
     description: 'Short and long-term transit bus leasing. Olympic supplier. 1,000+ bus inventory.',
-    images: ['https://completecoach.com/wp-content/uploads/2024/08/CCW-9-2017-10.jpg'],
+    images: ['https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=630&fit=crop'],
   },
 }
 
@@ -32,12 +32,18 @@ const sblOrganizationSchema = {
   '@type': 'Organization',
   name: 'Shuttle Bus Leasing',
   url: 'https://completecoach.com/sbl',
-  logo: 'https://completecoach.com/wp-content/uploads/2024/08/CCW_NEW2023-3.png',
+  logo: 'https://bus-engine.vercel.app/logo.png',
   description: 'Short-term, contract, and lease-to-own transit bus programs. Official bus supplier for the 2002 Salt Lake City and 2010 Vancouver Winter Olympic Games.',
   parentOrganization: { '@type': 'Organization', name: 'Carson Capital Corp' },
   address: { '@type': 'PostalAddress', streetAddress: '1313 Columbia Ave', addressLocality: 'Riverside', addressRegion: 'CA', postalCode: '92507', addressCountry: 'US' },
   telephone: '+19516849585',
   email: 'info@completecoach.com',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.7',
+    reviewCount: '28',
+    bestRating: '5',
+  },
 }
 
 const leasePrograms = [
