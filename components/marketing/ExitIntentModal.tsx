@@ -9,15 +9,24 @@ export default function ExitIntentModal() {
   const [visible, setVisible] = useState(false)
 
   const handleMouseLeave = useCallback((e: MouseEvent) => {
-    if (e.clientY <= 0 && !sessionStorage.getItem(STORAGE_KEY)) {
-      sessionStorage.setItem(STORAGE_KEY, '1')
-      setVisible(true)
-    }
+    if (e.clientY > 0) return
+    if (sessionStorage.getItem(STORAGE_KEY)) return
+    const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
+    if (scrolled < 0.4) return
+    sessionStorage.setItem(STORAGE_KEY, '1')
+    setVisible(true)
   }, [])
 
   useEffect(() => {
-    document.addEventListener('mouseleave', handleMouseLeave)
-    return () => document.removeEventListener('mouseleave', handleMouseLeave)
+    if (sessionStorage.getItem(STORAGE_KEY)) return
+    let timer: ReturnType<typeof setTimeout>
+    timer = setTimeout(() => {
+      document.addEventListener('mouseleave', handleMouseLeave)
+    }, 30000)
+    return () => {
+      clearTimeout(timer)
+      document.removeEventListener('mouseleave', handleMouseLeave)
+    }
   }, [handleMouseLeave])
 
   if (!visible) return null
