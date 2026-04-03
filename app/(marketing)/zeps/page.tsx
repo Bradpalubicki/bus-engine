@@ -529,7 +529,7 @@ export default function ZEPSPage() {
             </Link>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
-            <Link href="/about" className="hover:text-gray-300 transition-colors">About Complete Coach Works</Link>
+            <Link href="/zeps" className="hover:text-gray-300 transition-colors">About ZEPS / Complete Coach Works</Link>
             <span>·</span>
             <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact Our Engineering Team</Link>
             <span>·</span>

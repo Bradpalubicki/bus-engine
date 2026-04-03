@@ -88,25 +88,75 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-semibold mb-3 text-[#E8A020]">Services</h4>
+            <h4 className="font-semibold mb-3 text-[#E8A020]">
+              {brand === 'TSI' ? 'Inventory' : brand === 'SBL' ? 'Fleet' : brand === 'ZEPS' ? 'ZEPS' : 'Services'}
+            </h4>
             <ul className="space-y-1.5 text-sm text-blue-200">
-              <li><Link href="/services/midlife-overhaul" className="hover:text-white">Midlife Overhaul</Link></li>
-              <li><Link href="/services/cng-repower" className="hover:text-white">CNG / LNG Repower</Link></li>
-              <li><Link href="/zeps" className="hover:text-white">ZEPS Electric</Link></li>
-              <li><Link href="/services/body-paint" className="hover:text-white">Body &amp; Paint</Link></li>
-              <li><Link href="/services/interior-rehab" className="hover:text-white">Interior Rehab</Link></li>
+              {brand === 'TSI' ? (
+                <>
+                  <li><Link href="/tsi/inventory" className="hover:text-white">Browse Inventory</Link></li>
+                  <li><Link href="/tsi/capabilities" className="hover:text-white">Capabilities</Link></li>
+                  <li><Link href="/tsi/resources" className="hover:text-white">Resources</Link></li>
+                  <li><Link href="/news?brand=tsi" className="hover:text-white">News</Link></li>
+                </>
+              ) : brand === 'SBL' ? (
+                <>
+                  <li><Link href="/sbl/fleet" className="hover:text-white">Lease Fleet</Link></li>
+                  <li><Link href="/sbl/resources" className="hover:text-white">Resources</Link></li>
+                  <li><Link href="/news?brand=sbl" className="hover:text-white">News</Link></li>
+                </>
+              ) : brand === 'ZEPS' ? (
+                <>
+                  <li><Link href="/zeps" className="hover:text-white">ZEPS Overview</Link></li>
+                  <li><Link href="/zeps/fta-grants" className="hover:text-white">FTA Grants</Link></li>
+                  <li><Link href="/ccw/compliance" className="hover:text-white">Capabilities</Link></li>
+                  <li><Link href="/news?brand=zeps" className="hover:text-white">News</Link></li>
+                </>
+              ) : (
+                <>
+                  <li><Link href="/services/midlife-overhaul" className="hover:text-white">Midlife Overhaul</Link></li>
+                  <li><Link href="/services/cng-repower" className="hover:text-white">CNG / LNG Repower</Link></li>
+                  <li><Link href="/zeps" className="hover:text-white">ZEPS Electric</Link></li>
+                  <li><Link href="/services/body-paint" className="hover:text-white">Body &amp; Paint</Link></li>
+                  <li><Link href="/services/interior-rehab" className="hover:text-white">Interior Rehab</Link></li>
+                </>
+              )}
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-3 text-[#E8A020]">Company</h4>
             <ul className="space-y-1.5 text-sm text-blue-200">
-              <li><Link href="/about" className="hover:text-white">About CCW</Link></li>
-              <li><Link href="/gallery" className="hover:text-white">Gallery</Link></li>
-              <li><Link href="/dbe" className="hover:text-white">DBE Program</Link></li>
-              <li><Link href="/locations" className="hover:text-white">13 Locations</Link></li>
-              <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
-              <li><Link href="/dashboard/ccw" className="hover:text-white">Client Dashboard</Link></li>
-              {isTSI && <li><Link href="/tsi/capabilities" className="hover:text-white">TSI Capabilities Statement</Link></li>}
+              {brand === 'TSI' ? (
+                <>
+                  <li><Link href="/tsi" className="hover:text-white">About TSI</Link></li>
+                  <li><Link href="/contact?brand=tsi" className="hover:text-white">Contact Us</Link></li>
+                  <li><Link href="/tsi/capabilities" className="hover:text-white">Capabilities Statement</Link></li>
+                  <li><Link href="/dashboard/tsi" className="hover:text-white">Client Dashboard</Link></li>
+                </>
+              ) : brand === 'SBL' ? (
+                <>
+                  <li><Link href="/sbl" className="hover:text-white">About SBL</Link></li>
+                  <li><Link href="/contact?brand=sbl" className="hover:text-white">Contact Us</Link></li>
+                  <li><Link href="/careers" className="hover:text-white">Careers</Link></li>
+                  <li><Link href="/dashboard/sbl" className="hover:text-white">Client Dashboard</Link></li>
+                </>
+              ) : brand === 'ZEPS' ? (
+                <>
+                  <li><Link href="/zeps" className="hover:text-white">About ZEPS</Link></li>
+                  <li><Link href="/contact?brand=zeps" className="hover:text-white">Contact Us</Link></li>
+                  <li><Link href="/about" className="hover:text-white">About CCW</Link></li>
+                  <li><Link href="/dashboard/zeps" className="hover:text-white">Client Dashboard</Link></li>
+                </>
+              ) : (
+                <>
+                  <li><Link href="/about" className="hover:text-white">About CCW</Link></li>
+                  <li><Link href="/gallery" className="hover:text-white">Gallery</Link></li>
+                  <li><Link href="/dbe" className="hover:text-white">DBE Program</Link></li>
+                  <li><Link href="/locations" className="hover:text-white">13 Locations</Link></li>
+                  <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
+                  <li><Link href="/dashboard/ccw" className="hover:text-white">Client Dashboard</Link></li>
+                </>
+              )}
             </ul>
           </div>
           <div>

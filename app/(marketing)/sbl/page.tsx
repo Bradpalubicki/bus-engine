@@ -159,7 +159,7 @@ export default function SBLHomePage() {
         ]}
         subheadline="Short-term, contract, and lease-to-own programs. 1,000+ bus inventory. Quote in 24 hours."
         ctaPrimary={{ label: 'View Lease Programs', href: '/sbl/fleet' }}
-        ctaSecondary={{ label: 'Get a Quote', href: '/contact' }}
+        ctaSecondary={{ label: 'Get a Quote', href: '/sbl/contact' }}
         brand="SBL"
         stats={[
           { value: '1,000+', label: 'Bus Inventory' },
